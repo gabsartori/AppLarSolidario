@@ -1,0 +1,41 @@
+inherited frmLogin_LgXhdpiPh: TfrmLogin_LgXhdpiPh
+  ClientHeight = 695
+  ClientWidth = 450
+  DesignerMasterStyle = 0
+  inherited layoutLogin: TLayout
+    Size.Width = 450.000000000000000000
+    Size.Height = 695.000000000000000000
+    inherited layoutCircle: TLayout
+      Size.Height = 695.000000000000000000
+      inherited layoutNovo: TLayout
+        Size.Width = 158.000000000000000000
+        inherited btnCriarConta: TRoundRect
+          inherited Label1: TLabel
+            Size.Width = 79.000000000000000000
+          end
+        end
+        inherited Label2: TLabel
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+        end
+        inherited Label3: TLabel
+          Size.Width = 140.000000000000000000
+        end
+      end
+    end
+    inherited Layout1: TLayout
+      Size.Height = 201.000000000000000000
+      inherited RoundRect1: TRoundRect
+        Position.Y = 149.000000000000000000
+      end
+      inherited Edit3: TEdit
+        Size.Height = 32.000000000000000000
+      end
+      inherited Edit4: TEdit
+        Size.Height = 32.000000000000000000
+      end
+      inherited Label8: TLabel
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+      end
+    end
+  end
+end
