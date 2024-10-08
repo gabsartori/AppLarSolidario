@@ -55,7 +55,7 @@ end;
 
 procedure TfrmPaginaInicial.FormShow(Sender: TObject);
 begin
-   lblUsuario.Text := 'Bem-Vindo(a) '+ frmLogin.sUsuarioLogado +'!';
+   lblUsuario.Text := 'Bem-Vindo(a) '+ frmLogin.sNomeUsuarioLogado +'!';
 end;
 
 procedure TfrmPaginaInicial.imgSairClick(Sender: TObject);

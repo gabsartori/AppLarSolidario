@@ -15,7 +15,6 @@ type
     Layout1: TLayout;
     Layout2: TLayout;
     Rectangle1: TRectangle;
-    Layout3: TLayout;
     edtNome: TEdit;
     Label8: TLabel;
     Label1: TLabel;
@@ -30,18 +29,13 @@ type
     Label5: TLabel;
     Label6: TLabel;
     edtCidade: TEdit;
-    Label7: TLabel;
     edtCep: TEdit;
     edtRua: TEdit;
-    Esa: TLabel;
     edtEstado: TEdit;
-    Label10: TLabel;
     edtEmail: TEdit;
     RESTRequest1: TRESTRequest;
     RESTClient1: TRESTClient;
     RESTResponse1: TRESTResponse;
-    imgBuscarCep: TImageControl;
-    Label11: TLabel;
     edtSenha: TEdit;
     edtNumero: TEdit;
     Label12: TLabel;
@@ -49,14 +43,44 @@ type
     Image1: TImage;
     Image2: TImage;
     VertScrollBox1: TVertScrollBox;
+    Layout3: TLayout;
+    Layout4: TLayout;
+    Layout5: TLayout;
+    Layout6: TLayout;
+    Layout7: TLayout;
+    Layout8: TLayout;
+    Layout9: TLayout;
+    Layout10: TLayout;
+    Layout11: TLayout;
+    Layout12: TLayout;
+    Layout13: TLayout;
+    Label7: TLabel;
+    Esa: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
     procedure imgVoltarClick(Sender: TObject);
     procedure btnCriarContaClick(Sender: TObject);
     procedure imgBuscarCepClick(Sender: TObject);
     procedure AbrirWhatsApp(sTelefone: string);
     procedure Label9Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure edtCepExit(Sender: TObject);
+    procedure edtNomeEnter(Sender: TObject);
+    procedure FormVirtualKeyboardHidden(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure edtDtaNascimentoEnter(Sender: TObject);
+    procedure edtTelefoneEnter(Sender: TObject);
+    procedure edtCepEnter(Sender: TObject);
+    procedure edtRuaEnter(Sender: TObject);
+    procedure edtNumeroEnter(Sender: TObject);
+    procedure edtBairroEnter(Sender: TObject);
+    procedure edtCidadeEnter(Sender: TObject);
+    procedure edtEstadoEnter(Sender: TObject);
+    procedure edtEmailEnter(Sender: TObject);
+    procedure edtSenhaEnter(Sender: TObject);
   private
     { Private declarations }
+    foco: TControl;
   public
     { Public declarations }
   end;
@@ -73,6 +97,18 @@ implementation
 
 uses uLogin, uPaginaInicial, JSON, System.Net.HttpClient, uDtmServidor,
   Notificacao;
+
+procedure Ajustar_Scroll();
+var
+   x: Integer;
+begin
+   with frmCriarCadastro do
+   begin
+      VertScrollBox1.Margins.Bottom := 250;
+      VertScrollBox1.ViewportPosition := PointF(VertScrollBox1.ViewportPosition.X,
+                                                TControl(foco).Position.Y - 150);
+   end;
+end;
 
 procedure TfrmCriarCadastro.AbrirWhatsApp(sTelefone: string);
 var
@@ -152,6 +188,110 @@ begin
 //   end;
 end;
 
+procedure TfrmCriarCadastro.edtBairroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtCepEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtCepExit(Sender: TObject);
+var
+  LCEP: String;
+  LJSONObj: TJSONObject;
+begin
+   if (edtCep.Text <> '') then
+   begin
+      try
+         LCEP := trim(edtCep.Text);
+
+         RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
+         RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
+
+         RESTRequest1.Method := rmGET;
+         RESTRequest1.Execute;
+
+         LJSONObj := RESTRequest1.Response.JSONValue AS TJSONObject;
+
+         edtCep.Text := LJSONObj.values['cep'].Value;
+         edtEstado.Text := LJSONObj.values['state'].Value;
+         edtCidade.Text := LJSONObj.values['city'].Value;
+         edtRua.Text := LJSONObj.values['street'].Value;
+         edtBairro.Text := LJSONObj.values['neighborhood'].Value;
+
+         edtNumero.SetFocus;
+      except
+         on E: Exception do
+         begin
+            TLoading.ToastMessage(frmCriarCadastro,
+                                  'Não foi possível consultar o CEP!'+#13+
+                                  'Erro: '+E.Message,
+                             $FFFA3F3F,
+                             TAlignLayout.Bottom);
+         end;
+      end;
+   end;
+end;
+
+procedure TfrmCriarCadastro.edtCidadeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtDtaNascimentoEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtEmailEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtEstadoEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtNomeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtNumeroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtRuaEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtSenhaEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCriarCadastro.edtTelefoneEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
 procedure TfrmCriarCadastro.FormShow(Sender: TObject);
 begin
    edtNome.Text := '';
@@ -167,6 +307,13 @@ begin
 
    edtNome.SetFocus;
 end;
+
+procedure TfrmCriarCadastro.FormVirtualKeyboardHidden(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+   VertScrollBox1.Margins.Bottom := 0;
+end;
+
 
 procedure TfrmCriarCadastro.imgBuscarCepClick(Sender: TObject);
 var

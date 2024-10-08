@@ -40,7 +40,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    sUsuarioLogado: String;
+    sUsuarioLogado, sNomeUsuarioLogado: String;
   end;
 
 var
@@ -84,7 +84,8 @@ begin
 
    if (dtmServidor.qryGeral.RecordCount > 0) then
    begin
-      sUsuarioLogado := dtmServidor.qryGeral.FieldByName('nome').AsString;
+      sUsuarioLogado := dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString;
+      sNomeUsuarioLogado := dtmServidor.qryGeral.FieldByName('nome').AsString;
       edtUsuario.Text := '';
       edtSenha.Text := '';
       frmPaginaInicial.Show;

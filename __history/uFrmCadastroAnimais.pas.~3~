@@ -1,0 +1,64 @@
+unit uFrmCadastroAnimais;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Layouts, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, FMX.ListBox, FMX.Edit,
+  FMX.Controls.Presentation, FMX.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Layout2: TLayout;
+    Rectangle1: TRectangle;
+    imgVoltar: TImage;
+    Image1: TImage;
+    Image2: TImage;
+    VertScrollBox1: TVertScrollBox;
+    Layout1: TLayout;
+    Label8: TLabel;
+    Layout4: TLayout;
+    edtQuantidade: TEdit;
+    Label2: TLabel;
+    Label6: TLabel;
+    cbxTelas: TComboBox;
+    cbxTipoAnimal: TComboBox;
+    Label10: TLabel;
+    Layout3: TLayout;
+    Label1: TLabel;
+    edtNome: TEdit;
+    Layout6: TLayout;
+    edtCidade: TEdit;
+    Label7: TLabel;
+    Layout7: TLayout;
+    Label5: TLabel;
+    edtRua: TEdit;
+    edtNumero: TEdit;
+    Label12: TLabel;
+    Layout8: TLayout;
+    Label4: TLabel;
+    edtCep: TEdit;
+    Layout9: TLayout;
+    Label13: TLabel;
+    edtTelefone: TEdit;
+    Layout5: TLayout;
+    btnCriarConta: TRoundRect;
+    Label9: TLabel;
+    Layout10: TLayout;
+    mmoInformacoes: TMemo;
+    Label3: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.fmx}
+
+end.

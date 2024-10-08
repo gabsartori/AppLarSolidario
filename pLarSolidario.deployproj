@@ -5,7 +5,7 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'">RX8R90JJ8GF</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='Android64'"/>
+        <DeviceId Condition="'$(Platform)'=='Android64'">RX8R90JJ8GF</DeviceId>
         <DeviceId Condition="'$(Platform)'=='iOSDevice64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSSimARM64'"/>
     </PropertyGroup>
@@ -51,19 +51,19 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\pLarSolidario.classes" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>pLarSolidario\classes\</RemoteDir>
-            <RemoteName>pLarSolidario.classes</RemoteName>
-            <DeployClass>AndroidClasses</DeployClass>
-            <Operation>64</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="Android\Debug\styles-v21.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>pLarSolidario\res\values-v21\</RemoteDir>
             <RemoteName>styles.xml</RemoteName>
             <DeployClass>AndroidSplashStylesV21</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\..\..\..\Desktop\Imagens\96x96.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>pLarSolidario\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon96</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -96,29 +96,10 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\libpLarSolidario.so" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>pLarSolidario\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>libpLarSolidario.so</RemoteName>
-            <DeployClass>ProjectOutput</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>pLarSolidario\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon24</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>pLarSolidario\res\drawable-small\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage426</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -133,28 +114,28 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(NDKBasePath)\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>pLarSolidario\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>gdbserver</RemoteName>
-            <DeployClass>AndroidGDBServer</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="..\..\..\..\Desktop\Imagens\36x36.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>pLarSolidario\res\drawable-ldpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon36</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="..\..\..\..\Desktop\Imagens\72x72.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>pLarSolidario\res\drawable-hdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <DeployClass>Android_LauncherIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>pLarSolidario\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage426</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(NDKBasePath)\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>pLarSolidario\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>gdbserver</RemoteName>
+            <DeployClass>AndroidGDBServer</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -169,10 +150,10 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>pLarSolidario\res\drawable-hdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon36</DeployClass>
+        <DeployFile Include="..\..\..\..\Desktop\Imagens\36x36.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>pLarSolidario\res\drawable-ldpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon36</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -182,6 +163,15 @@
             <RemoteDir>pLarSolidario\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>pLarSolidario\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon36</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -214,20 +204,20 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\..\..\..\Desktop\Imagens\96x96.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>pLarSolidario\res\drawable-xhdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon96</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_960x720.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>pLarSolidario\res\drawable-xlarge\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
             <DeployClass>Android_SplashImage960</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\pLarSolidario.classes" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>pLarSolidario\classes\</RemoteDir>
+            <RemoteName>pLarSolidario.classes</RemoteName>
+            <DeployClass>AndroidClasses</DeployClass>
+            <Operation>64</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -240,6 +230,16 @@
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\libpLarSolidario.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>pLarSolidario\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libpLarSolidario.so</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
         </DeployFile>
         <DeployFile Include="Android\Debug\styles.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>pLarSolidario\res\values\</RemoteDir>
