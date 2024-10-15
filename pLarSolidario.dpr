@@ -9,7 +9,8 @@ uses
   uDtmServidor in 'uDtmServidor.pas' {dtmServidor: TDataModule},
   Notificacao in 'Notificacao.pas',
   uFrmCadastroLarTemporario in 'uFrmCadastroLarTemporario.pas' {frmCadastroLarTemporario},
-  uFrmCadastroAnimais in 'uFrmCadastroAnimais.pas' {Form1};
+  uFrmCadastroAnimais in 'uFrmCadastroAnimais.pas' {frmCadastroAnimais},
+  u99Permissions in 'Units\u99Permissions.pas';
 
 {$R *.res}
 
@@ -17,9 +18,9 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.CreateForm(TfrmCriarCadastro, frmCriarCadastro);
-  Application.CreateForm(TfrmPaginaInicial, frmPaginaInicial);
-  Application.CreateForm(TdtmServidor, dtmServidor);
   Application.CreateForm(TfrmCadastroLarTemporario, frmCadastroLarTemporario);
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmCadastroAnimais, frmCadastroAnimais);
+  Application.CreateForm(TdtmServidor, dtmServidor);
+  Application.CreateForm(TfrmPaginaInicial, frmPaginaInicial);
   Application.Run;
 end.

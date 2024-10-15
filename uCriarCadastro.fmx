@@ -301,7 +301,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 16
-        object Label1: TLabel
+        object lblNome: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -314,7 +314,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Nome'
+          Text = 'Nome*'
           TabOrder = 8
         end
         object edtNome: TEdit
@@ -340,7 +340,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 15
-        object Label2: TLabel
+        object lblDtaNasc: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -353,21 +353,18 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Data de Nascimento'
+          Text = 'Data de Nascimento*'
           TabOrder = 7
         end
-        object edtDtaNascimento: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          TabOrder = 13
+        object edtDtaNascimento: TDateEdit
+          Date = 45579.000000000000000000
           Position.X = 50.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 50.000000000000000000
-          Margins.Right = 50.000000000000000000
-          Size.Width = 276.000000000000000000
+          Position.Y = 26.000000000000000000
+          Size.Width = 126.000000000000000000
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          TabOrder = 13
           OnEnter = edtDtaNascimentoEnter
         end
       end
@@ -378,7 +375,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 14
-        object Label3: TLabel
+        object lblTelefone: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -391,7 +388,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Telefone'
+          Text = 'Telefone*'
           TabOrder = 22
         end
         object edtTelefone: TEdit
@@ -399,6 +396,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Align = Top
           StyleLookup = 'editstyle'
           TabOrder = 21
+          KeyboardType = NamePhonePad
           Position.X = 50.000000000000000000
           Position.Y = 22.000000000000000000
           Margins.Left = 50.000000000000000000
@@ -450,6 +448,21 @@ object frmCriarCadastro: TfrmCriarCadastro
           OnEnter = edtCepEnter
           OnExit = edtCepExit
         end
+        object lblBuscandoCep: TLabel
+          StyledSettings = [Family]
+          Margins.Left = 200.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 198.000000000000000000
+          Position.Y = 27.000000000000000000
+          Size.Width = 128.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Buscando CEP...'
+          TabOrder = 25
+        end
       end
       object Layout8: TLayout
         Align = Top
@@ -458,7 +471,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 24
-        object Label5: TLabel
+        object lblRua: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -471,7 +484,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Rua'
+          Text = 'Rua*'
           TabOrder = 26
         end
         object edtRua: TEdit
@@ -527,7 +540,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 23
-        object Label6: TLabel
+        object lblBairro: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -540,7 +553,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Bairro'
+          Text = 'Bairro*'
           TabOrder = 14
         end
         object edtBairro: TEdit
@@ -566,7 +579,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 22
-        object Label11: TLabel
+        object lblSenha: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -579,7 +592,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Senha'
+          Text = 'Senha*'
           TabOrder = 0
         end
         object edtSenha: TEdit
@@ -606,7 +619,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 21
-        object Label10: TLabel
+        object lblEmail: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -619,7 +632,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'E-mail'
+          Text = 'E-mail*'
           TabOrder = 2
         end
         object edtEmail: TEdit
@@ -645,7 +658,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 20
-        object Esa: TLabel
+        object lblEstado: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -684,7 +697,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 19
-        object Label7: TLabel
+        object lblCidade: TLabel
           Align = Top
           StyledSettings = [Family]
           Margins.Left = 50.000000000000000000
@@ -697,7 +710,7 @@ object frmCriarCadastro: TfrmCriarCadastro
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Cidade'
+          Text = 'Cidade*'
           TabOrder = 3
         end
         object edtCidade: TEdit

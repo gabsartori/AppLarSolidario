@@ -17,17 +17,16 @@ type
     Rectangle1: TRectangle;
     edtNome: TEdit;
     Label8: TLabel;
-    Label1: TLabel;
-    Label2: TLabel;
+    lblNome: TLabel;
+    lblDtaNasc: TLabel;
     btnCriarConta: TRoundRect;
     Label9: TLabel;
-    edtDtaNascimento: TEdit;
-    Label3: TLabel;
+    lblTelefone: TLabel;
     edtTelefone: TEdit;
     Label4: TLabel;
     edtBairro: TEdit;
-    Label5: TLabel;
-    Label6: TLabel;
+    lblRua: TLabel;
+    lblBairro: TLabel;
     edtCidade: TEdit;
     edtCep: TEdit;
     edtRua: TEdit;
@@ -54,33 +53,36 @@ type
     Layout11: TLayout;
     Layout12: TLayout;
     Layout13: TLayout;
-    Label7: TLabel;
-    Esa: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
+    lblCidade: TLabel;
+    lblEstado: TLabel;
+    lblEmail: TLabel;
+    lblSenha: TLabel;
+    lblBuscandoCep: TLabel;
+    edtDtaNascimento: TDateEdit;
     procedure imgVoltarClick(Sender: TObject);
     procedure btnCriarContaClick(Sender: TObject);
-    procedure imgBuscarCepClick(Sender: TObject);
     procedure AbrirWhatsApp(sTelefone: string);
     procedure Label9Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edtCepExit(Sender: TObject);
-    procedure edtNomeEnter(Sender: TObject);
     procedure FormVirtualKeyboardHidden(Sender: TObject;
       KeyboardVisible: Boolean; const Bounds: TRect);
-    procedure edtDtaNascimentoEnter(Sender: TObject);
-    procedure edtTelefoneEnter(Sender: TObject);
+    procedure LimpaCampos(Sender: TObject);
+    procedure edtBairroEnter(Sender: TObject);
     procedure edtCepEnter(Sender: TObject);
     procedure edtRuaEnter(Sender: TObject);
     procedure edtNumeroEnter(Sender: TObject);
-    procedure edtBairroEnter(Sender: TObject);
     procedure edtCidadeEnter(Sender: TObject);
     procedure edtEstadoEnter(Sender: TObject);
-    procedure edtEmailEnter(Sender: TObject);
     procedure edtSenhaEnter(Sender: TObject);
+    procedure edtDtaNascimentoEnter(Sender: TObject);
+    procedure edtTelefoneEnter(Sender: TObject);
+    procedure edtNomeEnter(Sender: TObject);
+    procedure edtEmailEnter(Sender: TObject);
   private
     { Private declarations }
     foco: TControl;
+    function ValidarEMail(aStr: string): Boolean;
   public
     { Public declarations }
   end;
@@ -125,6 +127,80 @@ end;
 
 procedure TfrmCriarCadastro.btnCriarContaClick(Sender: TObject);
 begin
+   if edtNome.Text <> '' then
+   begin
+      if edtEmail.Text <> '' then
+      begin
+         if edtSenha.Text <> '' then
+         begin
+            if ValidarEMail(edtEmail.Text) = True then
+            begin
+               if edtTelefone.Text <> '' then
+               begin
+                  if edtDtaNascimento.Text <> '' then
+                  begin
+                     if edtRua.Text <> '' then
+                     begin
+                        if edtBairro.Text <> '' then
+                        begin
+                           if edtCidade.Text <> '' then
+                           begin
+                              //
+                           end
+                           else
+                           begin
+                              ShowMessage('Informe a cidade');
+                              Exit;
+                           end;
+                        end
+                        else
+                        begin
+                           ShowMessage('Informe o bairro');
+                           Exit;
+                        end;
+                     end
+                     else
+                     begin
+                        ShowMessage('Informe a rua');
+                        Exit;
+                     end;
+                  end
+                  else
+                  begin
+                     ShowMessage('Informe a data de nascimento');
+                     Exit;
+                  end;
+               end
+               else
+               begin
+                  ShowMessage('Informe o telefone');
+                  Exit;
+               end;
+            end
+            else
+            begin
+               ShowMessage('Digite um e-mail válido!');
+               Exit;
+            end;
+         end
+         else
+         begin
+            ShowMessage('Informe a senha para cadastrar!');
+            Exit;
+         end;
+      end
+      else
+      begin
+         ShowMessage('Informe o e-mail para cadastrar!');
+         Exit;
+      end;
+   end
+   else
+   begin
+      ShowMessage('Informe o nome para cadastrar!');
+      Exit;
+   end;
+
    try
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
@@ -154,7 +230,7 @@ begin
       dtmServidor.qryGeral.ParamByName('telefone').AsString := edtTelefone.Text;
       dtmServidor.qryGeral.ParamByName('dta_nascimento').AsString := edtDtaNascimento.Text;
       dtmServidor.qryGeral.ParamByName('cep').AsString := edtCep.Text;
-      dtmServidor.qryGeral.ParamByName('rua').AsString := edtRua.Text;
+      dtmServidor.qryGeral.ParamByName('rua').AsString := edtRua.Text +', '+edtNumero.Text;
       dtmServidor.qryGeral.ParamByName('bairro').AsString := edtBairro.Text;
       dtmServidor.qryGeral.ParamByName('cidade').AsString := edtCidade.Text;
       dtmServidor.qryGeral.ParamByName('estado').AsString := edtEstado.Text;
@@ -168,11 +244,13 @@ begin
       begin
          dtmServidor.fdConexao.Commit;
       end;
+
    finally
       TLoading.ToastMessage(frmCriarCadastro,
                             'Cadastrado com sucesso',
                              $FF22AF70,
                              TAlignLayout.Bottom);
+      LimpaCampos(Sender);
       frmLogin.Show;
    end;
 
@@ -208,6 +286,7 @@ begin
    if (edtCep.Text <> '') then
    begin
       try
+         lblBuscandoCep.Visible := True;
          LCEP := trim(edtCep.Text);
 
          RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
@@ -225,6 +304,7 @@ begin
          edtBairro.Text := LJSONObj.values['neighborhood'].Value;
 
          edtNumero.SetFocus;
+         lblBuscandoCep.Visible := False;
       except
          on E: Exception do
          begin
@@ -294,6 +374,29 @@ end;
 
 procedure TfrmCriarCadastro.FormShow(Sender: TObject);
 begin
+   LimpaCampos(Sender);
+   lblBuscandoCep.Visible := False;
+end;
+
+procedure TfrmCriarCadastro.FormVirtualKeyboardHidden(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+   VertScrollBox1.Margins.Bottom := 0;
+end;
+
+procedure TfrmCriarCadastro.imgVoltarClick(Sender: TObject);
+begin
+   LimpaCampos(Sender);
+   frmLogin.Show;
+end;
+
+procedure TfrmCriarCadastro.Label9Click(Sender: TObject);
+begin
+   btnCriarContaClick(Sender);
+end;
+
+procedure TfrmCriarCadastro.LimpaCampos(Sender: TObject);
+begin
    edtNome.Text := '';
    edtTelefone.Text := '';
    edtDtaNascimento.Text := '';
@@ -304,58 +407,20 @@ begin
    edtEstado.Text := '';
    edtEmail.Text := '';
    edtSenha.Text := '';
-
-   edtNome.SetFocus;
 end;
 
-procedure TfrmCriarCadastro.FormVirtualKeyboardHidden(Sender: TObject;
-  KeyboardVisible: Boolean; const Bounds: TRect);
+function TfrmCriarCadastro.ValidarEMail(aStr: string): Boolean;
 begin
-   VertScrollBox1.Margins.Bottom := 0;
-end;
-
-
-procedure TfrmCriarCadastro.imgBuscarCepClick(Sender: TObject);
-var
-  LCEP: String;
-  LJSONObj: TJSONObject;
-begin
-   try
-      LCEP := trim(edtCep.Text);
-
-      RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
-      RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
-
-      RESTRequest1.Method := rmGET;
-      RESTRequest1.Execute;
-
-      LJSONObj := RESTRequest1.Response.JSONValue AS TJSONObject;
-
-      edtCep.Text := LJSONObj.values['cep'].Value;
-      edtEstado.Text := LJSONObj.values['state'].Value;
-      edtCidade.Text := LJSONObj.values['city'].Value;
-      edtRua.Text := LJSONObj.values['street'].Value;
-      edtBairro.Text := LJSONObj.values['neighborhood'].Value;
-
-      edtNumero.SetFocus;
-   except
-      on E: Exception do
-      begin
-        ShowMessage('Não foi possível consultar o CEP!'+#13+
-                    'Erro: '+E.Message);
-        Close;
-      end;
-   end;
-end;
-
-procedure TfrmCriarCadastro.imgVoltarClick(Sender: TObject);
-begin
-   frmLogin.Show;
-end;
-
-procedure TfrmCriarCadastro.Label9Click(Sender: TObject);
-begin
-   btnCriarContaClick(Sender);
+     aStr := Trim(UpperCase(aStr));
+     if Pos('@', aStr) > 1 then
+     begin
+          Delete(aStr, 1, pos('@', aStr));
+          Result := (Length(aStr) > 0) and (Pos('.', aStr) > 2);
+     end
+     else
+         begin
+              Result := False;
+         end;
 end;
 
 end.

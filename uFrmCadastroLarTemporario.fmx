@@ -71,7 +71,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Quantidade'
+          Text = 'Quantidade*'
           TabOrder = 3
         end
         object Label6: TLabel
@@ -96,10 +96,16 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           ItemIndex = 0
           Position.X = 138.000000000000000000
           Position.Y = 22.000000000000000000
-          Size.Width = 74.000000000000000000
+          Size.Width = 97.000000000000000000
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 13
+          object TFloatAnimation
+            Duration = 0.200000002980232200
+            PropertyName = 'ItemWidth'
+            StartValue = 0.000000000000000000
+            StopValue = 0.000000000000000000
+          end
         end
         object cbxTipoAnimal: TComboBox
           Items.Strings = (
@@ -150,7 +156,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Nome'
+          Text = 'Nome*'
           TabOrder = 3
         end
         object edtNome: TEdit
@@ -180,7 +186,6 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Align = Top
           StyleLookup = 'editstyle'
           TabOrder = 9
-          Password = True
           Position.X = 40.000000000000000000
           Position.Y = 22.000000000000000000
           Margins.Left = 40.000000000000000000
@@ -203,7 +208,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Cidade'
+          Text = 'Cidade*'
           TabOrder = 1
         end
       end
@@ -227,7 +232,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Endere'#231'o'
+          Text = 'Endere'#231'o*'
           TabOrder = 14
         end
         object edtRua: TEdit
@@ -333,7 +338,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Telefone'
+          Text = 'Telefone*'
           TabOrder = 11
         end
         object edtTelefone: TEdit
@@ -374,7 +379,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
             Size.PlatformDefault = False
             TextSettings.Font.Size = 16.000000000000000000
             TextSettings.FontColor = claWhite
-            Text = 'Criar Conta'
+            Text = 'Cadastrar'
             TabOrder = 0
           end
         end
@@ -399,8 +404,8 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 66.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
-          Viewport.Width = 296.000000000000000000
-          Viewport.Height = 66.000000000000000000
+          Viewport.Width = 288.000000000000000000
+          Viewport.Height = 58.000000000000000000
         end
         object Label3: TLabel
           Align = Top
@@ -465,6 +470,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
         Size.Width = 18.000000000000000000
         Size.Height = 55.000000000000000000
         Size.PlatformDefault = False
+        OnClick = imgVoltarClick
       end
       object Image1: TImage
         MultiResBitmap = <

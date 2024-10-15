@@ -74,30 +74,38 @@ begin
    fdConexao.ExecSQL(' create table if not exists Motivos (          '+
                      ' Cod_Motivo INTEGER PRIMARY KEY AUTOINCREMENT, '+
                      ' Descricao  TEXT,                              '+
-                     ' Status     BOOLEAN DEFAULT 1);                ');
+                     ' Status     BOOLEAN);                          ');
 
   fdConexao.ExecSQL(' create table if not exists Lar_Temporario (               '+
                     ' Cod_Lar     INTEGER PRIMARY KEY AUTOINCREMENT,            '+
                     ' Nome_Pessoa TEXT,                                         '+
+                    ' CEP         TEXT,                                         '+
                     ' Endereco    TEXT,                                         '+
+                    ' Cidade      TEXT,                                         '+
                     ' Telefone    TEXT,                                         '+
                     ' Qtd_Animais INTEGER,                                      '+
-                    ' Ind_Telas   BOOLEAN DEFAULT 0,                            '+
+                    ' Tipo_Animal INTEGER,                                      '+
+                    ' Ind_Telas   BOOLEAN,                                      '+
                     ' Informacoes TEXT,                                         '+
-                    ' Ind_Ativo   BOOLEAN DEFAULT 1,                            '+
+                    ' Ind_Ativo   BOOLEAN,                                      '+
                     ' Cod_Pessoa  INTEGER,                                      '+
                     ' FOREIGN KEY (Cod_Pessoa) REFERENCES Pessoa (Cod_Pessoa)); ');
 
   fdConexao.ExecSQL(' create table if not exists Animais (                       '+
-                    ' Cod_Animal  INTEGER PRIMARY KEY AUTOINCREMENT,             '+
-                    ' Nome        TEXT,                                          '+
-                    ' Genero      TEXT,                                          '+
-                    ' Cor_Pelagem TEXT,                                          '+
-                    ' Tipo_Animal TEXT,                                          '+
-                    ' Ind_Ativo   BOOLEAN DEFAULT 1,                             '+
-                    ' Foto        BLOB,                                          '+
-                    ' Cod_Pessoa  INTEGER,                                       '+
-                    ' Cod_Lar     INTEGER,                                       '+
+                    ' Cod_Animal   INTEGER PRIMARY KEY AUTOINCREMENT,             '+
+                    ' Nome         TEXT,                                          '+
+                    ' Idade        TEXT,                                          '+
+                    ' Genero       TEXT,                                          '+
+                    ' Cor_Pelagem  TEXT,                                          '+
+                    ' CEP          TEXT,                                          '+
+                    ' Endereco     TEXT,                                          '+
+                    ' Cidade       TEXT,                                          '+
+                    ' Tipo_Animal  TEXT,                                          '+
+                    ' Ind_Ativo    BOOLEAN,                                       '+
+                    ' Ind_Castrado BOOLEAN,                                       '+
+                    ' Foto         BLOB,                                          '+
+                    ' Cod_Pessoa   INTEGER,                                       '+
+                    ' Cod_Lar      INTEGER,                                       '+
                     ' FOREIGN KEY (Cod_Pessoa) REFERENCES Pessoa (Cod_Pessoa),   '+
                     ' FOREIGN KEY (Cod_Lar) REFERENCES Lar_Temporario (Cod_Lar));');
 

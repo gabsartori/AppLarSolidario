@@ -538,7 +538,7 @@ object frmLogin: TfrmLogin
             object edtSenha: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               Align = Center
-              StyleLookup = 'edtUsuarioStyle1'
+              StyleLookup = 'editstyle'
               TabOrder = 2
               Password = True
               Margins.Left = 5.000000000000000000

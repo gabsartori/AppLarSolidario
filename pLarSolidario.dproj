@@ -64,6 +64,12 @@
         <Cfg_1>true</Cfg_1>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Android64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Android64)'!=''">
+        <Cfg_1_Android64>true</Cfg_1_Android64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
         <Cfg_1_Win32>true</Cfg_1_Win32>
         <CfgParent>Cfg_1</CfgParent>
@@ -258,12 +264,18 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Android)'!=''">
         <VerInfo_Build>1</VerInfo_Build>
-        <Android_LauncherIcon36>..\..\..\..\Desktop\Imagens\36x36.png</Android_LauncherIcon36>
+        <Android_LauncherIcon36>..\..\..\..\..\Desktop\Imagens\36x36.png</Android_LauncherIcon36>
         <Android_LauncherIcon48>..\..\..\..\Desktop\Imagens\48x48.png</Android_LauncherIcon48>
         <Android_LauncherIcon72>..\..\..\..\Desktop\Imagens\72x72.png</Android_LauncherIcon72>
         <Android_LauncherIcon96>..\..\..\..\Desktop\Imagens\96x96.png</Android_LauncherIcon96>
         <Android_LauncherIcon144>..\..\..\..\Desktop\Imagens\144x144.png</Android_LauncherIcon144>
         <Android_LauncherIcon192>..\..\..\..\Desktop\Imagens\192x192.png</Android_LauncherIcon192>
+        <Android_NotificationAccentColor>#000000</Android_NotificationAccentColor>
+        <EL_SecureFileSharing>true</EL_SecureFileSharing>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Android64)'!=''">
+        <EL_SecureFileSharing>true</EL_SecureFileSharing>
+        <VerInfo_Build>1</VerInfo_Build>
         <Android_NotificationAccentColor>#000000</Android_NotificationAccentColor>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
@@ -312,9 +324,10 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="uFrmCadastroAnimais.pas">
-            <Form>Form1</Form>
+            <Form>frmCadastroAnimais</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Units\u99Permissions.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -427,6 +440,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\..\..\..\..\Desktop\Imagens\36x36.png" Configuration="Debug" Class="Android_LauncherIcon36">
+                    <Platform Name="Android">
+                        <RemoteName>ic_launcher.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\..\..\..\Desktop\Imagens\144x144.png" Configuration="Debug" Class="Android_LauncherIcon144">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
@@ -434,12 +453,6 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\..\..\..\Desktop\Imagens\192x192.png" Configuration="Debug" Class="Android_LauncherIcon192">
-                    <Platform Name="Android">
-                        <RemoteName>ic_launcher.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="..\..\..\..\Desktop\Imagens\36x36.png" Configuration="Debug" Class="Android_LauncherIcon36">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -482,6 +495,12 @@
                 <DeployFile LocalName="Android\Debug\pLarSolidario.classes" Configuration="Debug" Class="AndroidClasses">
                     <Platform Name="Android">
                         <Operation>64</Operation>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\provider_paths.xml" Configuration="Debug" Class="AndroidFileProvider">
+                    <Platform Name="Android">
+                        <RemoteName>provider_paths.xml</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -33,6 +33,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure imgSairClick(Sender: TObject);
     procedure btnCadastrarLarClick(Sender: TObject);
+    procedure btnCadastrarAnimaisClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,7 +47,12 @@ implementation
 
 {$R *.fmx}
 
-uses uLogin, uFrmCadastroLarTemporario;
+uses uLogin, uFrmCadastroLarTemporario, uFrmCadastroAnimais;
+
+procedure TfrmPaginaInicial.btnCadastrarAnimaisClick(Sender: TObject);
+begin
+   frmCadastroAnimais.Show;
+end;
 
 procedure TfrmPaginaInicial.btnCadastrarLarClick(Sender: TObject);
 begin

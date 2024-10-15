@@ -1,13 +1,15 @@
-object Form1: TForm1
+object frmCriarCadastro: TfrmCriarCadastro
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 649
+  ClientHeight = 597
   ClientWidth = 381
   Fill.Kind = Solid
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnShow = FormShow
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
   DesignerMasterStyle = 3
   object Layout2: TLayout
     Align = Top
@@ -53,6 +55,7 @@ object Form1: TForm1
         Size.Width = 18.000000000000000000
         Size.Height = 55.000000000000000000
         Size.PlatformDefault = False
+        OnClick = imgVoltarClick
       end
       object Image1: TImage
         MultiResBitmap = <
@@ -238,413 +241,515 @@ object Form1: TForm1
   object VertScrollBox1: TVertScrollBox
     Align = Client
     Size.Width = 381.000000000000000000
-    Size.Height = 594.000000000000000000
+    Size.Height = 542.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 1
+    TabOrder = 4
     Viewport.Width = 376.000000000000000000
-    Viewport.Height = 594.000000000000000000
+    Viewport.Height = 542.000000000000000000
     object Layout1: TLayout
       Align = Top
       Size.Width = 376.000000000000000000
-      Size.Height = 625.000000000000000000
+      Size.Height = 675.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
-      object Label8: TLabel
-        Align = Top
-        AutoSize = True
-        StyledSettings = []
-        Size.Width = 376.000000000000000000
-        Size.Height = 27.000000000000000000
+      object btnCriarConta: TRoundRect
+        Align = Center
+        Fill.Color = claDarkseagreen
+        Size.Width = 161.000000000000000000
+        Size.Height = 34.000000000000000000
         Size.PlatformDefault = False
-        TextSettings.Font.Family = '(Default)'
-        TextSettings.Font.Size = 20.000000000000000000
-        TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TextSettings.FontColor = claDarkseagreen
-        TextSettings.HorzAlign = Center
-        Text = 'Cadastro de Animais'
-        TabOrder = 0
-      end
-      object Layout4: TLayout
-        Align = Top
-        Position.Y = 27.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 11
-        object edtQuantidade: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          StyleLookup = 'editstyle'
-          TabOrder = 11
-          KeyboardType = NumberPad
-          Password = True
-          Position.X = 40.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 250.000000000000000000
-          Size.Width = 58.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-        end
-        object Label2: TLabel
-          StyledSettings = [Family]
-          Margins.Left = 40.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 210.000000000000000000
-          Position.X = 40.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 98.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Quantidade'
-          TabOrder = 3
-        end
-        object Label6: TLabel
-          StyledSettings = [Family]
-          Margins.Left = 8.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 210.000000000000000000
-          Position.X = 138.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 63.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Lar Telado?'
-          TabOrder = 2
-        end
-        object cbxTelas: TComboBox
-          Items.Strings = (
-            'Sim'
-            'N'#227'o')
-          ItemIndex = 0
-          Position.X = 138.000000000000000000
-          Position.Y = 22.000000000000000000
-          Size.Width = 74.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 13
-        end
-        object cbxTipoAnimal: TComboBox
-          Items.Strings = (
-            'Gato'
-            'Cachorro'
-            'Ambos')
-          ItemIndex = 0
-          Position.X = 234.000000000000000000
-          Position.Y = 22.000000000000000000
-          Size.Width = 101.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 26
-        end
-        object Label10: TLabel
-          StyledSettings = [Family]
-          Margins.Left = 8.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 210.000000000000000000
-          Position.X = 234.000000000000000000
-          Position.Y = 1.000000000000000000
+        Stroke.Color = claWhite
+        OnClick = btnCriarContaClick
+        object Label9: TLabel
+          Align = Center
+          StyledSettings = [Family, Style]
           Size.Width = 81.000000000000000000
-          Size.Height = 21.000000000000000000
+          Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Tipo de Animal'
-          TabOrder = 1
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.FontColor = claWhite
+          Text = 'Criar Conta'
+          TabOrder = 0
+          OnClick = Label9Click
         end
       end
       object Layout3: TLayout
         Align = Top
-        Position.Y = 83.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 12
+        object Label8: TLabel
+          Align = Top
+          StyledSettings = []
+          Size.Width = 376.000000000000000000
+          Size.Height = 30.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = '(Default)'
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          TextSettings.HorzAlign = Center
+          Text = 'Nova Conta'
+          TabOrder = 11
+        end
+      end
+      object Layout4: TLayout
+        Align = Top
+        Position.Y = 30.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 15
-        object Label1: TLabel
+        TabOrder = 16
+        object lblNome: TLabel
           Align = Top
           StyledSettings = [Family]
-          Margins.Left = 40.000000000000000000
+          Margins.Left = 50.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Position.X = 40.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
           Position.Y = 5.000000000000000000
-          Size.Width = 296.000000000000000000
+          Size.Width = 276.000000000000000000
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Nome'
-          TabOrder = 3
+          Text = 'Nome*'
+          TabOrder = 8
         end
         object edtNome: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Top
           StyleLookup = 'editstyle'
-          TabOrder = 5
-          Position.X = 40.000000000000000000
+          TabOrder = 10
+          Position.X = 50.000000000000000000
           Position.Y = 22.000000000000000000
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Size.Width = 296.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtNomeEnter
+          OnExit = edtNomeExit
+        end
+      end
+      object Layout5: TLayout
+        Align = Top
+        Position.Y = 86.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 15
+        object lblDtaNasc: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Data de Nascimento*'
+          TabOrder = 7
+        end
+        object edtDtaNascimento: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          TabOrder = 13
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtDtaNascimentoEnter
         end
       end
       object Layout6: TLayout
         Align = Top
-        Position.Y = 307.000000000000000000
+        Position.Y = 142.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 14
-        object edtCidade: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 9
-          Password = True
-          Position.X = 40.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Size.Width = 296.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-        end
-        object Label7: TLabel
+        object lblTelefone: TLabel
           Align = Top
           StyledSettings = [Family]
-          Margins.Left = 40.000000000000000000
+          Margins.Left = 50.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Position.X = 40.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
           Position.Y = 5.000000000000000000
-          Size.Width = 296.000000000000000000
+          Size.Width = 276.000000000000000000
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Cidade'
-          TabOrder = 1
-        end
-      end
-      object Layout7: TLayout
-        Align = Top
-        Position.Y = 251.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 13
-        object Label5: TLabel
-          Align = Top
-          StyledSettings = [Family]
-          Margins.Left = 40.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 95.000000000000000000
-          Position.X = 40.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 241.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Endere'#231'o'
-          TabOrder = 14
-        end
-        object edtRua: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 2
-          Position.X = 40.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 95.000000000000000000
-          Size.Width = 241.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-        end
-        object edtNumero: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          StyleLookup = 'editstyle'
-          TabOrder = 0
-          KeyboardType = NumberPad
-          Position.X = 292.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 8.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Size.Width = 44.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-        end
-        object Label12: TLabel
-          StyledSettings = [Family]
-          Margins.Left = 8.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Position.X = 292.000000000000000000
-          Position.Y = 3.000000000000000000
-          Size.Width = 43.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'N'#250'mero'
-          TabOrder = 13
-        end
-      end
-      object Layout8: TLayout
-        Align = Top
-        Position.Y = 195.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 12
-        object Label4: TLabel
-          Align = Top
-          StyledSettings = [Family]
-          Margins.Left = 40.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Position.X = 40.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 296.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'CEP'
-          TabOrder = 18
-        end
-        object edtCep: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 4
-          KeyboardType = NumberPad
-          Position.X = 40.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Size.Width = 296.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-        end
-      end
-      object Layout9: TLayout
-        Align = Top
-        Position.Y = 139.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 17
-        object Label13: TLabel
-          Align = Top
-          StyledSettings = [Family]
-          Margins.Left = 40.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Position.X = 40.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 296.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Telefone'
-          TabOrder = 11
+          Text = 'Telefone*'
+          TabOrder = 22
         end
         object edtTelefone: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Top
           StyleLookup = 'editstyle'
-          TabOrder = 10
-          Position.X = 40.000000000000000000
+          TabOrder = 21
+          Position.X = 50.000000000000000000
           Position.Y = 22.000000000000000000
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Size.Width = 296.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtTelefoneEnter
         end
       end
-      object Layout5: TLayout
+      object Layout7: TLayout
         Align = Top
-        Position.Y = 464.000000000000000000
+        Position.Y = 198.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 10
-        object btnCriarConta: TRoundRect
-          Align = Center
-          Fill.Color = claDarkseagreen
-          Size.Width = 161.000000000000000000
-          Size.Height = 34.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claWhite
-          object Label9: TLabel
-            Align = Center
-            StyledSettings = [Family, Style]
-            Size.Width = 81.000000000000000000
-            Size.Height = 17.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.Size = 16.000000000000000000
-            TextSettings.FontColor = claWhite
-            Text = 'Criar Conta'
-            TabOrder = 0
-          end
-        end
-      end
-      object Layout10: TLayout
-        Align = Top
-        Position.Y = 363.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 101.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 9
-        object mmoInformacoes: TMemo
-          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
-          DataDetectorTypes = []
-          Align = Top
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Margins.Bottom = 15.000000000000000000
-          Position.X = 40.000000000000000000
-          Position.Y = 22.000000000000000000
-          Size.Width = 296.000000000000000000
-          Size.Height = 66.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 0
-          Viewport.Width = 288.000000000000000000
-          Viewport.Height = 58.000000000000000000
-        end
-        object Label3: TLabel
+        TabOrder = 13
+        object Label4: TLabel
           Align = Top
           StyledSettings = [Family]
-          Margins.Left = 40.000000000000000000
+          Margins.Left = 50.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 210.000000000000000000
-          Position.X = 40.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'CEP'
+          TabOrder = 28
+        end
+        object edtCep: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          StyleLookup = 'editstyle'
+          TabOrder = 9
+          KeyboardType = NumberPad
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtCepEnter
+          OnExit = edtCepExit
+        end
+        object lblBuscandoCep: TLabel
+          StyledSettings = [Family]
+          Margins.Left = 200.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 198.000000000000000000
+          Position.Y = 27.000000000000000000
+          Size.Width = 128.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Buscando CEP...'
+          TabOrder = 25
+        end
+      end
+      object Layout8: TLayout
+        Align = Top
+        Position.Y = 254.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 24
+        object lblRua: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 200.000000000000000000
+          Position.X = 50.000000000000000000
           Position.Y = 5.000000000000000000
           Size.Width = 126.000000000000000000
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Informa'#231#245'es'
+          Text = 'Rua*'
+          TabOrder = 26
+        end
+        object edtRua: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          StyleLookup = 'editstyle'
+          TabOrder = 6
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 105.000000000000000000
+          Size.Width = 221.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtRuaEnter
+        end
+        object Label12: TLabel
+          StyledSettings = [Family]
+          Margins.Left = 200.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 281.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 85.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'N'#250'mero'
+          TabOrder = 25
+        end
+        object edtNumero: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          StyleLookup = 'editstyle'
+          TabOrder = 5
+          KeyboardType = NumberPad
+          Position.X = 281.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Size.Width = 45.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtNumeroEnter
+        end
+      end
+      object Layout9: TLayout
+        Align = Top
+        Position.Y = 310.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 23
+        object lblBairro: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Bairro*'
+          TabOrder = 14
+        end
+        object edtBairro: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          StyleLookup = 'editstyle'
+          TabOrder = 30
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtBairroEnter
+        end
+      end
+      object Layout10: TLayout
+        Align = Top
+        Position.Y = 534.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 22
+        object lblSenha: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Senha*'
+          TabOrder = 0
+        end
+        object edtSenha: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          StyleLookup = 'editstyle'
+          TabOrder = 17
+          Password = True
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtSenhaEnter
+        end
+      end
+      object Layout11: TLayout
+        Align = Top
+        Position.Y = 478.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 21
+        object lblEmail: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'E-mail*'
+          TabOrder = 2
+        end
+        object edtEmail: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          StyleLookup = 'editstyle'
+          TabOrder = 18
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtEmailEnter
+        end
+      end
+      object Layout12: TLayout
+        Align = Top
+        Position.Y = 422.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 20
+        object lblEstado: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Estado'
           TabOrder = 3
+        end
+        object edtEstado: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          StyleLookup = 'editstyle'
+          TabOrder = 19
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtEstadoEnter
+        end
+      end
+      object Layout13: TLayout
+        Align = Top
+        Position.Y = 366.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 19
+        object lblCidade: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Cidade*'
+          TabOrder = 3
+        end
+        object edtCidade: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          StyleLookup = 'editstyle'
+          TabOrder = 20
+          Position.X = 50.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 50.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Size.Width = 276.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtCidadeEnter
         end
       end
     end
+  end
+  object RESTRequest1: TRESTRequest
+    Client = RESTClient1
+    Params = <>
+    Response = RESTResponse1
+    SynchronizedEvents = False
+    Left = 488
+    Top = 64
+  end
+  object RESTClient1: TRESTClient
+    Params = <>
+    SynchronizedEvents = False
+    Left = 488
+    Top = 128
+  end
+  object RESTResponse1: TRESTResponse
+    Left = 488
+    Top = 192
   end
 end
