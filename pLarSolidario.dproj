@@ -328,6 +328,16 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Units\u99Permissions.pas"/>
+        <DCCReference Include="uFrmPaginaBuscas.pas">
+            <Form>frmPaginaBuscas</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Frames\Frame.AnimaisCadastrados.pas">
+            <Form>FrameAnimaisCadastrados</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Units\uFunctions.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

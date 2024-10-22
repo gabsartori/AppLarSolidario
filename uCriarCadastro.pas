@@ -8,7 +8,7 @@ uses
   FMX.Layouts, FMX.StdCtrls, FMX.ExtCtrls, FMX.Edit, FMX.Controls.Presentation,
   FMX.DateTimeCtrls, REST.Types, REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, Androidapi.JNI.GraphicsContentViewText,
-  Androidapi.Helpers, FMX.Helpers.Android;
+  Androidapi.Helpers, FMX.Helpers.Android, FMX.ComboEdit;
 
 type
   TfrmCriarCadastro = class(TForm)
@@ -18,23 +18,15 @@ type
     edtNome: TEdit;
     Label8: TLabel;
     lblNome: TLabel;
-    lblDtaNasc: TLabel;
     btnCriarConta: TRoundRect;
     Label9: TLabel;
     lblTelefone: TLabel;
     edtTelefone: TEdit;
-    Label4: TLabel;
     edtBairro: TEdit;
     lblRua: TLabel;
     lblBairro: TLabel;
-    edtCidade: TEdit;
-    edtCep: TEdit;
     edtRua: TEdit;
-    edtEstado: TEdit;
     edtEmail: TEdit;
-    RESTRequest1: TRESTRequest;
-    RESTClient1: TRESTClient;
-    RESTResponse1: TRESTResponse;
     edtSenha: TEdit;
     edtNumero: TEdit;
     Label12: TLabel;
@@ -44,45 +36,38 @@ type
     VertScrollBox1: TVertScrollBox;
     Layout3: TLayout;
     Layout4: TLayout;
-    Layout5: TLayout;
     Layout6: TLayout;
-    Layout7: TLayout;
     Layout8: TLayout;
     Layout9: TLayout;
     Layout10: TLayout;
     Layout11: TLayout;
-    Layout12: TLayout;
     Layout13: TLayout;
     lblCidade: TLabel;
-    lblEstado: TLabel;
     lblEmail: TLabel;
     lblSenha: TLabel;
-    lblBuscandoCep: TLabel;
-    edtDtaNascimento: TDateEdit;
+    cbxCidade: TComboEdit;
     procedure imgVoltarClick(Sender: TObject);
     procedure btnCriarContaClick(Sender: TObject);
     procedure AbrirWhatsApp(sTelefone: string);
     procedure Label9Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure edtCepExit(Sender: TObject);
+    //procedure edtCepExit(Sender: TObject);
     procedure FormVirtualKeyboardHidden(Sender: TObject;
       KeyboardVisible: Boolean; const Bounds: TRect);
     procedure LimpaCampos(Sender: TObject);
     procedure edtBairroEnter(Sender: TObject);
-    procedure edtCepEnter(Sender: TObject);
+   // procedure edtCepEnter(Sender: TObject);
     procedure edtRuaEnter(Sender: TObject);
     procedure edtNumeroEnter(Sender: TObject);
     procedure edtCidadeEnter(Sender: TObject);
     procedure edtEstadoEnter(Sender: TObject);
     procedure edtSenhaEnter(Sender: TObject);
-    procedure edtDtaNascimentoEnter(Sender: TObject);
     procedure edtTelefoneEnter(Sender: TObject);
     procedure edtNomeEnter(Sender: TObject);
     procedure edtEmailEnter(Sender: TObject);
   private
     { Private declarations }
     foco: TControl;
-    function ValidarEMail(aStr: string): Boolean;
   public
     { Public declarations }
   end;
@@ -126,132 +111,101 @@ begin
 end;
 
 procedure TfrmCriarCadastro.btnCriarContaClick(Sender: TObject);
+var
+   iCodCidade: integer;
+   sUF: String;
 begin
-   if edtNome.Text <> '' then
+   if edtNome.Text = '' then
    begin
-      if edtEmail.Text <> '' then
-      begin
-         if edtSenha.Text <> '' then
-         begin
-            if ValidarEMail(edtEmail.Text) = True then
-            begin
-               if edtTelefone.Text <> '' then
-               begin
-                  if edtDtaNascimento.Text <> '' then
-                  begin
-                     if edtRua.Text <> '' then
-                     begin
-                        if edtBairro.Text <> '' then
-                        begin
-                           if edtCidade.Text <> '' then
-                           begin
-                              //
-                           end
-                           else
-                           begin
-                              ShowMessage('Informe a cidade');
-                              Exit;
-                           end;
-                        end
-                        else
-                        begin
-                           ShowMessage('Informe o bairro');
-                           Exit;
-                        end;
-                     end
-                     else
-                     begin
-                        ShowMessage('Informe a rua');
-                        Exit;
-                     end;
-                  end
-                  else
-                  begin
-                     ShowMessage('Informe a data de nascimento');
-                     Exit;
-                  end;
-               end
-               else
-               begin
-                  ShowMessage('Informe o telefone');
-                  Exit;
-               end;
-            end
-            else
-            begin
-               ShowMessage('Digite um e-mail válido!');
-               Exit;
-            end;
-         end
-         else
-         begin
-            ShowMessage('Informe a senha para cadastrar!');
-            Exit;
-         end;
-      end
-      else
-      begin
-         ShowMessage('Informe o e-mail para cadastrar!');
-         Exit;
-      end;
-   end
-   else
-   begin
-      ShowMessage('Informe o nome para cadastrar!');
+      ShowMessage('Informe o nome');
       Exit;
    end;
 
+   if edtTelefone.Text = '' then
+   begin
+      ShowMessage('Informe o telefone');
+      Exit;
+   end;
+
+   if edtRua.Text = '' then
+   begin
+      ShowMessage('Informe a rua');
+      Exit;
+   end;
+
+   if edtEmail.Text = '' then
+   begin
+      ShowMessage('Informe o e-mail');
+      Exit;
+   end;
+
+   if edtSenha.Text = '' then
+   begin
+      ShowMessage('Informe a senha');
+      Exit;
+   end;
+
+   dtmServidor.qryGeral.Active := False;
+   dtmServidor.qryGeral.SQL.Clear;
+   dtmServidor.qryGeral.SQL.Text := 'select * from cidades where nome_cidade = '''+cbxCidade.Text+'''';
+   dtmServidor.qryGeral.Active := True;
+
+   iCodCidade := dtmServidor.qryGeral.FieldByName('cod_cidade').AsInteger;
+   sUF := dtmServidor.qryGeral.FieldByName('uf').AsString;
+
    try
-      dtmServidor.qryGeral.Active := False;
-      dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := ' insert into pessoa (nome,              '+
-                                       '                     telefone,          '+
-                                       '                     dta_nascimento,    '+
-                                       '                     cep,               '+
-                                       '                     rua,               '+
-                                       '                     bairro,            '+
-                                       '                     cidade,            '+
-                                       '                     estado,            '+
-                                       '                     email,             '+
-                                       '                     senha,             '+
-                                       '                     ind_ativo)         '+
-                                       '             values (:nome,             '+
-                                       '                     :telefone,         '+
-                                       '                     :dta_nascimento,   '+
-                                       '                     :cep,              '+
-                                       '                     :rua,              '+
-                                       '                     :bairro,           '+
-                                       '                     :cidade,           '+
-                                       '                     :estado,           '+
-                                       '                     :email,            '+
-                                       '                     :senha,            '+
-                                       '                     :ind_ativo);       ';
-      dtmServidor.qryGeral.ParamByName('nome').AsString := edtNome.Text;
-      dtmServidor.qryGeral.ParamByName('telefone').AsString := edtTelefone.Text;
-      dtmServidor.qryGeral.ParamByName('dta_nascimento').AsString := edtDtaNascimento.Text;
-      dtmServidor.qryGeral.ParamByName('cep').AsString := edtCep.Text;
-      dtmServidor.qryGeral.ParamByName('rua').AsString := edtRua.Text +', '+edtNumero.Text;
-      dtmServidor.qryGeral.ParamByName('bairro').AsString := edtBairro.Text;
-      dtmServidor.qryGeral.ParamByName('cidade').AsString := edtCidade.Text;
-      dtmServidor.qryGeral.ParamByName('estado').AsString := edtEstado.Text;
-      dtmServidor.qryGeral.ParamByName('email').AsString := edtEmail.Text;
-      dtmServidor.qryGeral.ParamByName('senha').AsString := edtSenha.Text;
-      dtmServidor.qryGeral.ParamByName('ind_ativo').AsString := '1';
+      dtmServidor.qryInsert.Active := False;
+      dtmServidor.qryInsert.SQL.Clear;
+      dtmServidor.qryInsert.SQL.Text := ' insert into Pessoas (Nome_Pessoa,     '+
+                                       '                      Telefone_Pessoa, '+
+                                       '                      Des_Rua,         '+
+                                       '                      Des_Bairro,      '+
+                                       '                      UF,              '+
+                                       '                      Email_Pessoa,    '+
+                                       '                      Senha_Pessoa,    '+
+                                       '                      Ind_Ativo,       '+
+                                       '                      Cod_Cidade)      '+
+                                       '             values (:Nome_Pessoa,     '+
+                                       '                     :Telefone_Pessoa, '+
+                                       '                     :Des_Rua,         '+
+                                       '                     :Des_Bairro,      '+
+                                       '                     :UF,              '+
+                                       '                     :Email_Pessoa,    '+
+                                       '                     :Senha_Pessoa,    '+
+                                       '                     :Ind_Ativo,       '+
+                                       '                     :Cod_Cidade);     ';
 
-      dtmServidor.qryGeral.ExecSQL;
+      dtmServidor.qryInsert.ParamByName('Nome_Pessoa').AsString := edtNome.Text;
+      dtmServidor.qryInsert.ParamByName('Telefone_Pessoa').AsString := edtTelefone.Text;
+      dtmServidor.qryInsert.ParamByName('Des_Rua').AsString := edtRua.Text +', '+ edtNumero.Text;
+      dtmServidor.qryInsert.ParamByName('Des_Bairro').AsString := edtBairro.Text;
+      dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
+      dtmServidor.qryInsert.ParamByName('Email_Pessoa').AsString := edtEmail.Text;
+      dtmServidor.qryInsert.ParamByName('Senha_Pessoa').AsString := edtSenha.Text;
+      dtmServidor.qryInsert.ParamByName('Ind_Ativo').AsString := '1';
+      dtmServidor.qryInsert.ParamByName('Cod_Cidade').AsInteger := iCodCidade;
 
-      if dtmServidor.fdConexao.InTransaction then
-      begin
-         dtmServidor.fdConexao.Commit;
+      dtmServidor.qryInsert.ExecSQL;
+
+      try
+          if dtmServidor.fdConexao.InTransaction then
+          begin
+             dtmServidor.fdConexao.Commit;
+          end;
+      except
+         TLoading.ToastMessage(frmCriarCadastro,
+                            'Não foi possível realizar o cadastro!',
+                             $FFFA3F3F,
+                             TAlignLayout.Top);
+         Exit;
       end;
 
    finally
       TLoading.ToastMessage(frmCriarCadastro,
                             'Cadastrado com sucesso',
                              $FF22AF70,
-                             TAlignLayout.Bottom);
+                             TAlignLayout.Top);
       LimpaCampos(Sender);
-      frmLogin.Show;
    end;
 
 //   try
@@ -272,59 +226,51 @@ begin
    Ajustar_Scroll();
 end;
 
-procedure TfrmCriarCadastro.edtCepEnter(Sender: TObject);
-begin
-   foco := TControl(TEdit(sender).Parent);
-   Ajustar_Scroll();
-end;
+//procedure TfrmCriarCadastro.edtCepEnter(Sender: TObject);
+//begin
+//   foco := TControl(TEdit(sender).Parent);
+//   Ajustar_Scroll();
+//end;
 
-procedure TfrmCriarCadastro.edtCepExit(Sender: TObject);
-var
-  LCEP: String;
-  LJSONObj: TJSONObject;
-begin
-   if (edtCep.Text <> '') then
-   begin
-      try
-         lblBuscandoCep.Visible := True;
-         LCEP := trim(edtCep.Text);
-
-         RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
-         RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
-
-         RESTRequest1.Method := rmGET;
-         RESTRequest1.Execute;
-
-         LJSONObj := RESTRequest1.Response.JSONValue AS TJSONObject;
-
-         edtCep.Text := LJSONObj.values['cep'].Value;
-         edtEstado.Text := LJSONObj.values['state'].Value;
-         edtCidade.Text := LJSONObj.values['city'].Value;
-         edtRua.Text := LJSONObj.values['street'].Value;
-         edtBairro.Text := LJSONObj.values['neighborhood'].Value;
-
-         edtNumero.SetFocus;
-         lblBuscandoCep.Visible := False;
-      except
-         on E: Exception do
-         begin
-            TLoading.ToastMessage(frmCriarCadastro,
-                                  'Não foi possível consultar o CEP!'+#13+
-                                  'Erro: '+E.Message,
-                             $FFFA3F3F,
-                             TAlignLayout.Bottom);
-         end;
-      end;
-   end;
-end;
+//procedure TfrmCriarCadastro.edtCepExit(Sender: TObject);
+//var
+//  LCEP: String;
+//  LJSONObj: TJSONObject;
+//begin
+//   if (edtCep.Text <> '') then
+//   begin
+//      try
+//         LCEP := trim(edtCep.Text);
+//
+//         dtmServidor.RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
+//         dtmServidor.RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
+//
+//         dtmServidor.RESTRequest1.Method := rmGET;
+//         dtmServidor.RESTRequest1.Execute;
+//
+//         LJSONObj := dtmServidor.RESTRequest1.Response.JSONValue AS TJSONObject;
+//
+//         edtCep.Text := LJSONObj.values['cep'].Value;
+//         edtEstado.Text := LJSONObj.values['state'].Value;
+//         edtCidade.Text := LJSONObj.values['city'].Value;
+//         edtRua.Text := LJSONObj.values['street'].Value;
+//         edtBairro.Text := LJSONObj.values['neighborhood'].Value;
+//
+//         edtNumero.SetFocus;
+//      except
+//         on E: Exception do
+//         begin
+//            TLoading.ToastMessage(frmCriarCadastro,
+//                                  'Não foi possível consultar o CEP!'+#13+
+//                                  'Erro: '+E.Message,
+//                             $FFFA3F3F,
+//                             TAlignLayout.Bottom);
+//         end;
+//      end;
+//   end;
+//end;
 
 procedure TfrmCriarCadastro.edtCidadeEnter(Sender: TObject);
-begin
-   foco := TControl(TEdit(sender).Parent);
-   Ajustar_Scroll();
-end;
-
-procedure TfrmCriarCadastro.edtDtaNascimentoEnter(Sender: TObject);
 begin
    foco := TControl(TEdit(sender).Parent);
    Ajustar_Scroll();
@@ -374,8 +320,19 @@ end;
 
 procedure TfrmCriarCadastro.FormShow(Sender: TObject);
 begin
+   dtmServidor.qryGeral.Active := False;
+   dtmServidor.qryGeral.SQL.Clear;
+   dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+   dtmServidor.qryGeral.Active := True;
+
+   while not dtmServidor.qryGeral.Eof do
+   begin
+      cbxCidade.Items.Add(dtmServidor.qryGeral.FieldByName('nome_cidade').AsString);
+
+      dtmServidor.qryGeral.Next;
+   end;
+
    LimpaCampos(Sender);
-   lblBuscandoCep.Visible := False;
 end;
 
 procedure TfrmCriarCadastro.FormVirtualKeyboardHidden(Sender: TObject;
@@ -399,28 +356,11 @@ procedure TfrmCriarCadastro.LimpaCampos(Sender: TObject);
 begin
    edtNome.Text := '';
    edtTelefone.Text := '';
-   edtDtaNascimento.Text := '';
-   edtCep.Text := '';
    edtRua.Text := '';
    edtBairro.Text := '';
-   edtCidade.Text := '';
-   edtEstado.Text := '';
    edtEmail.Text := '';
    edtSenha.Text := '';
-end;
-
-function TfrmCriarCadastro.ValidarEMail(aStr: string): Boolean;
-begin
-     aStr := Trim(UpperCase(aStr));
-     if Pos('@', aStr) > 1 then
-     begin
-          Delete(aStr, 1, pos('@', aStr));
-          Result := (Length(aStr) > 0) and (Pos('.', aStr) > 2);
-     end
-     else
-         begin
-              Result := False;
-         end;
+   edtNumero.Text := '';
 end;
 
 end.

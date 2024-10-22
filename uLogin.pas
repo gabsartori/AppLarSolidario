@@ -59,7 +59,7 @@ begin
       TLoading.ToastMessage(frmLogin,
                             'Informe o e-mail',
                              $FFFA3F3F,
-                             TAlignLayout.Bottom);
+                             TAlignLayout.Top);
       Exit;
    end;
 
@@ -68,7 +68,7 @@ begin
       TLoading.ToastMessage(frmLogin,
                             'Informe a senha',
                              $FFFA3F3F,
-                             TAlignLayout.Bottom);
+                             TAlignLayout.Top);
       Exit;
    end;
 
@@ -95,7 +95,7 @@ begin
       TLoading.ToastMessage(frmLogin,
                             'Credenciais incorretas! Digite novamente.',
                              $FFFA3F3F,
-                             TAlignLayout.Bottom);
+                             TAlignLayout.Top);
    end;
 end;
 

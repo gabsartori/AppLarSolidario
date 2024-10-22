@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.Layouts, FMX.ExtCtrls,
-  FMX.ListBox, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, FMX.Ani;
+  FMX.ListBox, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, FMX.Ani, REST.Types,
+  FMX.ComboEdit;
 
 type
   TfrmCadastroLarTemporario = class(TForm)
@@ -24,19 +25,15 @@ type
     Label9: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    edtCep: TEdit;
     edtRua: TEdit;
-    edtCidade: TEdit;
     edtNumero: TEdit;
     Label12: TLabel;
     Label7: TLabel;
     Label2: TLabel;
     edtQuantidade: TEdit;
-    cbxTelas: TComboBox;
-    cbxTipoAnimal: TComboBox;
     Label6: TLabel;
     Label10: TLabel;
-    Layout4: TLayout;
+    V: TLayout;
     Layout3: TLayout;
     Layout6: TLayout;
     Layout7: TLayout;
@@ -48,15 +45,35 @@ type
     Layout10: TLayout;
     mmoInformacoes: TMemo;
     Label3: TLabel;
+    cbxTelas: TComboEdit;
+    cbxTipoAnimal: TComboEdit;
+    cbxCidade: TComboEdit;
+    edtBairro: TEdit;
     procedure btnCriarContaClick(Sender: TObject);
     procedure imgVoltarClick(Sender: TObject);
     procedure LimpaCampos(Sender: TObject);
+  //  procedure edtCepExit(Sender: TObject);
+    procedure edtNomeEnter(Sender: TObject);
+    procedure edtTelefoneEnter(Sender: TObject);
+    procedure edtBairroEnter(Sender: TObject);
+    procedure edtRuaEnter(Sender: TObject);
+    procedure edtNumeroEnter(Sender: TObject);
+    procedure edtQuantidadeEnter(Sender: TObject);
+    procedure cbxTelasEnter(Sender: TObject);
+    procedure cbxTipoAnimalEnter(Sender: TObject);
+    procedure mmoInformacoesEnter(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormVirtualKeyboardHidden(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
   private
     { Private declarations }
+    foco: TControl;
   public
     { Public declarations }
   end;
 
+  const
+  _URL_CONSULTAR_CEP = 'https://brasilapi.com.br/api/cep/v1/%s';
 var
   frmCadastroLarTemporario: TfrmCadastroLarTemporario;
 
@@ -64,9 +81,24 @@ implementation
 
 {$R *.fmx}
 
-uses Notificacao, uDtmServidor, uLogin, uPaginaInicial;
+uses Notificacao, uDtmServidor, uLogin, uPaginaInicial, JSON, System.Net.HttpClient;
+
+procedure Ajustar_Scroll();
+var
+   x: Integer;
+begin
+   with frmCadastroLarTemporario do
+   begin
+      VertScrollBox1.Margins.Bottom := 250;
+      VertScrollBox1.ViewportPosition := PointF(VertScrollBox1.ViewportPosition.X,
+                                                TControl(foco).Position.Y - 150);
+   end;
+end;
 
 procedure TfrmCadastroLarTemporario.btnCriarContaClick(Sender: TObject);
+var
+   iCodCidade: Integer;
+   sUF: String;
 begin
    if edtNome.Text = '' then
    begin
@@ -82,13 +114,7 @@ begin
 
    if edtRua.Text = '' then
    begin
-      ShowMessage('Informe a rua');
-      Exit;
-   end;
-
-   if edtCidade.Text = '' then
-   begin
-      ShowMessage('Informe a cidade');
+      ShowMessage('Informe o endereço');
       Exit;
    end;
 
@@ -98,58 +124,184 @@ begin
       Exit;
    end;
 
+   dtmServidor.qryGeral.Active := False;
+   dtmServidor.qryGeral.SQL.Clear;
+   dtmServidor.qryGeral.SQL.Text := 'select * from cidades where nome_cidade = '''+cbxCidade.Text+'''';
+   dtmServidor.qryGeral.Active := True;
+
+   iCodCidade := dtmServidor.qryGeral.FieldByName('cod_cidade').AsInteger;
+   sUF := dtmServidor.qryGeral.FieldByName('uf').AsString;
+
    try
-      dtmServidor.qryGeral.Active := False;
-      dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := ' insert into Lar_Temporario (nome_pessoa, '+
-                                       '                             telefone,    '+
-                                       '                             cep,         '+
-                                       '                             endereco,    '+
-                                       '                             cidade,      '+
-                                       '                             qtd_animais, '+
-                                       '                             ind_telas,   '+
-                                       '                             tipo_animal, '+
-                                       '                             informacoes, '+
-                                       '                             ind_ativo,   '+
-                                       '                             cod_pessoa)  '+
-                                       '                    values (:nome_pessoa, '+
-                                       '                            :telefone,    '+
-                                       '                            :cep,         '+
-                                       '                            :endereco,    '+
-                                       '                            :cidade,      '+
-                                       '                            :qtd_animais, '+
-                                       '                            :ind_telas,   '+
-                                       '                            :tipo_animal, '+
-                                       '                            :informacoes, '+
-                                       '                            :ind_ativo,   '+
-                                       '                            :cod_pessoa); ';
+      dtmServidor.qryInsert.Active := False;
+      dtmServidor.qryInsert.SQL.Clear;
+      dtmServidor.qryInsert.SQL.Text := ' INSERT INTO LarTemporario (Nome_Lar,         '+
+                                        ' 					   	             Telefone_Lar,     '+
+                                        ' 				            	     Des_Endereco_Lar, '+
+                                        ' 				             	     Des_Bairro_Lar,   '+
+                                        ' 				            	     UF,               '+
+                                        ' 				            	     Qtd_Animais,      '+
+                                        ' 				            	     Ind_Telas,        '+
+                                        ' 				            	     Tipo_Animal,      '+
+                                        ' 				            	     Informacoes_Lar,  '+
+                                        ' 				            	     Ind_Ativo,        '+
+                                        ' 				             	     Cod_Pessoa,       '+
+                                        '                            Cod_Cidade)       '+
+                                        ' 				          VALUES (:Nome_Lar,         '+
+                                        ' 				          	  		:Telefone_Lar,     '+
+                                        ' 				          	  		:Des_Endereco_Lar, '+
+                                        ' 				             	    :Des_Bairro_Lar,   '+
+                                        ' 				          	  		:UF,               '+
+                                        ' 				          	  		:Qtd_Animais,      '+
+                                        ' 				          	  		:Ind_Telas,        '+
+                                        ' 				          	  		:Tipo_Animal,      '+
+                                        ' 				          	  		:Informacoes_Lar,  '+
+                                        ' 				          	  		:Ind_Ativo,        '+
+                                        ' 				          	  		:Cod_Pessoa,       '+
+                                        '                           :Cod_Cidade);      ';
 
-      dtmServidor.qryGeral.ParamByName('nome_pessoa').AsString := edtNome.Text;
-      dtmServidor.qryGeral.ParamByName('telefone').AsString := edtTelefone.Text;
-      dtmServidor.qryGeral.ParamByName('cep').AsString := edtCep.Text;
-      dtmServidor.qryGeral.ParamByName('endereco').AsString := edtRua.Text +', '+edtNumero.Text;
-      dtmServidor.qryGeral.ParamByName('cidade').AsString := edtCidade.Text;
-      dtmServidor.qryGeral.ParamByName('qtd_animais').AsString := edtQuantidade.Text;
-      dtmServidor.qryGeral.ParamByName('ind_telas').AsInteger := cbxTelas.ItemIndex;
-      dtmServidor.qryGeral.ParamByName('tipo_animal').AsInteger := cbxTipoAnimal.ItemIndex;
-      dtmServidor.qryGeral.ParamByName('informacoes').AsString := mmoInformacoes.Text;
-      dtmServidor.qryGeral.ParamByName('ind_ativo').AsString := '1';
-      dtmServidor.qryGeral.ParamByName('cod_pessoa').AsString := frmLogin.sUsuarioLogado;
+      dtmServidor.qryInsert.ParamByName('Nome_Lar').AsString := edtNome.Text;
+      dtmServidor.qryInsert.ParamByName('Telefone_Lar').AsString := edtTelefone.Text;
+      dtmServidor.qryInsert.ParamByName('Des_Bairro_Lar').AsString := edtBairro.Text;
+      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +', '+edtNumero.Text;
+      dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
+      dtmServidor.qryInsert.ParamByName('Qtd_Animais').AsString := edtQuantidade.Text;
+      dtmServidor.qryInsert.ParamByName('Ind_Telas').AsInteger := cbxTelas.ItemIndex;
+      dtmServidor.qryInsert.ParamByName('Tipo_Animal').AsString := cbxTipoAnimal.Text;
+      dtmServidor.qryInsert.ParamByName('Informacoes_Lar').AsString := mmoInformacoes.Text;
+      dtmServidor.qryInsert.ParamByName('Ind_Ativo').AsString := '1';
+      dtmServidor.qryInsert.ParamByName('Cod_Pessoa').AsString := frmLogin.sUsuarioLogado;
+      dtmServidor.qryInsert.ParamByName('Cod_Cidade').AsInteger := iCodCidade;
 
-      dtmServidor.qryGeral.ExecSQL;
+      dtmServidor.qryInsert.ExecSQL;
 
-      if dtmServidor.fdConexao.InTransaction then
-      begin
-         dtmServidor.fdConexao.Commit;
+      try
+          if dtmServidor.fdConexao.InTransaction then
+          begin
+             dtmServidor.fdConexao.Commit;
+          end;
+      except
+         TLoading.ToastMessage(frmCadastroLarTemporario,
+                               'Não foi possível realizar o cadastro!',
+                                $FFFA3F3F,
+                                TAlignLayout.Top);
+         Exit;
       end;
    finally
       TLoading.ToastMessage(frmCadastroLarTemporario,
                             'Cadastrado com sucesso!',
                              $FF22AF70,
                              TAlignLayout.Bottom);
-      frmPaginaInicial.Show;
       LimpaCampos(Sender);
    end;
+end;
+
+procedure TfrmCadastroLarTemporario.cbxTelasEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCadastroLarTemporario.cbxTipoAnimalEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCadastroLarTemporario.edtBairroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+//procedure TfrmCadastroLarTemporario.edtCepExit(Sender: TObject);
+//var
+//  LCEP: String;
+//  LJSONObj: TJSONObject;
+//begin
+//   if (edtCep.Text <> '') then
+//   begin
+//      try
+//         LCEP := trim(edtCep.Text);
+//
+//         dtmServidor.RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
+//         dtmServidor.RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
+//
+//         dtmServidor.RESTRequest1.Method := rmGET;
+//         dtmServidor.RESTRequest1.Execute;
+//
+//         LJSONObj := dtmServidor.RESTRequest1.Response.JSONValue AS TJSONObject;
+//
+//         edtCep.Text := LJSONObj.values['cep'].Value;
+//         edtCidade.Text := LJSONObj.values['city'].Value;
+//         edtRua.Text := LJSONObj.values['street'].Value;
+//         edtRua.Text := edtRua.Text + ' ,' + LJSONObj.values['neighborhood'].Value;
+//
+//         edtNumero.SetFocus;
+//      except
+//         on E: Exception do
+//         begin
+//            TLoading.ToastMessage(frmCadastroLarTemporario,
+//                                  'Não foi possível consultar o CEP!'+#13+
+//                                  'Erro: '+E.Message,
+//                             $FFFA3F3F,
+//                             TAlignLayout.Bottom);
+//         end;
+//      end;
+//   end;
+//end;
+
+procedure TfrmCadastroLarTemporario.edtNomeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCadastroLarTemporario.edtNumeroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCadastroLarTemporario.edtQuantidadeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCadastroLarTemporario.edtRuaEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCadastroLarTemporario.edtTelefoneEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmCadastroLarTemporario.FormShow(Sender: TObject);
+begin
+   dtmServidor.qryGeral.Active := False;
+   dtmServidor.qryGeral.SQL.Clear;
+   dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+   dtmServidor.qryGeral.Active := True;
+
+   while not dtmServidor.qryGeral.Eof do
+   begin
+      cbxCidade.Items.Add(dtmServidor.qryGeral.FieldByName('nome_cidade').AsString);
+
+      dtmServidor.qryGeral.Next;
+   end;
+
+   LimpaCampos(Sender);
+end;
+
+procedure TfrmCadastroLarTemporario.FormVirtualKeyboardHidden(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+   VertScrollBox1.Margins.Bottom := 0;
 end;
 
 procedure TfrmCadastroLarTemporario.imgVoltarClick(Sender: TObject);
@@ -162,14 +314,20 @@ procedure TfrmCadastroLarTemporario.LimpaCampos(Sender: TObject);
 begin
    edtNome.Text	:= '';
    edtTelefone.Text := '';
-   edtCep.Text := '';
+   edtBairro.Text := '';
    edtRua.Text := '';
    edtNumero.Text := '';
-   edtCidade.Text := '';
    edtQuantidade.Text := '';
+   cbxCidade.ItemIndex := 0;
    cbxTelas.ItemIndex := 0;
    cbxTipoAnimal.ItemIndex := 0;
    mmoInformacoes.Text := '';
+end;
+
+procedure TfrmCadastroLarTemporario.mmoInformacoesEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
 end;
 
 end.

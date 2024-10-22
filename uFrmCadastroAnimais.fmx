@@ -2,14 +2,17 @@ object frmCadastroAnimais: TfrmCadastroAnimais
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 520
+  ClientHeight = 504
   ClientWidth = 381
   Fill.Kind = Solid
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnClose = FormClose
   OnDestroy = FormDestroy
+  OnShow = FormShow
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
   DesignerMasterStyle = 3
   object Layout2: TLayout
     Align = Top
@@ -241,21 +244,22 @@ object frmCadastroAnimais: TfrmCadastroAnimais
   object VertScrollBox1: TVertScrollBox
     Align = Client
     Size.Width = 381.000000000000000000
-    Size.Height = 465.000000000000000000
+    Size.Height = 449.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     Viewport.Width = 376.000000000000000000
-    Viewport.Height = 465.000000000000000000
+    Viewport.Height = 449.000000000000000000
     object Layout1: TLayout
       Align = Top
       Size.Width = 376.000000000000000000
-      Size.Height = 721.000000000000000000
+      Size.Height = 761.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object Label8: TLabel
         Align = Top
         AutoSize = True
         StyledSettings = []
+        Margins.Bottom = 5.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 27.000000000000000000
         Size.PlatformDefault = False
@@ -264,12 +268,12 @@ object frmCadastroAnimais: TfrmCadastroAnimais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claDarkseagreen
         TextSettings.HorzAlign = Center
-        Text = 'Cadastro de Animais'
+        Text = 'Cadastro de Pets'
         TabOrder = 0
       end
       object Layout4: TLayout
         Align = Top
-        Position.Y = 27.000000000000000000
+        Position.Y = 32.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 163.000000000000000000
         Size.PlatformDefault = False
@@ -302,41 +306,11 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           Stroke.Color = claDarkseagreen
           Stroke.Thickness = 5.000000000000000000
           OnClick = cFotoEditarClick
-          object Label11: TLabel
-            Align = Center
-            StyledSettings = []
-            Margins.Bottom = -20.000000000000000000
-            Size.Width = 159.000000000000000000
-            Size.Height = 23.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.Family = 'Palatino Linotype'
-            TextSettings.Font.Size = 24.000000000000000000
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            TextSettings.FontColor = claWhite
-            Text = 'editar sua foto'
-            Visible = False
-            TabOrder = 1
-          end
-          object Label14: TLabel
-            Align = Center
-            StyledSettings = []
-            Margins.Bottom = 40.000000000000000000
-            Size.Width = 126.000000000000000000
-            Size.Height = 23.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.Family = 'Palatino Linotype'
-            TextSettings.Font.Size = 24.000000000000000000
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            TextSettings.FontColor = claWhite
-            Text = 'Toque para'
-            Visible = False
-            TabOrder = 0
-          end
         end
       end
       object Layout3: TLayout
         Align = Top
-        Position.Y = 190.000000000000000000
+        Position.Y = 195.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -370,15 +344,16 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtNomeEnter
         end
       end
       object Layout9: TLayout
         Align = Top
-        Position.Y = 246.000000000000000000
+        Position.Y = 251.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 16
+        TabOrder = 15
         object Label13: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -408,15 +383,16 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtCorPelagemEnter
         end
       end
       object Layout7: TLayout
         Align = Top
-        Position.Y = 302.000000000000000000
+        Position.Y = 307.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 20
+        TabOrder = 19
         object Label3: TLabel
           StyledSettings = [Family]
           Margins.Left = 20.000000000000000000
@@ -430,7 +406,7 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
           Text = 'Idade'
-          TabOrder = 15
+          TabOrder = 14
         end
         object edtIdade: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -444,6 +420,7 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtIdadeEnter
         end
         object Cas: TLabel
           StyledSettings = [Family]
@@ -463,7 +440,7 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           StyledSettings = [Family]
           Margins.Left = 40.000000000000000000
           Margins.Top = 5.000000000000000000
-          Position.X = 189.000000000000000000
+          Position.X = 190.000000000000000000
           Position.Y = 6.000000000000000000
           Size.Width = 57.000000000000000000
           Size.Height = 17.000000000000000000
@@ -473,103 +450,82 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           Text = 'G'#234'nero'
           TabOrder = 11
         end
-        object cbxCastrado: TComboBox
-          Items.Strings = (
-            'Sim'
-            'N'#227'o')
-          ItemIndex = 1
-          Position.X = 112.000000000000000000
-          Position.Y = 24.000000000000000000
-          Size.Width = 52.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 14
-        end
-        object cbxGenero: TComboBox
-          Items.Strings = (
-            'F'#234'mea'
-            'Macho')
-          ItemIndex = 0
-          Position.X = 183.000000000000000000
-          Position.Y = 24.000000000000000000
-          Size.Width = 72.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 28
-        end
-        object cbxTipoAnimal: TComboBox
-          Items.Strings = (
-            'Gato'
-            'Cachorro')
-          ItemIndex = 0
-          Position.X = 266.000000000000000000
-          Position.Y = 24.000000000000000000
-          Size.Width = 90.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 27
-        end
         object Label4: TLabel
           StyledSettings = [Family]
           Margins.Left = 40.000000000000000000
           Margins.Top = 5.000000000000000000
-          Position.X = 272.000000000000000000
+          Position.X = 274.000000000000000000
           Position.Y = 6.000000000000000000
-          Size.Width = 87.000000000000000000
+          Size.Width = 100.000000000000000000
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Tipo de Animal'
+          Text = 'Tipo de Pet'
           TabOrder = 10
         end
-      end
-      object Layout8: TLayout
-        Align = Top
-        Position.Y = 358.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 13
-        object Label5: TLabel
-          Align = Top
-          StyledSettings = [Family]
-          Margins.Left = 20.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 20.000000000000000000
-          Position.X = 20.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 336.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'CEP'
-          TabOrder = 18
-        end
-        object edtCep: TEdit
+        object cbxCastrado: TComboEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 4
-          KeyboardType = NumberPad
-          Position.X = 20.000000000000000000
+          TabOrder = 28
+          ItemHeight = 19.000000000000000000
+          Items.Strings = (
+            'N'#227'o'
+            'Sim')
+          ItemIndex = 0
+          Text = 'N'#227'o'
+          TextSettings.Font.Size = 13.000000000000000000
+          Position.X = 117.000000000000000000
           Position.Y = 22.000000000000000000
-          Margins.Left = 20.000000000000000000
-          Margins.Right = 20.000000000000000000
-          Size.Width = 336.000000000000000000
+          StyledSettings = [Family, Style, FontColor]
+          Size.Width = 49.000000000000000000
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
+          OnEnter = cbxCastradoEnter
+        end
+        object cbxTipoAnimal: TComboEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 27
+          ItemHeight = 19.000000000000000000
+          Items.Strings = (
+            'Cachorro'
+            'Gato')
+          ItemIndex = 0
+          Text = 'Cachorro'
+          TextSettings.Font.Size = 13.000000000000000000
+          Position.X = 274.000000000000000000
+          Position.Y = 22.000000000000000000
           StyledSettings = [Family, Style, FontColor]
+          Size.Width = 82.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          OnEnter = cbxGeneroEnter
+        end
+        object cbxGenero: TComboEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 26
+          ItemHeight = 19.000000000000000000
+          Items.Strings = (
+            'Macho'
+            'F'#234'mea')
+          ItemIndex = 0
+          Text = 'Macho'
+          TextSettings.Font.Size = 13.000000000000000000
+          Position.X = 186.000000000000000000
+          Position.Y = 22.000000000000000000
+          StyledSettings = [Family, Style, FontColor]
+          Size.Width = 70.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          OnEnter = cbxGeneroEnter
         end
       end
       object Layout6: TLayout
         Align = Top
-        Position.Y = 414.000000000000000000
+        Position.Y = 363.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 14
+        TabOrder = 13
         object Layout12: TLayout
           Align = Top
           Size.Width = 376.000000000000000000
@@ -600,11 +556,12 @@ object frmCadastroAnimais: TfrmCadastroAnimais
             Position.X = 20.000000000000000000
             Position.Y = 22.000000000000000000
             Margins.Left = 20.000000000000000000
-            Margins.Right = 95.000000000000000000
-            Size.Width = 261.000000000000000000
+            Margins.Right = 75.000000000000000000
+            Size.Width = 281.000000000000000000
             Size.Height = 32.000000000000000000
             Size.PlatformDefault = False
             StyledSettings = [Family, Style, FontColor]
+            OnEnter = edtRuaEnter
           end
           object edtNumero: TEdit
             Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -619,6 +576,7 @@ object frmCadastroAnimais: TfrmCadastroAnimais
             Size.Height = 32.000000000000000000
             Size.PlatformDefault = False
             StyledSettings = [Family, Style, FontColor]
+            OnEnter = edtNumeroEnter
           end
           object Label12: TLabel
             StyledSettings = [Family]
@@ -627,7 +585,7 @@ object frmCadastroAnimais: TfrmCadastroAnimais
             Margins.Right = 20.000000000000000000
             Position.X = 312.000000000000000000
             Position.Y = 3.000000000000000000
-            Size.Width = 47.000000000000000000
+            Size.Width = 53.000000000000000000
             Size.Height = 17.000000000000000000
             Size.PlatformDefault = False
             TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -639,25 +597,11 @@ object frmCadastroAnimais: TfrmCadastroAnimais
       end
       object Layout10: TLayout
         Align = Top
-        Position.Y = 470.000000000000000000
+        Position.Y = 475.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 15
-        object edtCidade: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 9
-          Position.X = 20.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 20.000000000000000000
-          Margins.Right = 20.000000000000000000
-          Size.Width = 336.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-        end
+        TabOrder = 14
         object Label7: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -674,30 +618,30 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           Text = 'Cidade*'
           TabOrder = 1
         end
+        object cbxCidade: TComboEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          TabOrder = 9
+          ItemHeight = 19.000000000000000000
+          ItemIndex = -1
+          Position.X = 20.000000000000000000
+          Position.Y = 22.000000000000000000
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Left = 20.000000000000000000
+          Margins.Right = 20.000000000000000000
+          Size.Width = 336.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          OnEnter = cbxCidadeEnter
+        end
       end
       object Layout11: TLayout
         Align = Top
-        Position.Y = 526.000000000000000000
+        Position.Y = 587.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 101.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 9
-        object mmoInformacoes: TMemo
-          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
-          DataDetectorTypes = []
-          Align = Top
-          Margins.Left = 20.000000000000000000
-          Margins.Right = 20.000000000000000000
-          Margins.Bottom = 15.000000000000000000
-          Position.X = 20.000000000000000000
-          Position.Y = 22.000000000000000000
-          Size.Width = 336.000000000000000000
-          Size.Height = 66.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 0
-          Viewport.Width = 328.000000000000000000
-          Viewport.Height = 58.000000000000000000
-        end
         object Label10: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -712,12 +656,30 @@ object frmCadastroAnimais: TfrmCadastroAnimais
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
           Text = 'Informa'#231#245'es Adicionais'
-          TabOrder = 3
+          TabOrder = 2
+        end
+        object mmoInformacoes: TMemo
+          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+          DataDetectorTypes = []
+          StyledSettings = [Family, Style, FontColor]
+          Align = Top
+          Margins.Left = 20.000000000000000000
+          Margins.Right = 20.000000000000000000
+          Margins.Bottom = 15.000000000000000000
+          Position.X = 20.000000000000000000
+          Position.Y = 22.000000000000000000
+          Size.Width = 336.000000000000000000
+          Size.Height = 66.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          OnEnter = mmoInformacoesEnter
+          Viewport.Width = 328.000000000000000000
+          Viewport.Height = 58.000000000000000000
         end
       end
       object Layout5: TLayout
         Align = Top
-        Position.Y = 627.000000000000000000
+        Position.Y = 688.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -741,6 +703,85 @@ object frmCadastroAnimais: TfrmCadastroAnimais
             Text = 'Cadastrar'
             TabOrder = 0
           end
+        end
+      end
+      object Layout13: TLayout
+        Align = Top
+        Position.Y = 531.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 20
+        object Label14: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 20.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 20.000000000000000000
+          Position.X = 20.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 336.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Situa'#231#227'o'
+          TabOrder = 1
+          object cbxSituacao: TComboEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 4
+            ItemHeight = 19.000000000000000000
+            Items.Strings = (
+              'Em situa'#231#227'o de rua'
+              'Em lar tempor'#225'rio')
+            ItemIndex = 0
+            Text = 'Em situa'#231#227'o de rua'
+            TextSettings.Font.Size = 13.000000000000000000
+            Position.Y = 17.000000000000000000
+            StyledSettings = [Family, FontColor]
+            Size.Width = 186.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            OnEnter = cbxSituacaoEnter
+          end
+        end
+      end
+      object Layout8: TLayout
+        Align = Top
+        Position.Y = 419.000000000000000000
+        Size.Width = 376.000000000000000000
+        Size.Height = 56.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 21
+        object Label5: TLabel
+          Align = Top
+          StyledSettings = [Family]
+          Margins.Left = 20.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 95.000000000000000000
+          Position.X = 20.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 261.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claDarkseagreen
+          Text = 'Bairro*'
+          TabOrder = 14
+        end
+        object edtBairro: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          TabOrder = 15
+          Position.X = 20.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 20.000000000000000000
+          Margins.Right = 20.000000000000000000
+          Size.Width = 336.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtBairroEnter
         end
       end
     end

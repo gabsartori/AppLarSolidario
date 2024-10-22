@@ -7,6 +7,8 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnShow = FormShow
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
   DesignerMasterStyle = 3
   object VertScrollBox1: TVertScrollBox
     Align = Client
@@ -26,6 +28,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
         Align = Top
         AutoSize = True
         StyledSettings = []
+        Margins.Bottom = 5.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 27.000000000000000000
         Size.PlatformDefault = False
@@ -37,9 +40,9 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
         Text = 'Cadastro Lar Tempor'#225'rio'
         TabOrder = 0
       end
-      object Layout4: TLayout
+      object V: TLayout
         Align = Top
-        Position.Y = 307.000000000000000000
+        Position.Y = 312.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -58,6 +61,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtQuantidadeEnter
         end
         object Label2: TLabel
           StyledSettings = [Family]
@@ -79,9 +83,9 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Margins.Left = 8.000000000000000000
           Margins.Top = 5.000000000000000000
           Margins.Right = 210.000000000000000000
-          Position.X = 138.000000000000000000
+          Position.X = 150.000000000000000000
           Position.Y = 5.000000000000000000
-          Size.Width = 63.000000000000000000
+          Size.Width = 76.000000000000000000
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -89,56 +93,60 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Text = 'Lar Telado?'
           TabOrder = 2
         end
-        object cbxTelas: TComboBox
-          Items.Strings = (
-            'Sim'
-            'N'#227'o')
-          ItemIndex = 0
-          Position.X = 138.000000000000000000
-          Position.Y = 22.000000000000000000
-          Size.Width = 97.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 13
-          object TFloatAnimation
-            Duration = 0.200000002980232200
-            PropertyName = 'ItemWidth'
-            StartValue = 0.000000000000000000
-            StopValue = 0.000000000000000000
-          end
-        end
-        object cbxTipoAnimal: TComboBox
-          Items.Strings = (
-            'Gato'
-            'Cachorro'
-            'Ambos')
-          ItemIndex = 0
-          Position.X = 234.000000000000000000
-          Position.Y = 22.000000000000000000
-          Size.Width = 101.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 26
-        end
         object Label10: TLabel
           StyledSettings = [Family]
           Margins.Left = 8.000000000000000000
           Margins.Top = 5.000000000000000000
           Margins.Right = 210.000000000000000000
-          Position.X = 234.000000000000000000
+          Position.X = 255.000000000000000000
           Position.Y = 1.000000000000000000
           Size.Width = 81.000000000000000000
           Size.Height = 21.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'Tipo de Animal'
+          Text = 'Tipo de Pet'
           TabOrder = 1
+        end
+        object cbxTelas: TComboEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 28
+          ItemHeight = 19.000000000000000000
+          Items.Strings = (
+            'N'#227'o'
+            'Sim')
+          ItemIndex = 0
+          Text = 'N'#227'o'
+          TextSettings.Font.Size = 13.000000000000000000
+          Position.X = 150.000000000000000000
+          Position.Y = 22.000000000000000000
+          StyledSettings = [Family, Style, FontColor]
+          Size.Width = 49.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object cbxTipoAnimal: TComboEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 27
+          ItemHeight = 19.000000000000000000
+          Items.Strings = (
+            'Cachorro'
+            'Gato'
+            'Ambos')
+          ItemIndex = 0
+          Text = 'Cachorro'
+          TextSettings.Font.Size = 13.000000000000000000
+          Position.X = 255.000000000000000000
+          Position.Y = 22.000000000000000000
+          StyledSettings = [Family, Style, FontColor]
+          Size.Width = 81.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
         end
       end
       object Layout3: TLayout
         Align = Top
-        Position.Y = 27.000000000000000000
+        Position.Y = 32.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -172,29 +180,16 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtNomeEnter
         end
       end
       object Layout6: TLayout
         Align = Top
-        Position.Y = 251.000000000000000000
+        Position.Y = 256.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 14
-        object edtCidade: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 9
-          Position.X = 40.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 40.000000000000000000
-          Margins.Right = 40.000000000000000000
-          Size.Width = 296.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-        end
         object Label7: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -211,10 +206,24 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Text = 'Cidade*'
           TabOrder = 1
         end
+        object cbxCidade: TComboEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Top
+          TabOrder = 9
+          ItemHeight = 19.000000000000000000
+          ItemIndex = -1
+          Position.X = 40.000000000000000000
+          Position.Y = 22.000000000000000000
+          Margins.Left = 40.000000000000000000
+          Margins.Right = 40.000000000000000000
+          Size.Width = 296.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
       end
       object Layout7: TLayout
         Align = Top
-        Position.Y = 195.000000000000000000
+        Position.Y = 144.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -248,6 +257,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtRuaEnter
         end
         object edtNumero: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -262,6 +272,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtNumeroEnter
         end
         object Label12: TLabel
           StyledSettings = [Family]
@@ -281,7 +292,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
       end
       object Layout8: TLayout
         Align = Top
-        Position.Y = 139.000000000000000000
+        Position.Y = 200.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -299,10 +310,10 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
-          Text = 'CEP'
-          TabOrder = 18
+          Text = 'Bairro*'
+          TabOrder = 17
         end
-        object edtCep: TEdit
+        object edtBairro: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Top
           StyleLookup = 'editstyle'
@@ -316,11 +327,12 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtBairroEnter
         end
       end
       object Layout9: TLayout
         Align = Top
-        Position.Y = 83.000000000000000000
+        Position.Y = 88.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -354,11 +366,12 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnEnter = edtTelefoneEnter
         end
       end
       object Layout5: TLayout
         Align = Top
-        Position.Y = 464.000000000000000000
+        Position.Y = 469.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
@@ -386,7 +399,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
       end
       object Layout10: TLayout
         Align = Top
-        Position.Y = 363.000000000000000000
+        Position.Y = 368.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 101.000000000000000000
         Size.PlatformDefault = False
@@ -404,6 +417,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Size.Height = 66.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
+          OnEnter = mmoInformacoesEnter
           Viewport.Width = 288.000000000000000000
           Viewport.Height = 58.000000000000000000
         end

@@ -10,7 +10,10 @@ uses
   Notificacao in 'Notificacao.pas',
   uFrmCadastroLarTemporario in 'uFrmCadastroLarTemporario.pas' {frmCadastroLarTemporario},
   uFrmCadastroAnimais in 'uFrmCadastroAnimais.pas' {frmCadastroAnimais},
-  u99Permissions in 'Units\u99Permissions.pas';
+  u99Permissions in 'Units\u99Permissions.pas',
+  uFrmPaginaBuscas in 'uFrmPaginaBuscas.pas' {frmPaginaBuscas},
+  Frame.AnimaisCadastrados in 'Frames\Frame.AnimaisCadastrados.pas' {FrameAnimaisCadastrados: TFrame},
+  uFunctions in 'Units\uFunctions.pas';
 
 {$R *.res}
 
@@ -22,5 +25,6 @@ begin
   Application.CreateForm(TfrmCadastroAnimais, frmCadastroAnimais);
   Application.CreateForm(TdtmServidor, dtmServidor);
   Application.CreateForm(TfrmPaginaInicial, frmPaginaInicial);
+  Application.CreateForm(TfrmPaginaBuscas, frmPaginaBuscas);
   Application.Run;
 end.

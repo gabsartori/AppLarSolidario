@@ -2,7 +2,7 @@ object frmCriarCadastro: TfrmCriarCadastro
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 597
+  ClientHeight = 560
   ClientWidth = 381
   Fill.Kind = Solid
   FormFactor.Width = 320
@@ -50,8 +50,8 @@ object frmCriarCadastro: TfrmCriarCadastro
               2BC03F7D69811FC533C40F957EF7E00000000049454E44AE426082}
           end>
         Align = Left
-        Margins.Left = 5.000000000000000000
-        Position.X = 5.000000000000000000
+        Margins.Left = 8.000000000000000000
+        Position.X = 8.000000000000000000
         Size.Width = 18.000000000000000000
         Size.Height = 55.000000000000000000
         Size.PlatformDefault = False
@@ -241,15 +241,15 @@ object frmCriarCadastro: TfrmCriarCadastro
   object VertScrollBox1: TVertScrollBox
     Align = Client
     Size.Width = 381.000000000000000000
-    Size.Height = 542.000000000000000000
+    Size.Height = 505.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 4
     Viewport.Width = 376.000000000000000000
-    Viewport.Height = 542.000000000000000000
+    Viewport.Height = 505.000000000000000000
     object Layout1: TLayout
       Align = Top
       Size.Width = 376.000000000000000000
-      Size.Height = 675.000000000000000000
+      Size.Height = 513.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object btnCriarConta: TRoundRect
@@ -282,6 +282,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         object Label8: TLabel
           Align = Top
           StyledSettings = []
+          Margins.Bottom = 5.000000000000000000
           Size.Width = 376.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
@@ -300,7 +301,7 @@ object frmCriarCadastro: TfrmCriarCadastro
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 16
+        TabOrder = 14
         object lblNome: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -333,48 +334,13 @@ object frmCriarCadastro: TfrmCriarCadastro
           OnEnter = edtNomeEnter
         end
       end
-      object Layout5: TLayout
+      object Layout6: TLayout
         Align = Top
         Position.Y = 86.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 15
-        object lblDtaNasc: TLabel
-          Align = Top
-          StyledSettings = [Family]
-          Margins.Left = 50.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 50.000000000000000000
-          Position.X = 50.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 276.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Data de Nascimento*'
-          TabOrder = 7
-        end
-        object edtDtaNascimento: TDateEdit
-          Date = 45579.000000000000000000
-          Position.X = 50.000000000000000000
-          Position.Y = 26.000000000000000000
-          Size.Width = 126.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-          TabOrder = 13
-          OnEnter = edtDtaNascimentoEnter
-        end
-      end
-      object Layout6: TLayout
-        Align = Top
-        Position.Y = 142.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 14
+        TabOrder = 13
         object lblTelefone: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -408,69 +374,13 @@ object frmCriarCadastro: TfrmCriarCadastro
           OnEnter = edtTelefoneEnter
         end
       end
-      object Layout7: TLayout
-        Align = Top
-        Position.Y = 198.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 13
-        object Label4: TLabel
-          Align = Top
-          StyledSettings = [Family]
-          Margins.Left = 50.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 50.000000000000000000
-          Position.X = 50.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 276.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'CEP'
-          TabOrder = 28
-        end
-        object edtCep: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 9
-          KeyboardType = NumberPad
-          Position.X = 50.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 50.000000000000000000
-          Margins.Right = 50.000000000000000000
-          Size.Width = 276.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-          OnEnter = edtCepEnter
-          OnExit = edtCepExit
-        end
-        object lblBuscandoCep: TLabel
-          StyledSettings = [Family]
-          Margins.Left = 200.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 10.000000000000000000
-          Position.X = 198.000000000000000000
-          Position.Y = 27.000000000000000000
-          Size.Width = 128.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Buscando CEP...'
-          TabOrder = 25
-        end
-      end
       object Layout8: TLayout
         Align = Top
-        Position.Y = 254.000000000000000000
+        Position.Y = 142.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 24
+        TabOrder = 21
         object lblRua: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -535,11 +445,11 @@ object frmCriarCadastro: TfrmCriarCadastro
       end
       object Layout9: TLayout
         Align = Top
-        Position.Y = 310.000000000000000000
+        Position.Y = 198.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 23
+        TabOrder = 20
         object lblBairro: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -574,11 +484,11 @@ object frmCriarCadastro: TfrmCriarCadastro
       end
       object Layout10: TLayout
         Align = Top
-        Position.Y = 534.000000000000000000
+        Position.Y = 366.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 22
+        TabOrder = 19
         object lblSenha: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -614,11 +524,11 @@ object frmCriarCadastro: TfrmCriarCadastro
       end
       object Layout11: TLayout
         Align = Top
-        Position.Y = 478.000000000000000000
+        Position.Y = 310.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 21
+        TabOrder = 18
         object lblEmail: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -651,52 +561,13 @@ object frmCriarCadastro: TfrmCriarCadastro
           OnEnter = edtEmailEnter
         end
       end
-      object Layout12: TLayout
-        Align = Top
-        Position.Y = 422.000000000000000000
-        Size.Width = 376.000000000000000000
-        Size.Height = 56.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 20
-        object lblEstado: TLabel
-          Align = Top
-          StyledSettings = [Family]
-          Margins.Left = 50.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 50.000000000000000000
-          Position.X = 50.000000000000000000
-          Position.Y = 5.000000000000000000
-          Size.Width = 276.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claDarkseagreen
-          Text = 'Estado'
-          TabOrder = 3
-        end
-        object edtEstado: TEdit
-          Touch.InteractiveGestures = [LongTap, DoubleTap]
-          Align = Top
-          StyleLookup = 'editstyle'
-          TabOrder = 19
-          Position.X = 50.000000000000000000
-          Position.Y = 22.000000000000000000
-          Margins.Left = 50.000000000000000000
-          Margins.Right = 50.000000000000000000
-          Size.Width = 276.000000000000000000
-          Size.Height = 32.000000000000000000
-          Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-          OnEnter = edtEstadoEnter
-        end
-      end
       object Layout13: TLayout
         Align = Top
-        Position.Y = 366.000000000000000000
+        Position.Y = 254.000000000000000000
         Size.Width = 376.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 19
+        TabOrder = 17
         object lblCidade: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -713,40 +584,22 @@ object frmCriarCadastro: TfrmCriarCadastro
           Text = 'Cidade*'
           TabOrder = 3
         end
-        object edtCidade: TEdit
+        object cbxCidade: TComboEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Top
-          StyleLookup = 'editstyle'
           TabOrder = 20
+          ItemHeight = 19.000000000000000000
+          ItemIndex = -1
           Position.X = 50.000000000000000000
           Position.Y = 22.000000000000000000
+          StyledSettings = [Family, Style, FontColor]
           Margins.Left = 50.000000000000000000
           Margins.Right = 50.000000000000000000
           Size.Width = 276.000000000000000000
           Size.Height = 32.000000000000000000
           Size.PlatformDefault = False
-          StyledSettings = [Family, Style, FontColor]
-          OnEnter = edtCidadeEnter
         end
       end
     end
-  end
-  object RESTRequest1: TRESTRequest
-    Client = RESTClient1
-    Params = <>
-    Response = RESTResponse1
-    SynchronizedEvents = False
-    Left = 488
-    Top = 64
-  end
-  object RESTClient1: TRESTClient
-    Params = <>
-    SynchronizedEvents = False
-    Left = 488
-    Top = 128
-  end
-  object RESTResponse1: TRESTResponse
-    Left = 488
-    Top = 192
   end
 end
