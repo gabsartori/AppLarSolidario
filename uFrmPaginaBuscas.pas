@@ -41,6 +41,9 @@ type
     Layout8: TLayout;
     Layout9: TLayout;
     Rectangle2: TRectangle;
+    lytNaoEncontrou: TLayout;
+    Label9: TLabel;
+    Image3: TImage;
 //    procedure AddAnimais(lb: TListBox; iCodAnimal: Integer; sNome, sTipo, sCor, sGenero, sCastrado,
 //                        sIdade, sResponsavel, sSituacao, sEndereco, sTelefone, sInformacoes: String);
     procedure ListarAnimais;
@@ -49,6 +52,7 @@ type
     procedure btnBuscarClick(Sender: TObject);
     procedure btnLimparFiltrosClick(Sender: TObject);
     procedure imgVoltarClick(Sender: TObject);
+    procedure LimparLista;
   private
     { Private declarations }
   public
@@ -106,7 +110,8 @@ end;
 
 procedure TfrmPaginaBuscas.FormShow(Sender: TObject);
 begin
-   lbAnimais.Items.Clear;
+   lytNaoEncontrou.Visible := False;
+   LimparLista;
    Rectangle2.Visible := False;
 end;
 
@@ -117,6 +122,24 @@ begin
    frmPaginaInicial.Show;
 end;
 
+procedure TfrmPaginaBuscas.LimparLista;
+var
+  i: Integer;
+begin
+   // Percorre os itens do ListBox e libera os Frames
+   for i := 0 to lbAnimais.Count - 1 do
+   begin
+     if lbAnimais.ListItems[i].TagObject is TFrame then
+     begin
+       // Libera o frame associado ao item, se houver
+       lbAnimais.ListItems[i].TagObject.Free;
+       lbAnimais.ListItems[i].TagObject := nil;
+     end;
+   end;
+   // Limpa todos os itens do ListBox
+   lbAnimais.Clear;
+end;
+
 procedure TfrmPaginaBuscas.ListarAnimais;
 var
    Frame : TFrameAnimaisCadastrados;
@@ -125,6 +148,7 @@ var
    i : Integer;
 begin
    try
+      lytNaoEncontrou.Visible := False;
       lbAnimais.Items.Clear;
 
       if (cbxCastrado.ItemIndex = 1) then
@@ -258,6 +282,10 @@ begin
              i := i + 1;
              dtmServidor.qryGeral.Next;
           end;
+      end
+      else
+      begin
+         lytNaoEncontrou.Visible := True;
       end;
    finally
 

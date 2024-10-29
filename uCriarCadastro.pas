@@ -320,16 +320,19 @@ end;
 
 procedure TfrmCriarCadastro.FormShow(Sender: TObject);
 begin
-   dtmServidor.qryGeral.Active := False;
-   dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
-   dtmServidor.qryGeral.Active := True;
-
-   while not dtmServidor.qryGeral.Eof do
+   if (cbxCidade.Items.Text = '') then
    begin
-      cbxCidade.Items.Add(dtmServidor.qryGeral.FieldByName('nome_cidade').AsString);
+      dtmServidor.qryGeral.Active := False;
+      dtmServidor.qryGeral.SQL.Clear;
+      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.Active := True;
 
-      dtmServidor.qryGeral.Next;
+      while not dtmServidor.qryGeral.Eof do
+      begin
+         cbxCidade.Items.Add(dtmServidor.qryGeral.FieldByName('nome_cidade').AsString);
+
+         dtmServidor.qryGeral.Next;
+      end;
    end;
 
    LimpaCampos(Sender);

@@ -20,6 +20,7 @@ type
     RESTClient1: TRESTClient;
     RESTResponse1: TRESTResponse;
     qryInsert: TFDQuery;
+    qryGeral2: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdConexaoAfterConnect(Sender: TObject);
   private

@@ -29,12 +29,13 @@ type
     Label2: TLabel;
     imgSair: TImage;
     Image1: TImage;
-    Image2: TImage;
+    Image3: TImage;
     procedure FormShow(Sender: TObject);
     procedure imgSairClick(Sender: TObject);
     procedure btnCadastrarLarClick(Sender: TObject);
     procedure btnCadastrarAnimaisClick(Sender: TObject);
     procedure btnBuscarAnimaisClick(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,7 +49,8 @@ implementation
 
 {$R *.fmx}
 
-uses uLogin, uFrmCadastroLarTemporario, uFrmCadastroAnimais, uFrmPaginaBuscas;
+uses uLogin, uFrmCadastroLarTemporario, uFrmCadastroAnimais, uFrmPaginaBuscas,
+  uPaginaConfiguracoes;
 
 procedure TfrmPaginaInicial.btnBuscarAnimaisClick(Sender: TObject);
 begin
@@ -68,6 +70,11 @@ end;
 procedure TfrmPaginaInicial.FormShow(Sender: TObject);
 begin
    lblUsuario.Text := 'Bem-Vindo(a) '+ frmLogin.sNomeUsuarioLogado +'!';
+end;
+
+procedure TfrmPaginaInicial.Image3Click(Sender: TObject);
+begin
+   frmPaginaConfiguracoes.Show;
 end;
 
 procedure TfrmPaginaInicial.imgSairClick(Sender: TObject);

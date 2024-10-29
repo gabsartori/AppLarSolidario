@@ -50,8 +50,8 @@ object frmCriarCadastro: TfrmCriarCadastro
               2BC03F7D69811FC533C40F957EF7E00000000049454E44AE426082}
           end>
         Align = Left
-        Margins.Left = 8.000000000000000000
-        Position.X = 8.000000000000000000
+        Margins.Left = 10.000000000000000000
+        Position.X = 10.000000000000000000
         Size.Width = 18.000000000000000000
         Size.Height = 55.000000000000000000
         Size.PlatformDefault = False

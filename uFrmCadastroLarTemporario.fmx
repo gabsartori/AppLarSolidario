@@ -52,7 +52,6 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           StyleLookup = 'editstyle'
           TabOrder = 11
           KeyboardType = NumberPad
-          Password = True
           Position.X = 40.000000000000000000
           Position.Y = 22.000000000000000000
           Margins.Left = 40.000000000000000000
@@ -212,8 +211,10 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           TabOrder = 9
           ItemHeight = 19.000000000000000000
           ItemIndex = -1
+          TextSettings.Font.Size = 13.000000000000000000
           Position.X = 40.000000000000000000
           Position.Y = 22.000000000000000000
+          StyledSettings = [Family, Style, FontColor]
           Margins.Left = 40.000000000000000000
           Margins.Right = 40.000000000000000000
           Size.Width = 296.000000000000000000
@@ -281,7 +282,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Margins.Right = 40.000000000000000000
           Position.X = 292.000000000000000000
           Position.Y = 3.000000000000000000
-          Size.Width = 43.000000000000000000
+          Size.Width = 48.000000000000000000
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -318,7 +319,6 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Align = Top
           StyleLookup = 'editstyle'
           TabOrder = 4
-          KeyboardType = NumberPad
           Position.X = 40.000000000000000000
           Position.Y = 22.000000000000000000
           Margins.Left = 40.000000000000000000
@@ -358,6 +358,7 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
           Align = Top
           StyleLookup = 'editstyle'
           TabOrder = 10
+          KeyboardType = NumberPad
           Position.X = 40.000000000000000000
           Position.Y = 22.000000000000000000
           Margins.Left = 40.000000000000000000
@@ -479,8 +480,8 @@ object frmCadastroLarTemporario: TfrmCadastroLarTemporario
               2BC03F7D69811FC533C40F957EF7E00000000049454E44AE426082}
           end>
         Align = Left
-        Margins.Left = 5.000000000000000000
-        Position.X = 5.000000000000000000
+        Margins.Left = 10.000000000000000000
+        Position.X = 10.000000000000000000
         Size.Width = 18.000000000000000000
         Size.Height = 55.000000000000000000
         Size.PlatformDefault = False

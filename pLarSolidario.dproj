@@ -338,6 +338,28 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="Units\uFunctions.pas"/>
+        <DCCReference Include="uPaginaConfiguracoes.pas">
+            <Form>frmPaginaConfiguracoes</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Frames\Frame.EditarLaresTemporarios.pas">
+            <Form>FrameEditarLaresTemporarios</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frames\Frame.EditarAnimais.pas">
+            <Form>FrameEditarAnimais</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="uFrmEdicaoLares.pas">
+            <Form>frmEdicaoLares</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uFrmEdicaoAnimais.pas">
+            <Form>frmEdicaoAnimais</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
