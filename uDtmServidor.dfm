@@ -43,4 +43,9 @@ object dtmServidor: TdtmServidor
     Left = 96
     Top = 81
   end
+  object qryUpdate: TFDQuery
+    Connection = fdConexao
+    Left = 97
+    Top = 136
+  end
 end

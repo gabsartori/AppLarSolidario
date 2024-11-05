@@ -38,7 +38,7 @@ implementation
 
 {$R *.fmx}
 
-uses Frame.EditarLaresTemporarios, uDtmServidor, uLogin, uPaginaConfiguracoes;
+uses Frame.EditarLaresTemporarios, uDtmServidor, uFrmLogin, uPaginaConfiguracoes;
 
 { TfrmEdicaoLares }
 
@@ -107,7 +107,7 @@ begin
              sNome := dtmServidor.qryGeral.FieldByName('nome_lar').AsString;
              sTipo := dtmServidor.qryGeral.FieldByName('tipo_animal').AsString;
              sSituacao := dtmServidor.qryGeral.FieldByName('situacao').AsString;
-             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Lar').AsString+', '+
+             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Lar').AsString + ', '+
                           dtmServidor.qryGeral.FieldByName('Des_Bairro_Lar').AsString + ', '+
                           dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString + ', '+
                           dtmServidor.qryGeral.FieldByName('uf').AsString;

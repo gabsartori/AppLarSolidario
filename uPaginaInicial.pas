@@ -49,7 +49,7 @@ implementation
 
 {$R *.fmx}
 
-uses uLogin, uFrmCadastroLarTemporario, uFrmCadastroAnimais, uFrmPaginaBuscas,
+uses uFrmLogin, uFrmCadastroLarTemporario, uFrmCadastroAnimais, uFrmPaginaBuscas,
   uPaginaConfiguracoes;
 
 procedure TfrmPaginaInicial.btnBuscarAnimaisClick(Sender: TObject);

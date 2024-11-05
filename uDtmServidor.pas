@@ -21,6 +21,7 @@ type
     RESTResponse1: TRESTResponse;
     qryInsert: TFDQuery;
     qryGeral2: TFDQuery;
+    qryUpdate: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdConexaoAfterConnect(Sender: TObject);
   private

@@ -166,11 +166,11 @@ begin
 
       if (cbxGenero.ItemIndex = 1) then
       begin
-         sSelectGenero := 'and a.Genero_Animal = ''Macho'' ';
+         sSelectGenero := 'and a.Genero_Animal = 1 ';
       end
       else if (cbxGenero.ItemIndex = 2) then
       begin
-         sSelectGenero := 'and a.Genero_Animal = ''Fêmea'' ';
+         sSelectGenero := 'and a.Genero_Animal = 2 ';
       end
       else
       begin
@@ -179,11 +179,11 @@ begin
 
       if (cbxTipoAnimal.ItemIndex = 1) then
       begin
-         sSelectTipo := 'and a.Tipo_Animal = ''Cachorro'' ';
+         sSelectTipo := 'and a.Tipo_Animal = 1 ';
       end
       else if (cbxTipoAnimal.ItemIndex = 2) then
       begin
-         sSelectTipo := 'and a.Tipo_Animal = ''Gato'' ';
+         sSelectTipo := 'and a.Tipo_Animal = 2 ';
       end
       else
       begin
@@ -200,10 +200,16 @@ begin
                                        '          WHEN a.ind_castrado = 1 THEN ''Sim'' '+
                                        '          ELSE ''Não''                         '+
                                        '        END AS castrado,                       '+
-                                       '        a.Tipo_Animal,                         '+
+                                       '        CASE                                   '+
+                                       '          WHEN a.Tipo_Animal = 1 THEN ''Cachorro'' '+
+                                       '          ELSE ''Gato''                         '+
+                                       '        END AS tipo_animal,                       '+
                                        '        a.Situacao_Animal,                     '+
                                        '        a.Des_Endereco_Animal,                 '+
-                                       '        a.Genero_Animal,                       '+
+                                       '        CASE                                   '+
+                                       '          WHEN a.Genero_Animal = 1 THEN ''Fêmea'' '+
+                                       '          ELSE ''Macho''                         '+
+                                       '        END AS Genero_Animal,                       '+
                                        '        a.Informacoes_Animal,                  '+
                                        '        a.Idade_Animal,                        '+
                                        '        a.Foto_Animal,                         '+

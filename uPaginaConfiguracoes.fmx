@@ -259,6 +259,7 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
         TextSettings.Font.Size = 16.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claDarkseagreen
+        TextSettings.HorzAlign = Center
         Text = 'Menu de Configura'#231#245'es'
         TabOrder = 0
       end
@@ -294,34 +295,6 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           Text = 'Perfil'
           TabOrder = 0
         end
-        object lblEditarPerfil: TLabel
-          Align = Top
-          StyledSettings = [Family, Style, FontColor]
-          Margins.Left = 10.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 10.000000000000000000
-          Position.X = 10.000000000000000000
-          Position.Y = 30.000000000000000000
-          Size.Width = 361.000000000000000000
-          Size.Height = 23.000000000000000000
-          Size.PlatformDefault = False
-          Text = 'Editar Perfil'
-          TabOrder = 1
-        end
-        object lblAlterarSenha: TLabel
-          Align = Top
-          StyledSettings = [Family, Style, FontColor]
-          Margins.Left = 10.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 10.000000000000000000
-          Position.X = 10.000000000000000000
-          Position.Y = 58.000000000000000000
-          Size.Width = 361.000000000000000000
-          Size.Height = 23.000000000000000000
-          Size.PlatformDefault = False
-          Text = 'Alterar Senha'
-          TabOrder = 2
-        end
         object Label3: TLabel
           Align = Top
           StyledSettings = [Family]
@@ -329,7 +302,7 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           Margins.Top = 10.000000000000000000
           Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
-          Position.Y = 127.000000000000000000
+          Position.Y = 125.000000000000000000
           Size.Width = 361.000000000000000000
           Size.Height = 23.000000000000000000
           Size.PlatformDefault = False
@@ -337,7 +310,7 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
           Text = 'Lares Tempor'#225'rios'
-          TabOrder = 3
+          TabOrder = 1
         end
         object Label2: TLabel
           Align = Top
@@ -346,7 +319,7 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           Margins.Top = 10.000000000000000000
           Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
-          Position.Y = 190.000000000000000000
+          Position.Y = 188.000000000000000000
           Size.Width = 361.000000000000000000
           Size.Height = 23.000000000000000000
           Size.PlatformDefault = False
@@ -354,35 +327,7 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claDarkseagreen
           Text = 'Pets'
-          TabOrder = 4
-        end
-        object lblDesativarConta: TLabel
-          Align = Top
-          StyledSettings = [Family, Style, FontColor]
-          Margins.Left = 10.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 10.000000000000000000
-          Position.X = 10.000000000000000000
-          Position.Y = 86.000000000000000000
-          Size.Width = 361.000000000000000000
-          Size.Height = 31.000000000000000000
-          Size.PlatformDefault = False
-          Text = 'Desativar Conta'
-          TabOrder = 5
-        end
-        object lblEditarPets: TLabel
-          Align = Top
-          StyledSettings = [Family, Style, FontColor]
-          Margins.Left = 10.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 10.000000000000000000
-          Position.X = 10.000000000000000000
-          Position.Y = 218.000000000000000000
-          Size.Width = 361.000000000000000000
-          Size.Height = 23.000000000000000000
-          Size.PlatformDefault = False
-          Text = 'Editar Pets'
-          TabOrder = 6
+          TabOrder = 2
         end
         object btnEditarLares: TButton
           Align = Top
@@ -391,15 +336,83 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           Margins.Top = 5.000000000000000000
           Margins.Right = 300.000000000000000000
           Position.X = 10.000000000000000000
-          Position.Y = 155.000000000000000000
+          Position.Y = 153.000000000000000000
           Size.Width = 71.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
-          TabOrder = 7
+          TabOrder = 3
           Text = 'Editar Lares'
           TextSettings.HorzAlign = Leading
           TintColor = claWhite
           OnClick = btnEditarLaresClick
+        end
+        object btnEditarAnimais: TButton
+          Align = Top
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 300.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 216.000000000000000000
+          Size.Width = 71.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          Text = 'Editar Pets'
+          TextSettings.HorzAlign = Leading
+          TintColor = claWhite
+          OnClick = btnEditarAnimaisClick
+        end
+        object btnAlterarSenha: TButton
+          Align = Top
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 290.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 60.000000000000000000
+          Size.Width = 81.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 5
+          Text = 'Alterar Senha'
+          TextSettings.HorzAlign = Leading
+          TintColor = claWhite
+          OnClick = btnAlterarSenhaClick
+        end
+        object btnDesativarConta: TButton
+          Align = Top
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 280.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 90.000000000000000000
+          Size.Width = 91.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 6
+          Text = 'Desativar Conta'
+          TextSettings.HorzAlign = Leading
+          TintColor = claWhite
+          OnClick = btnDesativarContaClick
+        end
+        object btnEditarPerfil: TButton
+          Align = Top
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 300.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 30.000000000000000000
+          Size.Width = 71.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 7
+          Text = 'Editar Perfil'
+          TextSettings.HorzAlign = Leading
+          TintColor = claWhite
+          OnClick = btnEditarPerfilClick
         end
       end
     end

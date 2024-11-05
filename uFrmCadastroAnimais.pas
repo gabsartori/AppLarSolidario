@@ -88,8 +88,10 @@ type
     foco: TControl;
     permissao: T99Permissions;
     procedure TratarErroPermissao(Sender: TObject);
+
   public
     { Public declarations }
+    sNumero: String;
   end;
 
   const
@@ -102,7 +104,7 @@ implementation
 
 {$R *.fmx}
 
-uses uDtmServidor, uLogin, uPaginaInicial, Notificacao , JSON, System.Net.HttpClient;
+uses uDtmServidor, uFrmLogin, uPaginaInicial, Notificacao , JSON, System.Net.HttpClient;
 
 procedure Ajustar_Scroll();
 var
@@ -156,6 +158,18 @@ begin
       Exit;
    end;
 
+   if (cbxTipoAnimal.ItemIndex = 0) then
+   begin
+      ShowMessage('Selecione uma opção de pet');
+      Exit;
+   end;
+
+   if (cbxGenero.ItemIndex = 0) then
+   begin
+      ShowMessage('Selecione uma opção de gênero');
+      Exit;
+   end;
+
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
    dtmServidor.qryGeral.SQL.Text := 'select * from cidades where nome_cidade = '''+cbxCidade.Text+'''';
@@ -198,15 +212,24 @@ begin
                                        '                     :Cod_Cidade,      '+
                                        '                     :Cod_Pessoa); ';
 
+      if (edtNumero.Text = '') then
+      begin
+         sNumero := 'S/N';
+      end
+      else
+      begin
+         sNumero := edtNumero.Text;
+      end;
+
       dtmServidor.qryInsert.ParamByName('Nome_Animal').AsString := edtNome.Text;
       dtmServidor.qryInsert.ParamByName('Idade_Animal').AsString := edtIdade.Text;
-      dtmServidor.qryInsert.ParamByName('Genero_Animal').AsString := cbxGenero.Text;
+      dtmServidor.qryInsert.ParamByName('Genero_Animal').AsInteger := cbxGenero.ItemIndex;
       dtmServidor.qryInsert.ParamByName('Cor_Pelagem').AsString := edtCorPelagem.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Endereco_Animal').AsString := edtRua.Text +', '+edtNumero.Text;
+      dtmServidor.qryInsert.ParamByName('Des_Endereco_Animal').AsString := edtRua.Text +','+ sNumero;
       dtmServidor.qryInsert.ParamByName('Des_Bairro_Animal').AsString := edtBairro.Text;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
       dtmServidor.qryInsert.ParamByName('Cod_Cidade').AsInteger := iCodCidade;
-      dtmServidor.qryInsert.ParamByName('Tipo_Animal').AsString := cbxTipoAnimal.Text;
+      dtmServidor.qryInsert.ParamByName('Tipo_Animal').AsInteger := cbxTipoAnimal.ItemIndex;
       dtmServidor.qryInsert.ParamByName('Ind_Ativo').AsString := '1';
       dtmServidor.qryInsert.ParamByName('Ind_Castrado').AsInteger := cbxCastrado.ItemIndex;
 

@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListBox;
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListBox, Data.DB;
 
 type
   TfrmEdicaoAnimais = class(TForm)
@@ -35,7 +35,7 @@ implementation
 
 {$R *.fmx}
 
-uses uDtmServidor, Frame.EditarAnimais, uLogin;
+uses uDtmServidor, Frame.EditarAnimais, uFrmLogin, uFunctions;
 
 { TfrmEdicaoAnimais }
 
@@ -90,6 +90,7 @@ begin
                                                ' from cidades                                                                '+
                                                ' where cod_cidade = '+ dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
              dtmServidor.qryGeral2.Active := True;
+
              sCodAnimal := dtmServidor.qryGeral.FieldByName('cod_animal').AsString;
              sNome := dtmServidor.qryGeral.FieldByName('nome_animal').AsString;
              sTipo := dtmServidor.qryGeral.FieldByName('tipo_animal').AsString;
@@ -99,26 +100,28 @@ begin
              sIdade := dtmServidor.qryGeral.FieldByName('idade_animal').AsString;
              sResponsavel := dtmServidor.qryGeral.FieldByName('Nome_Pessoa').AsString;
              sSituacao := dtmServidor.qryGeral.FieldByName('situacao_animal').AsString;
-             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
+             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString + ', '+
+                          dtmServidor.qryGeral.FieldByName('Des_Birro_Animal').AsString + ', '+
+                          dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString + ', '+
+                          dtmServidor.qryGeral.FieldByName('uf').AsString;
              sTelefone := dtmServidor.qryGeral.FieldByName('telefone_pessoa').AsString;
              sInformacoes := dtmServidor.qryGeral.FieldByName('informacoes_animal').AsString;
 
-             Frame := TFrameAnimaisCadastrados.Create(Self);
+             Frame := TFrameEditarAnimais.Create(Self);
              Frame.Tag := StrToInt(sCodAnimal);
-             Frame.Parent := vbsListaAnimais;
+             Frame.Parent := vbsAnimais;
              frame.align := TAlignLayout.Top;
              Frame.Name := 'Frame_' + sCodAnimal + '_' + IntToStr(i); // Definir um nome único para cada frame
              Frame.Visible := True;
              frame.Margins.Top := 2; // Margem superior
              frame.Margins.Bottom := 2; // Margem inferior
 
+             Frame.lblCodAnimal.Text := sCodAnimal;
              Frame.lblNome.text := sNome;
              Frame.lblCor.Text := Frame.lblCor.Text + ' ' + sCor;
              Frame.lblTipo.Text := Frame.lblTipo.Text + ' ' + sTipo;
              Frame.lblGenero.Text := Frame.lblGenero.Text + ' ' + sGenero;
-             Frame.lblResponsavel.Text := Frame.lblResponsavel.Text + ' ' + sResponsavel;
              Frame.lblEndereco.Text := Frame.lblEndereco.Text + ' ' + sEndereco;
-             Frame.lblTelefone.Text := Frame.lblTelefone.Text + ' ' + sTelefone;
 
              if (sInformacoes <> '') then
              begin
@@ -141,9 +144,9 @@ begin
              end;
 
              // Se o conteúdo do frame for maior que o ScrollBox, ajuste a altura do ScrollBox
-             if frame.Height > vbsListaAnimais.Height then
+             if frame.Height > vbsAnimais.Height then
              begin
-                vbsListaAnimais.Height := frame.Height;
+                vbsAnimais.Height := frame.Height;
              end;
 
              i := i + 1;

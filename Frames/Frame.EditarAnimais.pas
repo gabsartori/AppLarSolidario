@@ -23,6 +23,7 @@ type
     RoundRect1: TRoundRect;
     Label1: TLabel;
     lblDesativar: TLabel;
+    lblCodAnimal: TLabel;
   private
     { Private declarations }
   public

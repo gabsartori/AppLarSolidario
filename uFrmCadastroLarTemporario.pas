@@ -70,10 +70,11 @@ type
     foco: TControl;
   public
     { Public declarations }
+    sNumero: String;
   end;
 
-  const
-  _URL_CONSULTAR_CEP = 'https://brasilapi.com.br/api/cep/v1/%s';
+//  const
+//  _URL_CONSULTAR_CEP = 'https://brasilapi.com.br/api/cep/v1/%s';
 var
   frmCadastroLarTemporario: TfrmCadastroLarTemporario;
 
@@ -160,10 +161,19 @@ begin
                                         ' 				          	  		:Cod_Pessoa,       '+
                                         '                           :Cod_Cidade);      ';
 
+      if (edtNumero.Text = '') then
+      begin
+         sNumero := 'S/N';
+      end
+      else
+      begin
+         sNumero := edtNumero.Text;
+      end;
+
       dtmServidor.qryInsert.ParamByName('Nome_Lar').AsString := edtNome.Text;
       dtmServidor.qryInsert.ParamByName('Telefone_Lar').AsString := edtTelefone.Text;
       dtmServidor.qryInsert.ParamByName('Des_Bairro_Lar').AsString := edtBairro.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +', '+edtNumero.Text;
+      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +','sNumero;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
       dtmServidor.qryInsert.ParamByName('Qtd_Animais').AsString := edtQuantidade.Text;
       dtmServidor.qryInsert.ParamByName('Ind_Telas').AsInteger := cbxTelas.ItemIndex;
@@ -191,7 +201,7 @@ begin
       TLoading.ToastMessage(frmCadastroLarTemporario,
                             'Cadastrado com sucesso!',
                              $FF22AF70,
-                             TAlignLayout.Bottom);
+                             TAlignLayout.Top);
       LimpaCampos(Sender);
    end;
 end;

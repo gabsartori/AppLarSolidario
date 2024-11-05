@@ -301,7 +301,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="uLogin.pas">
+        <DCCReference Include="uFrmLogin.pas">
             <Form>frmLogin</Form>
             <FormType>fmx</FormType>
         </DCCReference>
@@ -338,10 +338,6 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="Units\uFunctions.pas"/>
-        <DCCReference Include="uPaginaConfiguracoes.pas">
-            <Form>frmPaginaConfiguracoes</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
         <DCCReference Include="Frames\Frame.EditarLaresTemporarios.pas">
             <Form>FrameEditarLaresTemporarios</Form>
             <FormType>fmx</FormType>
@@ -358,6 +354,22 @@
         </DCCReference>
         <DCCReference Include="uFrmEdicaoAnimais.pas">
             <Form>frmEdicaoAnimais</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uFrmEditarCadastro.pas">
+            <Form>frmEditarCadastro</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uFrmAlterarSenha.pas">
+            <Form>frmAlterarSenha</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uFrmEditarAnimais.pas">
+            <Form>frmEditarAnimais</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uPaginaConfiguracoes.pas">
+            <Form>frmPaginaConfiguracoes</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">
