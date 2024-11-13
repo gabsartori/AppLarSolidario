@@ -401,24 +401,53 @@ object frmAlterarSenha: TfrmAlterarSenha
           Size.Height = 56.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 10
-          object btnCriarConta: TRoundRect
+          object Layout8: TLayout
             Align = Center
-            Fill.Color = claDarkseagreen
-            Size.Width = 161.000000000000000000
+            Size.Width = 315.000000000000000000
             Size.Height = 34.000000000000000000
             Size.PlatformDefault = False
-            Stroke.Color = claWhite
-            OnClick = btnCriarContaClick
-            object Label9: TLabel
-              Align = Center
-              StyledSettings = [Family, Style]
-              Size.Width = 72.000000000000000000
-              Size.Height = 17.000000000000000000
+            TabOrder = 21
+            object btnCancelar: TRoundRect
+              Align = Right
+              Fill.Color = claTomato
+              Position.X = 173.000000000000000000
+              Size.Width = 142.000000000000000000
+              Size.Height = 34.000000000000000000
               Size.PlatformDefault = False
-              TextSettings.Font.Size = 16.000000000000000000
-              TextSettings.FontColor = claWhite
-              Text = 'Confirmar'
-              TabOrder = 0
+              Stroke.Color = claWhite
+              OnClick = btnCancelarClick
+              object Label4: TLabel
+                Align = Center
+                StyledSettings = [Family, Style]
+                Size.Width = 118.000000000000000000
+                Size.Height = 17.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 16.000000000000000000
+                TextSettings.FontColor = claWhite
+                TextSettings.HorzAlign = Center
+                Text = 'Cancelar'
+                TabOrder = 0
+              end
+            end
+            object btnCriarConta: TRoundRect
+              Align = Left
+              Fill.Color = claDarkseagreen
+              Size.Width = 142.000000000000000000
+              Size.Height = 34.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = claWhite
+              OnClick = btnCriarContaClick
+              object Label9: TLabel
+                Align = Center
+                StyledSettings = [Family, Style]
+                Size.Width = 72.000000000000000000
+                Size.Height = 17.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 16.000000000000000000
+                TextSettings.FontColor = claWhite
+                Text = 'Confirmar'
+                TabOrder = 0
+              end
             end
           end
         end

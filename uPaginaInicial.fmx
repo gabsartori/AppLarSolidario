@@ -169,7 +169,6 @@ object frmPaginaInicial: TfrmPaginaInicial
       end
       object Image3: TImage
         MultiResBitmap.Height = 32
-        MultiResBitmap.Width = 32
         MultiResBitmap = <
           item
             Width = 32
@@ -226,8 +225,8 @@ object frmPaginaInicial: TfrmPaginaInicial
           end>
         Align = Right
         Margins.Right = 10.000000000000000000
-        Position.X = 341.000000000000000000
-        Size.Width = 30.000000000000000000
+        Position.X = 339.000000000000000000
+        Size.Width = 32.000000000000000000
         Size.Height = 55.000000000000000000
         Size.PlatformDefault = False
         OnClick = Image3Click

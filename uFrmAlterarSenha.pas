@@ -30,12 +30,16 @@ type
     Layout7: TLayout;
     btnCriarConta: TRoundRect;
     Label9: TLabel;
+    Layout8: TLayout;
+    btnCancelar: TRoundRect;
+    Label4: TLabel;
     procedure edtSenhaAtualExit(Sender: TObject);
     procedure edtSenhaNovaExit(Sender: TObject);
     procedure btnCriarContaClick(Sender: TObject);
     procedure LimparCampos(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edtConfirmarSenhaExit(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,7 +53,13 @@ implementation
 
 {$R *.fmx}
 
-uses uFrmLogin, uDtmServidor, uCriarCadastro, Notificacao;
+uses uFrmLogin, uDtmServidor, uCriarCadastro, Notificacao, uPaginaConfiguracoes;
+
+procedure TfrmAlterarSenha.btnCancelarClick(Sender: TObject);
+begin
+   LimparCampos(Sender);
+   frmPaginaConfiguracoes.Show;
+end;
 
 procedure TfrmAlterarSenha.btnCriarContaClick(Sender: TObject);
 begin
@@ -73,18 +83,18 @@ begin
                 dtmServidor.fdConexao.Commit;
              end;
          except
-            TLoading.ToastMessage(frmCriarCadastro,
-                               'Não foi possível realizar as alterações!',
-                                $FFFA3F3F,
-                                TAlignLayout.Top);
+            TLoading.ToastMessage(frmAlterarSenha,
+                                 'Não foi possível realizar as alterações!',
+                                  $FFFA3F3F,
+                                  TAlignLayout.Top);
             Exit;
          end;
 
       finally
-         TLoading.ToastMessage(frmCriarCadastro,
-                          'Senha alterada com sucesso',
-                           $FF22AF70,
-                           TAlignLayout.Top);
+         TLoading.ToastMessage(frmAlterarSenha,
+                              'Senha alterada com sucesso',
+                               $FF22AF70,
+                               TAlignLayout.Top);
 
          LimparCampos(Sender);
          frmAlterarSenha.Close;

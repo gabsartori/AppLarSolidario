@@ -7,13 +7,12 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.Layouts, FMX.ExtCtrls,
   FMX.ListBox, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, FMX.Ani, REST.Types,
-  FMX.ComboEdit;
+  FMX.ComboEdit, System.ImageList, FMX.ImgList;
 
 type
   TfrmCadastroLarTemporario = class(TForm)
     Layout2: TLayout;
     Rectangle1: TRectangle;
-    imgVoltar: TImage;
     Image1: TImage;
     Image2: TImage;
     VertScrollBox1: TVertScrollBox;
@@ -49,8 +48,9 @@ type
     cbxTipoAnimal: TComboEdit;
     cbxCidade: TComboEdit;
     edtBairro: TEdit;
+    ImageList1: TImageList;
+    btnVoltar: TButton;
     procedure btnCriarContaClick(Sender: TObject);
-    procedure imgVoltarClick(Sender: TObject);
     procedure LimpaCampos(Sender: TObject);
   //  procedure edtCepExit(Sender: TObject);
     procedure edtNomeEnter(Sender: TObject);
@@ -65,6 +65,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormVirtualKeyboardHidden(Sender: TObject;
       KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure btnVoltarClick(Sender: TObject);
   private
     { Private declarations }
     foco: TControl;
@@ -82,7 +83,7 @@ implementation
 
 {$R *.fmx}
 
-uses Notificacao, uDtmServidor, uLogin, uPaginaInicial, JSON, System.Net.HttpClient;
+uses Notificacao, uDtmServidor, uFrmLogin, uPaginaInicial, JSON, System.Net.HttpClient;
 
 procedure Ajustar_Scroll();
 var
@@ -173,7 +174,7 @@ begin
       dtmServidor.qryInsert.ParamByName('Nome_Lar').AsString := edtNome.Text;
       dtmServidor.qryInsert.ParamByName('Telefone_Lar').AsString := edtTelefone.Text;
       dtmServidor.qryInsert.ParamByName('Des_Bairro_Lar').AsString := edtBairro.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +','sNumero;
+      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +','+sNumero;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
       dtmServidor.qryInsert.ParamByName('Qtd_Animais').AsString := edtQuantidade.Text;
       dtmServidor.qryInsert.ParamByName('Ind_Telas').AsInteger := cbxTelas.ItemIndex;
@@ -204,6 +205,12 @@ begin
                              TAlignLayout.Top);
       LimpaCampos(Sender);
    end;
+end;
+
+procedure TfrmCadastroLarTemporario.btnVoltarClick(Sender: TObject);
+begin
+   LimpaCampos(Sender);
+   frmPaginaInicial.Show;
 end;
 
 procedure TfrmCadastroLarTemporario.cbxTelasEnter(Sender: TObject);
@@ -315,12 +322,6 @@ procedure TfrmCadastroLarTemporario.FormVirtualKeyboardHidden(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);
 begin
    VertScrollBox1.Margins.Bottom := 0;
-end;
-
-procedure TfrmCadastroLarTemporario.imgVoltarClick(Sender: TObject);
-begin
-   LimpaCampos(Sender);
-   frmPaginaInicial.Show;
 end;
 
 procedure TfrmCadastroLarTemporario.LimpaCampos(Sender: TObject);

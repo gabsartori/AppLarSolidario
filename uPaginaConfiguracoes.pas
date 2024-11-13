@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, REST.Types,
   REST.Client, Data.Bind.Components, Data.Bind.ObjectScope,
   FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls, FMX.Layouts, FMX.ExtCtrls,
-  FMX.Objects, FMX.DialogService;
+  FMX.Objects, FMX.DialogService, System.ImageList, FMX.ImgList;
 
 type
   TfrmPaginaConfiguracoes = class(TForm)
@@ -15,7 +15,6 @@ type
     Rectangle1: TRectangle;
     lblMenu: TLabel;
     Layout2: TLayout;
-    imgSair: TImage;
     Image1: TImage;
     Image3: TImage;
     VertScrollBox1: TVertScrollBox;
@@ -28,13 +27,15 @@ type
     btnAlterarSenha: TButton;
     btnDesativarConta: TButton;
     btnEditarPerfil: TButton;
-    procedure imgSairClick(Sender: TObject);
+    btnVoltar: TButton;
+    ImageList1: TImageList;
     procedure btnEditarLaresClick(Sender: TObject);
     procedure btnEditarAnimaisClick(Sender: TObject);
     procedure btnEditarPerfilClick(Sender: TObject);
     procedure btnAlterarSenhaClick(Sender: TObject);
     procedure ConfirmarInativacao;
     procedure btnDesativarContaClick(Sender: TObject);
+    procedure btnVoltarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -71,6 +72,11 @@ begin
    frmEditarCadastro.Show;
 end;
 
+procedure TfrmPaginaConfiguracoes.btnVoltarClick(Sender: TObject);
+begin
+   frmPaginaInicial.Show;
+end;
+
 procedure TfrmPaginaConfiguracoes.btnDesativarContaClick(Sender: TObject);
 begin
    ConfirmarInativacao;
@@ -105,7 +111,7 @@ begin
                       dtmServidor.fdConexao.Commit;
                    end;
                except
-                  TLoading.ToastMessage(frmCriarCadastro,
+                  TLoading.ToastMessage(frmPaginaConfiguracoes,
                                      'Não foi possível realizar a operação!',
                                       $FFFA3F3F,
                                       TAlignLayout.Top);
@@ -113,7 +119,7 @@ begin
                end;
 
            finally
-               TLoading.ToastMessage(frmCriarCadastro,
+               TLoading.ToastMessage(frmPaginaConfiguracoes,
                                 'Conta inativada com sucesso',
                                  $FF22AF70,
                                  TAlignLayout.Top);
@@ -128,11 +134,6 @@ begin
          end;
        end
    );
-end;
-
-procedure TfrmPaginaConfiguracoes.imgSairClick(Sender: TObject);
-begin
-   frmPaginaInicial.Show;
 end;
 
 end.

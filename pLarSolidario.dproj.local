@@ -8,11 +8,11 @@
     <Transaction>2024/07/10 21:58:36.000.499,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\pTeste.dproj=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2024/07/11 01:46:45.000.484,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/07/11 02:43:18.000.333,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\pTeste.dproj=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\pProjetoFinal.dproj</Transaction>
-    <Transaction>2024/07/11 02:43:29.000.921,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uTeste.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uLogin.pas</Transaction>
     <Transaction>2024/07/11 02:43:29.000.921,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uTeste.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uLogin.fmx</Transaction>
+    <Transaction>2024/07/11 02:43:29.000.921,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uTeste.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uLogin.pas</Transaction>
     <Transaction>2024/07/11 02:49:00.000.241,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/07/11 02:49:58.000.912,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uCriarCadastro.pas</Transaction>
     <Transaction>2024/07/11 02:49:58.000.912,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uCriarCadastro.fmx</Transaction>
+    <Transaction>2024/07/11 02:49:58.000.912,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uCriarCadastro.pas</Transaction>
     <Transaction>2024/07/15 22:06:53.000.575,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/07/15 22:14:51.000.478,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uPaginaInicial.pas</Transaction>
     <Transaction>2024/07/15 22:14:51.000.478,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uPaginaInicial.fmx</Transaction>
@@ -22,18 +22,18 @@
     <Transaction>2024/09/04 20:43:01.000.015,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uDtmServidor.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/09/22 13:30:13.000.182,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Notificacao.pas</Transaction>
     <Transaction>2024/09/22 21:56:41.000.885,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/09/22 22:32:00.000.660,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uFrmCadastroLarTemporario.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
     <Transaction>2024/09/22 22:32:00.000.660,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uFrmCadastroLarTemporario.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/09/22 22:32:00.000.660,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uFrmCadastroLarTemporario.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
     <Transaction>2024/10/01 20:13:38.000.876,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/10/07 23:12:22.000.469,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uFrmCadastroAnimais.pas</Transaction>
     <Transaction>2024/10/07 23:12:22.000.469,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\uFrmCadastroAnimais.fmx</Transaction>
     <Transaction>2024/10/10 22:25:23.000.026,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Units\u99Permissions.pas</Transaction>
     <Transaction>2024/10/15 20:28:46.000.693,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
     <Transaction>2024/10/15 20:42:18.000.499,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit2.pas</Transaction>
-    <Transaction>2024/10/15 20:43:12.000.000,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit2.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.AnimaisCadastrados.pas</Transaction>
     <Transaction>2024/10/15 20:43:12.000.000,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit2.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.AnimaisCadastrados.fmx</Transaction>
-    <Transaction>2024/10/15 20:43:26.000.379,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.pas</Transaction>
+    <Transaction>2024/10/15 20:43:12.000.000,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit2.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.AnimaisCadastrados.pas</Transaction>
     <Transaction>2024/10/15 20:43:26.000.379,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.fmx</Transaction>
+    <Transaction>2024/10/15 20:43:26.000.379,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.pas</Transaction>
     <Transaction>2024/10/20 02:40:09.000.371,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Units\uFunctions.pas</Transaction>
     <Transaction>2024/10/27 00:32:51.000.960,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas</Transaction>
     <Transaction>2024/10/27 01:14:17.000.949,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
@@ -48,31 +48,34 @@
     <Transaction>2024/10/27 15:13:18.000.357,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEdicaoLares.pas</Transaction>
     <Transaction>2024/10/27 15:13:18.000.357,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEdicaoLares.fmx</Transaction>
     <Transaction>2024/10/27 22:20:15.000.631,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/10/27 22:34:47.000.529,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEdicaoAnimais.pas</Transaction>
     <Transaction>2024/10/27 22:34:47.000.529,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEdicaoAnimais.fmx</Transaction>
-    <Transaction>2024/11/03 00:34:54.997,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmLogin.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uLogin.pas</Transaction>
+    <Transaction>2024/10/27 22:34:47.000.529,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEdicaoAnimais.pas</Transaction>
     <Transaction>2024/11/03 00:34:54.997,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmLogin.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uLogin.fmx</Transaction>
-    <Transaction>2024/11/03 00:35:04.365,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas</Transaction>
+    <Transaction>2024/11/03 00:34:54.997,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmLogin.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uLogin.pas</Transaction>
     <Transaction>2024/11/03 00:35:04.365,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.fmx</Transaction>
-    <Transaction>2024/11/03 00:37:14.006,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaBuscas.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.fmx</Transaction>
+    <Transaction>2024/11/03 00:35:04.365,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas</Transaction>
     <Transaction>2024/11/03 00:37:14.006,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaBuscas.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.pas</Transaction>
-    <Transaction>2024/11/03 00:37:29.491,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaBuscas.pas</Transaction>
+    <Transaction>2024/11/03 00:37:14.006,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaBuscas.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.fmx</Transaction>
     <Transaction>2024/11/03 00:37:29.491,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaBuscas.fmx</Transaction>
+    <Transaction>2024/11/03 00:37:29.491,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaBuscas.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaBuscas.pas</Transaction>
     <Transaction>2024/11/03 00:37:42.176,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.fmx</Transaction>
     <Transaction>2024/11/03 00:37:42.176,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.pas</Transaction>
-    <Transaction>2024/11/03 00:38:02.034,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas</Transaction>
     <Transaction>2024/11/03 00:38:02.034,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.fmx</Transaction>
+    <Transaction>2024/11/03 00:38:02.034,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas</Transaction>
     <Transaction>2024/11/03 00:52:28.845,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/03 00:59:30.026,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarCadastro.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
     <Transaction>2024/11/03 00:59:30.026,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarCadastro.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
+    <Transaction>2024/11/03 00:59:30.026,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarCadastro.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
     <Transaction>2024/11/03 21:58:59.523,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/03 22:21:04.241,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmAlterarSenha.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
     <Transaction>2024/11/03 22:21:04.241,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmAlterarSenha.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/03 22:21:04.241,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmAlterarSenha.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
     <Transaction>2024/11/04 21:37:22.717,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/04 21:49:23.484,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarAnimais.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
     <Transaction>2024/11/04 21:49:23.484,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarAnimais.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
-    <Transaction>2024/11/04 22:42:14.405,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.pas</Transaction>
+    <Transaction>2024/11/04 21:49:23.484,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarAnimais.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
     <Transaction>2024/11/04 22:42:14.405,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.fmx</Transaction>
+    <Transaction>2024/11/04 22:42:14.405,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uPaginaConfiguracoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmPaginaConfiguracoes.pas</Transaction>
+    <Transaction>2024/11/10 00:14:27.549,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/10 00:20:16.752,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarLarTemporario.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
+    <Transaction>2024/11/10 00:20:16.752,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarLarTemporario.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile Android64="" Android=""/>
@@ -272,5 +275,7 @@
     <File Path="uFrmAlterarSenha.fmx"/>
     <File Path="uFrmEditarAnimais.pas"/>
     <File Path="uFrmEditarAnimais.fmx"/>
+    <File Path="uFrmEditarLarTemporario.pas"/>
+    <File Path="uFrmEditarLarTemporario.fmx"/>
   </ProjectSortOrder>
 </BorlandProject>

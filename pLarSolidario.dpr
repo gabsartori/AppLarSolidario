@@ -21,7 +21,8 @@ uses
   uFrmEditarCadastro in 'uFrmEditarCadastro.pas' {frmEditarCadastro},
   uFrmAlterarSenha in 'uFrmAlterarSenha.pas' {frmAlterarSenha},
   uFrmEditarAnimais in 'uFrmEditarAnimais.pas' {frmEditarAnimais},
-  uPaginaConfiguracoes in 'uPaginaConfiguracoes.pas' {frmPaginaConfiguracoes};
+  uPaginaConfiguracoes in 'uPaginaConfiguracoes.pas' {frmPaginaConfiguracoes},
+  uFrmEditarLarTemporario in 'uFrmEditarLarTemporario.pas' {frmEditarLarTemporario};
 
 {$R *.res}
 
@@ -41,5 +42,6 @@ begin
   Application.CreateForm(TfrmAlterarSenha, frmAlterarSenha);
   Application.CreateForm(TfrmEditarAnimais, frmEditarAnimais);
   Application.CreateForm(TfrmPaginaConfiguracoes, frmPaginaConfiguracoes);
+  Application.CreateForm(TfrmEditarLarTemporario, frmEditarLarTemporario);
   Application.Run;
 end.

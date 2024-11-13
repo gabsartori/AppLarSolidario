@@ -5,13 +5,13 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.Layouts, FMX.ComboEdit, FMX.Edit, FMX.Controls.Presentation, FMX.StdCtrls;
+  FMX.Layouts, FMX.ComboEdit, FMX.Edit, FMX.Controls.Presentation, FMX.StdCtrls,
+  System.ImageList, FMX.ImgList;
 
 type
   TfrmEditarCadastro = class(TForm)
     Layout2: TLayout;
     Rectangle1: TRectangle;
-    imgVoltar: TImage;
     Image1: TImage;
     Image2: TImage;
     VertScrollBox1: TVertScrollBox;
@@ -43,10 +43,15 @@ type
     btnCancelar: TRoundRect;
     Label2: TLabel;
     Layout5: TLayout;
+    btnVoltar: TButton;
+    ImageList1: TImageList;
     function ExtrairNumeroAposVirgula(const Texto: string): string;
     procedure FormShow(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnAlterarCadastroClick(Sender: TObject);
+    procedure Label9Click(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
+    procedure btnVoltarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -75,7 +80,8 @@ begin
                                         '     DES_RUA = :DES_RUA, '+
                                         '     DES_BAIRRO = :DES_BAIRRO, '+
                                         '     EMAIL_PESSOA = :EMAIL_PESSOA, '+
-                                        '     COD_CIDADE = :COD_CIDADE '+
+                                        '     COD_CIDADE = :COD_CIDADE, '+
+                                        '     UF = :UF '+
                                         ' WHERE COD_PESSOA = :COD_PESSOA ';
 
       dtmServidor.qryUpdate.Params.ParamByName('NOME_PESSOA').AsString := edtNome.Text;
@@ -86,12 +92,13 @@ begin
 
       dtmServidor.qryGeral2.Active := False;
       dtmServidor.qryGeral2.SQL.Clear;
-      dtmServidor.qryGeral2.SQL.Text := ' SELECT COD_CIDADE '+
+      dtmServidor.qryGeral2.SQL.Text := ' SELECT COD_CIDADE, UF '+
                                         ' FROM CIDADES       '+
                                         ' WHERE NOME_CIDADE = '+cbxCidade.Text;
       dtmServidor.qryGeral2.Active := True;
 
       dtmServidor.qryUpdate.Params.ParamByName('COD_CIDADE').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
+      dtmServidor.qryUpdate.Params.ParamByName('UF').AsString := dtmServidor.qryGeral2.FieldByName('UF').AsString;
       dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
 
       dtmServidor.qryInsert.ExecSQL;
@@ -131,6 +138,11 @@ begin
 end;
 
 procedure TfrmEditarCadastro.btnCancelarClick(Sender: TObject);
+begin
+   frmPaginaConfiguracoes.Show;
+end;
+
+procedure TfrmEditarCadastro.btnVoltarClick(Sender: TObject);
 begin
    frmPaginaConfiguracoes.Show;
 end;
@@ -186,6 +198,16 @@ begin
    edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro').AsString;
    cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
    edtEmail.Text := dtmServidor.qryGeral.FieldByName('Email_Pessoa').AsString;
+end;
+
+procedure TfrmEditarCadastro.Label2Click(Sender: TObject);
+begin
+   btnCancelarClick(Sender);
+end;
+
+procedure TfrmEditarCadastro.Label9Click(Sender: TObject);
+begin
+   btnAlterarCadastroClick(Sender);
 end;
 
 end.

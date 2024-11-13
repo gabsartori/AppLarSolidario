@@ -25,6 +25,8 @@ type
     procedure ListarLares;
     procedure FormShow(Sender: TObject);
     procedure btnVoltarClick(Sender: TObject);
+    procedure LimpaTodosFramesEditarLares;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -42,10 +44,22 @@ uses Frame.EditarLaresTemporarios, uDtmServidor, uFrmLogin, uPaginaConfiguracoes
 
 { TfrmEdicaoLares }
 
+procedure TfrmEdicaoLares.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+   LimpaTodosFramesEditarLares
+end;
+
 procedure TfrmEdicaoLares.FormShow(Sender: TObject);
 begin
    lytNaoEncontrou.Visible := False;
-   ListarLares;
+   if not Assigned(frmEdicaoLares) then
+   begin
+      Application.CreateForm(TfrmEdicaoLares, frmEdicaoLares);
+
+      LimpaTodosFramesEditarLares;
+      ListarLares;
+      frmEdicaoLares.Show;
+   end;
 end;
 
 procedure TfrmEdicaoLares.btnVoltarClick(Sender: TObject);
@@ -53,6 +67,21 @@ begin
    lbLaresTemporarios.Clear;
    frmEdicaoLares.Close;
    frmPaginaConfiguracoes.Show;
+end;
+
+procedure TfrmEdicaoLares.LimpaTodosFramesEditarLares;
+var
+   i: Integer;
+begin
+   // Percorre todos os componentes da tela principal
+   for i := ComponentCount - 1 downto 0 do
+   begin
+      if Components[i] is TFrameEditarLaresTemporarios then
+      begin
+         // Se o componente for um TFrameBrinquedo, destrua-o
+         TFrameEditarLaresTemporarios(Components[i]).Free;
+      end;
+   end;
 end;
 
 procedure TfrmEdicaoLares.ListarLares;

@@ -8,7 +8,8 @@ uses
   FMX.Layouts, FMX.StdCtrls, FMX.ExtCtrls, FMX.Edit, FMX.Controls.Presentation,
   FMX.DateTimeCtrls, REST.Types, REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, Androidapi.JNI.GraphicsContentViewText,
-  Androidapi.Helpers, FMX.Helpers.Android, FMX.ComboEdit;
+  Androidapi.Helpers, FMX.Helpers.Android, FMX.ComboEdit, System.ImageList,
+  FMX.ImgList;
 
 type
   TfrmCriarCadastro = class(TForm)
@@ -30,7 +31,6 @@ type
     edtSenha: TEdit;
     edtNumero: TEdit;
     Label12: TLabel;
-    imgVoltar: TImage;
     Image1: TImage;
     Image2: TImage;
     VertScrollBox1: TVertScrollBox;
@@ -46,7 +46,9 @@ type
     lblEmail: TLabel;
     lblSenha: TLabel;
     cbxCidade: TComboEdit;
-    procedure imgVoltarClick(Sender: TObject);
+    btnVoltar: TButton;
+    ImageList1: TImageList;
+    procedure btnVoltarClick(Sender: TObject);
     procedure btnCriarContaClick(Sender: TObject);
     procedure AbrirWhatsApp(sTelefone: string);
     procedure Label9Click(Sender: TObject);
@@ -230,17 +232,6 @@ begin
                              TAlignLayout.Top);
       LimpaCampos(Sender);
    end;
-
-//   try
-//      AbrirWhatsApp('5554991690101'); // Substitua pelo número desejado
-//   except
-//      on E: Exception do
-//      begin
-//        ShowMessage('Não foi possível abrir o WhatsApp!'+#13+
-//                    'Erro: '+E.Message);
-//        Close;
-//      end;
-//   end;
 end;
 
 procedure TfrmCriarCadastro.edtBairroEnter(Sender: TObject);
@@ -367,7 +358,7 @@ begin
    VertScrollBox1.Margins.Bottom := 0;
 end;
 
-procedure TfrmCriarCadastro.imgVoltarClick(Sender: TObject);
+procedure TfrmCriarCadastro.btnVoltarClick(Sender: TObject);
 begin
    LimpaCampos(Sender);
    frmLogin.Show;

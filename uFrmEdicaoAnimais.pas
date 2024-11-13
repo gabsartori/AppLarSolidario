@@ -12,7 +12,7 @@ type
     Rectangle1: TRectangle;
     Image1: TImage;
     Image2: TImage;
-    Image3: TImage;
+    imgVoltar: TImage;
     Layout1: TLayout;
     Layout2: TLayout;
     Label1: TLabel;
@@ -22,6 +22,10 @@ type
     Label2: TLabel;
     Image4: TImage;
     procedure ListarAnimais;
+    procedure imgVoltarClick(Sender: TObject);
+    procedure LimpaTodosFramesEditarAnimais;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -35,9 +39,48 @@ implementation
 
 {$R *.fmx}
 
-uses uDtmServidor, Frame.EditarAnimais, uFrmLogin, uFunctions;
+uses uDtmServidor, Frame.EditarAnimais, uFrmLogin, uFunctions,
+  uPaginaConfiguracoes;
 
 { TfrmEdicaoAnimais }
+
+procedure TfrmEdicaoAnimais.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+   LimpaTodosFramesEditarAnimais;
+end;
+
+procedure TfrmEdicaoAnimais.FormShow(Sender: TObject);
+begin
+   if not Assigned(frmEdicaoAnimais) then
+   begin
+      Application.CreateForm(TfrmEdicaoAnimais, frmEdicaoAnimais);
+
+      LimpaTodosFramesEditarAnimais;
+      ListarAnimais;
+      frmEdicaoAnimais.Show;
+   end;
+end;
+
+procedure TfrmEdicaoAnimais.imgVoltarClick(Sender: TObject);
+begin
+   frmPaginaConfiguracoes.Show;
+end;
+
+procedure TfrmEdicaoAnimais.LimpaTodosFramesEditarAnimais;
+var
+   i: Integer;
+begin
+   // Percorre todos os componentes da tela principal
+   for i := ComponentCount - 1 downto 0 do
+   begin
+      if Components[i] is TFrameEditarAnimais then
+      begin
+         // Se o componente for um TFrameBrinquedo, destrua-o
+         TFrameEditarAnimais(Components[i]).Free;
+      end;
+   end;
+end;
 
 procedure TfrmEdicaoAnimais.ListarAnimais;
 var

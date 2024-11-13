@@ -7,13 +7,13 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Layouts, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, FMX.ListBox, FMX.Edit,
   FMX.Controls.Presentation, FMX.StdCtrls, System.Actions, FMX.ActnList, u99Permissions,
-  FMX.StdActns, FMX.MediaLibrary.Actions, REST.Types, FMX.ComboEdit;
+  FMX.StdActns, FMX.MediaLibrary.Actions, REST.Types, FMX.ComboEdit,
+  System.ImageList, FMX.ImgList;
 
 type
   TfrmCadastroAnimais = class(TForm)
     Layout2: TLayout;
     Rectangle1: TRectangle;
-    imgVoltar: TImage;
     Image1: TImage;
     Image2: TImage;
     VertScrollBox1: TVertScrollBox;
@@ -60,12 +60,14 @@ type
     Layout8: TLayout;
     Label5: TLabel;
     edtBairro: TEdit;
+    btnVoltar: TButton;
+    ImageList1: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure actBuscaFotoDidFinishTaking(Image: TBitmap);
     procedure btnCriarContaClick(Sender: TObject);
     procedure cFotoEditarClick(Sender: TObject);
-    procedure imgVoltarClick(Sender: TObject);
+    procedure btnVoltarClick(Sender: TObject);
     procedure LimpaCampos(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -419,7 +421,7 @@ begin
    VertScrollBox1.Margins.Bottom := 0;
 end;
 
-procedure TfrmCadastroAnimais.imgVoltarClick(Sender: TObject);
+procedure TfrmCadastroAnimais.btnVoltarClick(Sender: TObject);
 begin
    frmPaginaInicial.Show;
 end;

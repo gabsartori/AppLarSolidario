@@ -26,7 +26,9 @@ type
     Label2: TLabel;
     Label1: TLabel;
     Rectangle1: TRectangle;
-    Image1: TImage;
+    imgWhatsApp: TImage;
+    procedure imgWhatsAppClick(Sender: TObject);
+    procedure AbrirWhatsApp(sTelefone: string);
   private
     { Private declarations }
   public
@@ -36,5 +38,32 @@ type
 implementation
 
 {$R *.fmx}
+
+procedure TFrameAnimaisCadastrados.AbrirWhatsApp(sTelefone: string);
+var
+  sURL: string;
+begin
+  // Formatar o número de telefone para o formato internacional correto
+  sTelefone := sTelefone.Replace(' ', '').Replace('(', '').Replace(')', '').Replace('-', '');
+  sURL := 'https://wa.me/' + sTelefone;
+  // Abrir a URL usando o intent do Android
+  TAndroidHelper.Context.startActivity(
+    TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW,
+    StrToJURI(sURL)));
+end;
+
+procedure TFrameAnimaisCadastrados.imgWhatsAppClick(Sender: TObject);
+begin
+   try
+      AbrirWhatsApp(lblTelefone.Text); // Substitua pelo número desejado
+   except
+      on E: Exception do
+      begin
+         ShowMessage('Não foi possível abrir o WhatsApp!'+#13+
+                     'Erro: '+E.Message);
+         Close;
+      end;
+   end;
+end;
 
 end.

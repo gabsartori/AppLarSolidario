@@ -52,7 +52,7 @@ type
     procedure btnBuscarClick(Sender: TObject);
     procedure btnLimparFiltrosClick(Sender: TObject);
     procedure imgVoltarClick(Sender: TObject);
-    procedure LimparLista;
+    procedure LimpaTodosFramesBusca;
   private
     { Private declarations }
   public
@@ -88,13 +88,14 @@ uses Frame.AnimaisCadastrados, uDtmServidor, uFunctions, uPaginaInicial;
 
 procedure TfrmPaginaBuscas.btnBuscarClick(Sender: TObject);
 begin
-   lbAnimais.Items.Clear;
+   LimpaTodosFramesBusca;
    ListarAnimais;
    Rectangle2.Visible := True;
 end;
 
 procedure TfrmPaginaBuscas.btnLimparFiltrosClick(Sender: TObject);
 begin
+   LimpaTodosFramesBusca;
    cbxTipoAnimal.ItemIndex := 0;
    cbxCastrado.ItemIndex := 0;
    cbxGenero.ItemIndex := 0;
@@ -104,7 +105,7 @@ end;
 
 procedure TfrmPaginaBuscas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-   lbAnimais.Clear;
+   LimpaTodosFramesBusca;
    Rectangle2.Visible := False;
 end;
 
@@ -122,22 +123,19 @@ begin
    frmPaginaInicial.Show;
 end;
 
-procedure TfrmPaginaBuscas.LimparLista;
+procedure TfrmPaginaBuscas.LimpaTodosFramesBusca;
 var
-  i: Integer;
+   i: Integer;
 begin
-   // Percorre os itens do ListBox e libera os Frames
-   for i := 0 to lbAnimais.Count - 1 do
+   // Percorre todos os componentes da tela principal
+   for i := ComponentCount - 1 downto 0 do
    begin
-     if lbAnimais.ListItems[i].TagObject is TFrame then
-     begin
-       // Libera o frame associado ao item, se houver
-       lbAnimais.ListItems[i].TagObject.Free;
-       lbAnimais.ListItems[i].TagObject := nil;
-     end;
+      if Components[i] is TFrameAnimaisCadastrados then
+      begin
+         // Se o componente for um TFrameBrinquedo, destrua-o
+         TFrameAnimaisCadastrados(Components[i]).Free;
+      end;
    end;
-   // Limpa todos os itens do ListBox
-   lbAnimais.Clear;
 end;
 
 procedure TfrmPaginaBuscas.ListarAnimais;
