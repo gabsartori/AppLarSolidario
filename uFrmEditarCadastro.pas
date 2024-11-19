@@ -52,10 +52,19 @@ type
     procedure Label9Click(Sender: TObject);
     procedure Label2Click(Sender: TObject);
     procedure btnVoltarClick(Sender: TObject);
+    procedure edtNomeEnter(Sender: TObject);
+    procedure edtTelefoneEnter(Sender: TObject);
+    procedure edtRuaEnter(Sender: TObject);
+    procedure edtNumeroEnter(Sender: TObject);
+    procedure edtBairroEnter(Sender: TObject);
+    procedure cbxCidadeEnter(Sender: TObject);
+    procedure edtEmailEnter(Sender: TObject);
+    function ExtrairStringAntesVirgula(const Texto: string): string;
   private
     { Private declarations }
   public
     { Public declarations }
+    foco: TControl;
   end;
 
 var
@@ -68,6 +77,18 @@ implementation
 uses uDtmServidor, uFrmLogin, uPaginaConfiguracoes, uCriarCadastro, Notificacao;
 
 { TfrmEditarCadastro }
+
+procedure Ajustar_Scroll();
+var
+   x: Integer;
+begin
+   with frmEditarCadastro do
+   begin
+      VertScrollBox1.Margins.Bottom := 250;
+      VertScrollBox1.ViewportPosition := PointF(VertScrollBox1.ViewportPosition.X,
+                                                TControl(foco).Position.Y - 150);
+   end;
+end;
 
 procedure TfrmEditarCadastro.btnAlterarCadastroClick(Sender: TObject);
 begin
@@ -86,22 +107,23 @@ begin
 
       dtmServidor.qryUpdate.Params.ParamByName('NOME_PESSOA').AsString := edtNome.Text;
       dtmServidor.qryUpdate.Params.ParamByName('TELEFONE_PESSOA').AsString := edtNome.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('DES_RUA').AsString := edtRua.Text + ',' +edtNumero.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('DES_RUA').AsString := edtRua.Text + ', ' +edtNumero.Text;
       dtmServidor.qryUpdate.Params.ParamByName('DES_BAIRRO').AsString := edtBairro.Text;
       dtmServidor.qryUpdate.Params.ParamByName('EMAIL_PESSOA').AsString := edtEmail.Text;
 
       dtmServidor.qryGeral2.Active := False;
       dtmServidor.qryGeral2.SQL.Clear;
-      dtmServidor.qryGeral2.SQL.Text := ' SELECT COD_CIDADE, UF '+
-                                        ' FROM CIDADES       '+
-                                        ' WHERE NOME_CIDADE = '+cbxCidade.Text;
+      dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM CIDADES       '+
+                                        ' WHERE NOME_CIDADE = :cidade ';
+
+      dtmServidor.qryGeral2.Params.ParamByName('cidade').AsString := cbxCidade.Text;
       dtmServidor.qryGeral2.Active := True;
 
       dtmServidor.qryUpdate.Params.ParamByName('COD_CIDADE').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
       dtmServidor.qryUpdate.Params.ParamByName('UF').AsString := dtmServidor.qryGeral2.FieldByName('UF').AsString;
       dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
 
-      dtmServidor.qryInsert.ExecSQL;
+      dtmServidor.qryUpdate.ExecSQL;
 
       try
           if dtmServidor.fdConexao.InTransaction then
@@ -117,7 +139,7 @@ begin
       end;
 
    finally
-      TLoading.ToastMessage(frmCriarCadastro,
+      TLoading.ToastMessage(frmEditarCadastro,
                        'Registro atualizado com sucesso',
                         $FF22AF70,
                         TAlignLayout.Top);
@@ -127,24 +149,62 @@ begin
       dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM PESSOAS WHERE COD_PESSOA = '+frmLogin.sUsuarioLogado;
       dtmServidor.qryGeral.Active := True;
 
-      edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Pessoa').AsString;
-      edtTelefone.Text := dtmServidor.qryGeral.FieldByName('Telefone_Pessoa').AsString;
-      edtRua.Text := dtmServidor.qryGeral.FieldByName('Des_Rua').AsString;
-      edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Rua').AsString);
-      edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro').AsString;
-      cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
-      edtEmail.Text := dtmServidor.qryGeral.FieldByName('Email_Pessoa').AsString;
+      frmPaginaConfiguracoes.Show;
    end;
 end;
 
 procedure TfrmEditarCadastro.btnCancelarClick(Sender: TObject);
 begin
+   frmEditarCadastro.Close;
    frmPaginaConfiguracoes.Show;
 end;
 
 procedure TfrmEditarCadastro.btnVoltarClick(Sender: TObject);
 begin
+   frmEditarCadastro.Close;
    frmPaginaConfiguracoes.Show;
+end;
+
+procedure TfrmEditarCadastro.cbxCidadeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarCadastro.edtBairroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarCadastro.edtEmailEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarCadastro.edtNomeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarCadastro.edtNumeroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarCadastro.edtRuaEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarCadastro.edtTelefoneEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
 end;
 
 function TfrmEditarCadastro.ExtrairNumeroAposVirgula(const Texto: string): string;
@@ -160,6 +220,18 @@ begin
    begin
       Result := '';
    end;
+end;
+
+function TfrmEditarCadastro.ExtrairStringAntesVirgula(
+  const Texto: string): string;
+var
+  VirgulaPos: Integer;
+begin
+  VirgulaPos := Pos(',', Texto);
+  if VirgulaPos > 0 then
+    Result := Copy(Texto, 1, VirgulaPos - 1)
+  else
+    Result := Texto;
 end;
 
 procedure TfrmEditarCadastro.FormShow(Sender: TObject);
@@ -193,7 +265,7 @@ begin
 
    edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Pessoa').AsString;
    edtTelefone.Text := dtmServidor.qryGeral.FieldByName('Telefone_Pessoa').AsString;
-   edtRua.Text := dtmServidor.qryGeral.FieldByName('Des_Rua').AsString;
+   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('Des_Rua').AsString);
    edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Rua').AsString);
    edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro').AsString;
    cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;

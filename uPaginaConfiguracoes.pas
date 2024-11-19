@@ -29,6 +29,7 @@ type
     btnEditarPerfil: TButton;
     btnVoltar: TButton;
     ImageList1: TImageList;
+    Rectangle2: TRectangle;
     procedure btnEditarLaresClick(Sender: TObject);
     procedure btnEditarAnimaisClick(Sender: TObject);
     procedure btnEditarPerfilClick(Sender: TObject);
@@ -74,6 +75,7 @@ end;
 
 procedure TfrmPaginaConfiguracoes.btnVoltarClick(Sender: TObject);
 begin
+   frmPaginaConfiguracoes.Close;
    frmPaginaInicial.Show;
 end;
 
@@ -84,56 +86,38 @@ end;
 
 procedure TfrmPaginaConfiguracoes.ConfirmarInativacao;
 begin
-   TDialogService.MessageDialog(
-       'Deseja realmente desativar sua conta?',
-       TMsgDlgType.mtConfirmation,
-       [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
-       TMsgDlgBtn.mbNo, // Botão padrão
-       0,
-       procedure(const AResult: TModalResult)
-       begin
-         if AResult = mrYes then
-         begin
-           try
-               dtmServidor.qryUpdate.Active := False;
-               dtmServidor.qryUpdate.SQL.Clear;
-               dtmServidor.qryUpdate.SQL.Text := ' UPDATE PESSOAS '+
-                                                 ' SET IND_ATIVO = 0 '+
-                                                 ' WHERE COD_PESSOA = :COD_PESSOA ';
+   try
+       dtmServidor.qryUpdate.Active := False;
+       dtmServidor.qryUpdate.SQL.Clear;
+       dtmServidor.qryUpdate.SQL.Text := ' UPDATE PESSOAS '+
+                                         ' SET IND_ATIVO = 0 '+
+                                         ' WHERE COD_PESSOA = :COD_PESSOA ';
 
-               dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
+       dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
 
-               dtmServidor.qryInsert.ExecSQL;
+       dtmServidor.qryUpdate.ExecSQL;
 
-               try
-                   if dtmServidor.fdConexao.InTransaction then
-                   begin
-                      dtmServidor.fdConexao.Commit;
-                   end;
-               except
-                  TLoading.ToastMessage(frmPaginaConfiguracoes,
-                                     'Não foi possível realizar a operação!',
-                                      $FFFA3F3F,
-                                      TAlignLayout.Top);
-                  Exit;
-               end;
-
-           finally
-               TLoading.ToastMessage(frmPaginaConfiguracoes,
-                                'Conta inativada com sucesso',
-                                 $FF22AF70,
-                                 TAlignLayout.Top);
-
-               frmLogin.Show;
+       try
+           if dtmServidor.fdConexao.InTransaction then
+           begin
+              dtmServidor.fdConexao.Commit;
            end;
-         end
-         else
-         begin
-            // Código caso o usuário cancele a exclusão
-            ShowMessage('Ação cancelada!');
-         end;
-       end
-   );
+       except
+          TLoading.ToastMessage(frmPaginaConfiguracoes,
+                             'Não foi possível realizar a operação!',
+                              $FFFA3F3F,
+                              TAlignLayout.Top);
+          Exit;
+       end;
+
+   finally
+       TLoading.ToastMessage(frmPaginaConfiguracoes,
+                        'Conta inativada com sucesso',
+                         $FF22AF70,
+                         TAlignLayout.Top);
+
+       frmLogin.Show;
+   end;
 end;
 
 end.

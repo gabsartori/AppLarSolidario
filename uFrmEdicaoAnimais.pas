@@ -21,13 +21,27 @@ type
     lytNaoEncontrou: TLayout;
     Label2: TLabel;
     Image4: TImage;
+    Rectangle2: TRectangle;
+    lytOpaco: TLayout;
+    Rectangle3: TRectangle;
+    lytConfirmaInativacao: TLayout;
+    Panel1: TPanel;
+    btnSim: TRoundRect;
+    Label5: TLabel;
+    btnNao: TRoundRect;
+    Label6: TLabel;
+    lblConfirmacao: TLabel;
     procedure ListarAnimais;
     procedure imgVoltarClick(Sender: TObject);
     procedure LimpaTodosFramesEditarAnimais;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ParametrosInativacao(IndAnimal, CodAnimal: String);
+    procedure btnSimClick(Sender: TObject);
+    procedure btnNaoClick(Sender: TObject);
   private
     { Private declarations }
+    sIndAnimal, sCodAnimal: String;
   public
     { Public declarations }
   end;
@@ -40,9 +54,95 @@ implementation
 {$R *.fmx}
 
 uses uDtmServidor, Frame.EditarAnimais, uFrmLogin, uFunctions,
-  uPaginaConfiguracoes;
+  uPaginaConfiguracoes, Notificacao, uFrmEdicaoLares;
 
 { TfrmEdicaoAnimais }
+
+procedure TfrmEdicaoAnimais.btnNaoClick(Sender: TObject);
+begin
+   lytOpaco.Visible := False;
+   lytConfirmaInativacao.Visible := False;
+end;
+
+procedure TfrmEdicaoAnimais.btnSimClick(Sender: TObject);
+begin
+   if (sIndAnimal = 'Desativar') then
+   begin
+      try
+         dtmServidor.qryUpdate.Active := False;
+         dtmServidor.qryUpdate.SQL.Clear;
+         dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
+                                           ' SET IND_ATIVO = 0 '+
+                                           ' WHERE COD_ANIMAL = :COD_ANIMAL ';
+
+         dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := sCodAnimal;
+
+         dtmServidor.qryUpdate.ExecSQL;
+
+         try
+             if dtmServidor.fdConexao.InTransaction then
+             begin
+                dtmServidor.fdConexao.Commit;
+             end;
+         except
+            TLoading.ToastMessage(frmEdicaoAnimais,
+                                 'Não foi possível realizar a operação!',
+                                  $FFFA3F3F,
+                                  TAlignLayout.Top);
+            Exit;
+         end;
+
+      finally
+         TLoading.ToastMessage(frmEdicaoAnimais,
+                              'Pet inativado com sucesso',
+                               $FF22AF70,
+                               TAlignLayout.Top);
+
+         LimpaTodosFramesEditarAnimais;
+         ListarAnimais;
+         lytOpaco.Visible := False;
+         lytConfirmaInativacao.Visible := False;
+      end;
+   end
+   else
+   begin
+      try
+          dtmServidor.qryUpdate.Active := False;
+          dtmServidor.qryUpdate.SQL.Clear;
+          dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
+                                            ' SET IND_ATIVO = 1 '+
+                                            ' WHERE COD_ANIMAL = :COD_ANIMAL ';
+
+          dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := sCodAnimal;
+
+          dtmServidor.qryUpdate.ExecSQL;
+
+          try
+              if dtmServidor.fdConexao.InTransaction then
+              begin
+                 dtmServidor.fdConexao.Commit;
+              end;
+          except
+             TLoading.ToastMessage(frmEdicaoLares,
+                                  'Não foi possível realizar a operação!',
+                                   $FFFA3F3F,
+                                   TAlignLayout.Top);
+             Exit;
+          end;
+
+      finally
+          TLoading.ToastMessage(frmEdicaoLares,
+                               'Pet ativado com sucesso',
+                                $FF22AF70,
+                                TAlignLayout.Top);
+
+         LimpaTodosFramesEditarAnimais;
+         ListarAnimais;
+         lytOpaco.Visible := False;
+         lytConfirmaInativacao.Visible := False;
+      end;
+   end;
+end;
 
 procedure TfrmEdicaoAnimais.FormClose(Sender: TObject;
   var Action: TCloseAction);
@@ -52,6 +152,10 @@ end;
 
 procedure TfrmEdicaoAnimais.FormShow(Sender: TObject);
 begin
+   lytNaoEncontrou.Visible := False;
+   lytOpaco.Visible := False;
+   lytConfirmaInativacao.Visible := False;
+
    if not Assigned(frmEdicaoAnimais) then
    begin
       Application.CreateForm(TfrmEdicaoAnimais, frmEdicaoAnimais);
@@ -59,11 +163,18 @@ begin
       LimpaTodosFramesEditarAnimais;
       ListarAnimais;
       frmEdicaoAnimais.Show;
+   end
+   else
+   begin
+      LimpaTodosFramesEditarAnimais;
+      ListarAnimais;
    end;
 end;
 
 procedure TfrmEdicaoAnimais.imgVoltarClick(Sender: TObject);
 begin
+   LimpaTodosFramesEditarAnimais;
+   frmEdicaoAnimais.Close;
    frmPaginaConfiguracoes.Show;
 end;
 
@@ -71,12 +182,10 @@ procedure TfrmEdicaoAnimais.LimpaTodosFramesEditarAnimais;
 var
    i: Integer;
 begin
-   // Percorre todos os componentes da tela principal
    for i := ComponentCount - 1 downto 0 do
    begin
       if Components[i] is TFrameEditarAnimais then
       begin
-         // Se o componente for um TFrameBrinquedo, destrua-o
          TFrameEditarAnimais(Components[i]).Free;
       end;
    end;
@@ -95,26 +204,29 @@ begin
 
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Text := '';
-      dtmServidor.qryGeral.SQL.Text := ' select cod_animal,                              '+
-                                       '        nome_animal,                             '+
-                                       '        Des_Endereco_animal,                     '+
-                                       '        Des_Bairro_animal,                       '+
-                                       '        Genero_Animal,                        '+
-                                       '        Idade_Animal,                         '+
-                                       '        Cor_Pelagem,                          '+
-                                       '        UF,                                   '+
-                                       '        CASE                                  '+
-                                       '          WHEN ind_ativo = 1 THEN ''Ativo''   '+
-                                       '          ELSE ''Inativo''                    '+
-                                       '        END AS situacao,                      '+
-                                       '        Telefone_Lar,                         '+
-                                       '        Qtd_Animais,                          '+
-                                       '        Tipo_Animal,                          '+
-                                       '        Informacoes_Lar,                      '+
-                                       '        CASE                                  '+
-                                       '          WHEN Ind_Telas = 1 THEN ''Sim''     '+
-                                       '          ELSE ''Não''                        '+
-                                       '        END AS Telas,                         '+
+      dtmServidor.qryGeral.SQL.Text := ' select cod_animal,                          '+
+                                       '        nome_animal,                         '+
+                                       '        cor_pelagem,                         '+
+                                       '        UF,                                  '+
+                                       '        CASE                                   '+
+                                       '          WHEN ind_castrado = 1 THEN ''Sim'' '+
+                                       '          ELSE ''Não''                         '+
+                                       '        END AS castrado,                       '+
+                                       '        CASE                                   '+
+                                       '          WHEN Tipo_Animal = 1 THEN ''Cachorro'' '+
+                                       '          ELSE ''Gato''                         '+
+                                       '        END AS tipo_animal,                       '+
+                                       '        Situacao_Animal,                     '+
+                                       '        Ind_Ativo,                           '+
+                                       '        Des_Endereco_Animal,                 '+
+                                       '        Des_Bairro_Animal,                   '+
+                                       '        CASE                                   '+
+                                       '          WHEN Genero_Animal = 1 THEN ''Fêmea'' '+
+                                       '          ELSE ''Macho''                         '+
+                                       '        END AS Genero_Animal,                       '+
+                                       '        Informacoes_Animal,                  '+
+                                       '        Idade_Animal,                        '+
+                                       '        Foto_Animal,                         '+
                                        '        cod_cidade                            '+
                                        ' from animais                                 '+
                                        ' where cod_pessoa = '+ frmLogin.sUsuarioLogado +
@@ -129,7 +241,7 @@ begin
           begin
              dtmServidor.qryGeral2.Active := False;
              dtmServidor.qryGeral2.SQL.Text := '';
-             dtmServidor.qryGeral2.SQL.Text := ' select nome_cidade                                                          '+
+             dtmServidor.qryGeral2.SQL.Text := ' select nome_cidade, UF                                                         '+
                                                ' from cidades                                                                '+
                                                ' where cod_cidade = '+ dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
              dtmServidor.qryGeral2.Active := True;
@@ -141,13 +253,11 @@ begin
              sGenero := dtmServidor.qryGeral.FieldByName('genero_animal').AsString;
              sCastrado := dtmServidor.qryGeral.FieldByName('castrado').AsString;
              sIdade := dtmServidor.qryGeral.FieldByName('idade_animal').AsString;
-             sResponsavel := dtmServidor.qryGeral.FieldByName('Nome_Pessoa').AsString;
              sSituacao := dtmServidor.qryGeral.FieldByName('situacao_animal').AsString;
              sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString + ', '+
-                          dtmServidor.qryGeral.FieldByName('Des_Birro_Animal').AsString + ', '+
+                          dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString + ', '+
                           dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString + ', '+
-                          dtmServidor.qryGeral.FieldByName('uf').AsString;
-             sTelefone := dtmServidor.qryGeral.FieldByName('telefone_pessoa').AsString;
+                          dtmServidor.qryGeral2.FieldByName('uf').AsString;
              sInformacoes := dtmServidor.qryGeral.FieldByName('informacoes_animal').AsString;
 
              Frame := TFrameEditarAnimais.Create(Self);
@@ -186,7 +296,11 @@ begin
                 Frame.cFotoAnimal.Repaint;
              end;
 
-             // Se o conteúdo do frame for maior que o ScrollBox, ajuste a altura do ScrollBox
+             if (dtmServidor.qryGeral.FieldByName('ind_ativo').AsString = '0') then
+             begin
+                Frame.lblDesativar.Text := 'Ativar';
+             end;
+
              if frame.Height > vbsAnimais.Height then
              begin
                 vbsAnimais.Height := frame.Height;
@@ -203,6 +317,12 @@ begin
    finally
 
    end;
+end;
+
+procedure TfrmEdicaoAnimais.ParametrosInativacao(IndAnimal, CodAnimal: String);
+begin
+   sIndAnimal := IndAnimal;
+   sCodAnimal := CodAnimal;
 end;
 
 end.

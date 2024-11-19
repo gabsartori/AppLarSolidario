@@ -1,0 +1,101 @@
+object Frame1: TFrame1
+  Size.Width = 381.000000000000000000
+  Size.Height = 144.000000000000000000
+  Size.PlatformDefault = False
+  object lblNotificacao: TLabel
+    StyledSettings = [Family]
+    Position.X = 27.000000000000000000
+    Position.Y = 3.000000000000000000
+    Size.Width = 335.000000000000000000
+    Size.Height = 88.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 15.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claDarkseagreen
+    TextSettings.HorzAlign = Center
+    Text = 
+      'O usu'#225'rio Gabriela Sartori deseja oferecer lar tempor'#225'rio para o' +
+      ' pet Yumi.'
+    TabOrder = 0
+  end
+  object btnSim: TRoundRect
+    Fill.Color = claDarkseagreen
+    Position.X = 16.000000000000000000
+    Position.Y = 99.000000000000000000
+    Size.Width = 89.000000000000000000
+    Size.Height = 35.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = claWhite
+    object Label5: TLabel
+      Align = Center
+      StyledSettings = [Family, Style]
+      Size.Width = 67.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Text = 'Aceitar'
+      TabOrder = 0
+    end
+  end
+  object btnNao: TRoundRect
+    Fill.Color = claTomato
+    Position.X = 155.000000000000000000
+    Position.Y = 99.000000000000000000
+    Size.Width = 89.000000000000000000
+    Size.Height = 35.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = claWhite
+    object Label6: TLabel
+      Align = Center
+      StyledSettings = [Family, Style]
+      Size.Width = 63.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Text = 'Recusar'
+      TabOrder = 0
+    end
+  end
+  object Rectangle4: TRectangle
+    Align = MostBottom
+    Fill.Color = claDarkseagreen
+    Position.Y = 142.000000000000000000
+    Size.Width = 381.000000000000000000
+    Size.Height = 2.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
+  object RoundRect1: TRoundRect
+    Fill.Color = claDarkseagreen
+    Position.X = 284.000000000000000000
+    Position.Y = 99.000000000000000000
+    Size.Width = 89.000000000000000000
+    Size.Height = 35.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = claWhite
+    object Label1: TLabel
+      Align = Center
+      StyledSettings = [Family, Style]
+      Size.Width = 67.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Text = 'Perfil'
+      TabOrder = 0
+    end
+  end
+  object lblCodSolicitacao: TLabel
+    Position.X = 373.000000000000000000
+    Position.Y = 74.000000000000000000
+    Size.Width = 41.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+  end
+end

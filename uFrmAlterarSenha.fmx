@@ -56,6 +56,7 @@ object frmAlterarSenha: TfrmAlterarSenha
         Size.Width = 18.000000000000000000
         Size.Height = 55.000000000000000000
         Size.PlatformDefault = False
+        OnClick = imgSairClick
       end
       object Image1: TImage
         MultiResBitmap = <
@@ -289,6 +290,7 @@ object frmAlterarSenha: TfrmAlterarSenha
             Align = Top
             StyleLookup = 'editstyle'
             TabOrder = 5
+            Password = True
             Position.X = 40.000000000000000000
             Position.Y = 22.000000000000000000
             Margins.Left = 40.000000000000000000
@@ -328,6 +330,7 @@ object frmAlterarSenha: TfrmAlterarSenha
             Align = Top
             StyleLookup = 'editstyle'
             TabOrder = 5
+            Password = True
             Position.X = 40.000000000000000000
             Position.Y = 22.000000000000000000
             Margins.Left = 40.000000000000000000
@@ -367,6 +370,7 @@ object frmAlterarSenha: TfrmAlterarSenha
             Align = Top
             StyleLookup = 'editstyle'
             TabOrder = 5
+            Password = True
             Position.X = 40.000000000000000000
             Position.Y = 22.000000000000000000
             Margins.Left = 40.000000000000000000
@@ -429,14 +433,14 @@ object frmAlterarSenha: TfrmAlterarSenha
                 TabOrder = 0
               end
             end
-            object btnCriarConta: TRoundRect
+            object btnAlterarSenha: TRoundRect
               Align = Left
               Fill.Color = claDarkseagreen
               Size.Width = 142.000000000000000000
               Size.Height = 34.000000000000000000
               Size.PlatformDefault = False
               Stroke.Color = claWhite
-              OnClick = btnCriarContaClick
+              OnClick = btnAlterarSenhaClick
               object Label9: TLabel
                 Align = Center
                 StyledSettings = [Family, Style]

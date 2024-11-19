@@ -29,13 +29,18 @@ type
     Label2: TLabel;
     imgSair: TImage;
     Image1: TImage;
-    Image3: TImage;
+    imgNotificacoes: TImage;
+    imgConfiguracoes: TImage;
+    lblQtdNotificacoes: TLabel;
+    Circle1: TCircle;
     procedure FormShow(Sender: TObject);
     procedure imgSairClick(Sender: TObject);
     procedure btnCadastrarLarClick(Sender: TObject);
     procedure btnCadastrarAnimaisClick(Sender: TObject);
     procedure btnBuscarAnimaisClick(Sender: TObject);
-    procedure Image3Click(Sender: TObject);
+    procedure imgConfiguracoesClick(Sender: TObject);
+    procedure imgNotificacoesClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -50,7 +55,7 @@ implementation
 {$R *.fmx}
 
 uses uFrmLogin, uFrmCadastroLarTemporario, uFrmCadastroAnimais, uFrmPaginaBuscas,
-  uPaginaConfiguracoes;
+  uPaginaConfiguracoes, uFrmNotificacoes, uDtmServidor;
 
 procedure TfrmPaginaInicial.btnBuscarAnimaisClick(Sender: TObject);
 begin
@@ -67,18 +72,79 @@ begin
    frmCadastroLarTemporario.Show;
 end;
 
-procedure TfrmPaginaInicial.FormShow(Sender: TObject);
+procedure TfrmPaginaInicial.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
-   lblUsuario.Text := 'Bem-Vindo(a) '+ frmLogin.sNomeUsuarioLogado +'!';
+   frmPaginaInicial.Close;
+   lblQtdNotificacoes.Text := '0';
 end;
 
-procedure TfrmPaginaInicial.Image3Click(Sender: TObject);
+procedure TfrmPaginaInicial.FormShow(Sender: TObject);
+var
+   i: Integer;
+begin
+   lblUsuario.Text := 'Bem-Vindo(a), '+ frmLogin.sNomeUsuarioLogado +'!';
+   dtmServidor.qryGeral.Active := False;
+   dtmServidor.qryGeral.SQL.Text := '';
+   dtmServidor.qryGeral.SQL.Text := ' select Status_Solicitacao,                      '+
+                                    '        Cod_Pessoa,                              '+
+                                    '        Cod_Pessoa_Solicitada                    '+
+                                    ' from solicitacoes                               '+
+                                    ' where status_solicitacao in (0,1,2)             '+
+                                    ' and (cod_pessoa_solicitada = '+frmLogin.sUsuarioLogado+
+                                    ' or cod_pessoa = '+frmLogin.sUsuarioLogado+')    ';
+   dtmServidor.qryGeral.Active := True;
+
+   if (dtmServidor.qryGeral.RecordCount > 0) then
+   begin
+      i := 0;
+      dtmServidor.qryGeral.First;
+
+      while not dtmServidor.qryGeral.Eof do
+      begin
+         if (dtmServidor.qryGeral.FieldByName('Cod_Pessoa_Solicitada').AsString = frmLogin.sUsuarioLogado) and
+            (dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '0') then
+         begin
+            i := i + 1;
+         end
+         else
+         if (dtmServidor.qryGeral.FieldByName('Cod_Pessoa').AsString = frmLogin.sUsuarioLogado) and
+            ((dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '1') or
+             (dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '2')) then
+         begin
+            i := i + 1;
+         end;
+
+         dtmServidor.qryGeral.Next;
+      end;
+
+      lblQtdNotificacoes.Text := IntToStr(i);
+   end
+   else
+   begin
+      lblQtdNotificacoes.Text := '0';
+   end;
+
+end;
+
+procedure TfrmPaginaInicial.imgConfiguracoesClick(Sender: TObject);
 begin
    frmPaginaConfiguracoes.Show;
 end;
 
+procedure TfrmPaginaInicial.imgNotificacoesClick(Sender: TObject);
+begin
+   frmNotificacoes.Show;
+   frmPaginaInicial.Close;
+end;
+
 procedure TfrmPaginaInicial.imgSairClick(Sender: TObject);
 begin
+   frmLogin.sUsuarioLogado := '';
+   frmLogin.sNomeUsuarioLogado := '';
+   frmLogin.edtUsuario.Text := '';
+   frmLogin.edtSenha.Text := '';
+   frmPaginaInicial.Close;
    frmLogin.Show;
 end;
 

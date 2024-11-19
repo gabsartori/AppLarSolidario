@@ -1,0 +1,133 @@
+unit Frame.EditarAnimais;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Objects, FMX.Controls.Presentation, FMX.DialogService;
+
+type
+  TFrameEditarAnimais = class(TFrame)
+    lblTipo: TLabel;
+    lblGenero: TLabel;
+    lblNome: TLabel;
+    lblCor: TLabel;
+    lblIdade: TLabel;
+    lblEndereco: TLabel;
+    lblCastrado: TLabel;
+    lblSituacao: TLabel;
+    lblInformacoes: TLabel;
+    btnDesativar: TRoundRect;
+    btnEditar: TRoundRect;
+    Label1: TLabel;
+    lblDesativar: TLabel;
+    lbl1: TLabel;
+    cFotoAnimal: TCircle;
+    lblCodAnimal: TLabel;
+    procedure btnEditarClick(Sender: TObject);
+    procedure btnDesativarClick(Sender: TObject);
+    procedure ConfirmarInativacao;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.fmx}
+
+uses uFrmEdicaoAnimais, uFrmEditarAnimais, Notificacao, uFrmEdicaoLares,
+  uDtmServidor;
+
+procedure TFrameEditarAnimais.btnDesativarClick(Sender: TObject);
+begin
+   ConfirmarInativacao;
+end;
+
+procedure TFrameEditarAnimais.btnEditarClick(Sender: TObject);
+begin
+   if lblCodAnimal.Text <> '' then
+   begin
+      frmEditarAnimais.BuscaCodigoAnimal(StrToInt(lblCodAnimal.text));
+   end;
+
+   frmEditarAnimais.Show;
+end;
+
+procedure TFrameEditarAnimais.ConfirmarInativacao;
+begin
+   if (lblDesativar.Text = 'Desativar') then
+   begin
+      try
+          dtmServidor.qryUpdate.Active := False;
+          dtmServidor.qryUpdate.SQL.Clear;
+          dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
+                                            ' SET IND_ATIVO = 0 '+
+                                            ' WHERE COD_ANIMAL = :COD_ANIMAL ';
+
+          dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := lblCodAnimal.Text;
+
+          dtmServidor.qryUpdate.ExecSQL;
+
+          try
+              if dtmServidor.fdConexao.InTransaction then
+              begin
+                 dtmServidor.fdConexao.Commit;
+              end;
+          except
+             TLoading.ToastMessage(frmEdicaoLares,
+                                  'Não foi possível realizar a operação!',
+                                   $FFFA3F3F,
+                                   TAlignLayout.Top);
+             Exit;
+          end;
+
+      finally
+          TLoading.ToastMessage(frmEdicaoLares,
+                               'Pet inativado com sucesso',
+                                $FF22AF70,
+                                TAlignLayout.Top);
+
+          frmEdicaoAnimais.Show;
+      end;
+   end
+   else
+   begin
+      try
+          dtmServidor.qryUpdate.Active := False;
+          dtmServidor.qryUpdate.SQL.Clear;
+          dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
+                                            ' SET IND_ATIVO = 1 '+
+                                            ' WHERE COD_ANIMAL = :COD_ANIMAL ';
+
+          dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := lblCodAnimal.Text;
+
+          dtmServidor.qryUpdate.ExecSQL;
+
+          try
+              if dtmServidor.fdConexao.InTransaction then
+              begin
+                 dtmServidor.fdConexao.Commit;
+              end;
+          except
+             TLoading.ToastMessage(frmEdicaoLares,
+                                  'Não foi possível realizar a operação!',
+                                   $FFFA3F3F,
+                                   TAlignLayout.Top);
+             Exit;
+          end;
+
+      finally
+          TLoading.ToastMessage(frmEdicaoLares,
+                               'Pet ativado com sucesso',
+                                $FF22AF70,
+                                TAlignLayout.Top);
+
+          frmEdicaoAnimais.Show;
+      end;
+   end;
+end;
+
+end.

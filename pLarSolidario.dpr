@@ -22,7 +22,10 @@ uses
   uFrmAlterarSenha in 'uFrmAlterarSenha.pas' {frmAlterarSenha},
   uFrmEditarAnimais in 'uFrmEditarAnimais.pas' {frmEditarAnimais},
   uPaginaConfiguracoes in 'uPaginaConfiguracoes.pas' {frmPaginaConfiguracoes},
-  uFrmEditarLarTemporario in 'uFrmEditarLarTemporario.pas' {frmEditarLarTemporario};
+  uFrmEditarLarTemporario in 'uFrmEditarLarTemporario.pas' {frmEditarLarTemporario},
+  uFrmNotificacoes in 'uFrmNotificacoes.pas' {frmNotificacoes},
+  Frame.Notificacoes in 'Frames\Frame.Notificacoes.pas' {FrameNotificacoes: TFrame},
+  Frame.NotificacoesRespondidas in 'Frames\Frame.NotificacoesRespondidas.pas' {FrameNotificacoesRespondidas: TFrame};
 
 {$R *.res}
 
@@ -43,5 +46,6 @@ begin
   Application.CreateForm(TfrmEditarAnimais, frmEditarAnimais);
   Application.CreateForm(TfrmPaginaConfiguracoes, frmPaginaConfiguracoes);
   Application.CreateForm(TfrmEditarLarTemporario, frmEditarLarTemporario);
+  Application.CreateForm(TfrmNotificacoes, frmNotificacoes);
   Application.Run;
 end.

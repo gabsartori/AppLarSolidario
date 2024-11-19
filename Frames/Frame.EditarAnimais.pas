@@ -5,11 +5,11 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Objects, FMX.Controls.Presentation, FMX.DialogService;
+  FMX.Objects, FMX.Controls.Presentation, FMX.DialogService, FMX.VirtualKeyboard,
+  FMX.Platform;
 
 type
   TFrameEditarAnimais = class(TFrame)
-    cFotoAnimal: TCircle;
     lblTipo: TLabel;
     lblGenero: TLabel;
     lblNome: TLabel;
@@ -23,10 +23,12 @@ type
     btnEditar: TRoundRect;
     Label1: TLabel;
     lblDesativar: TLabel;
+    lbl1: TLabel;
+    cFotoAnimal: TCircle;
     lblCodAnimal: TLabel;
+    Rectangle1: TRectangle;
     procedure btnEditarClick(Sender: TObject);
     procedure btnDesativarClick(Sender: TObject);
-    procedure ConfirmarInativacao;
   private
     { Private declarations }
   public
@@ -41,8 +43,27 @@ uses uFrmEdicaoAnimais, uFrmEditarAnimais, Notificacao, uFrmEdicaoLares,
   uDtmServidor;
 
 procedure TFrameEditarAnimais.btnDesativarClick(Sender: TObject);
+var
+  VirtualKeyboard: IFMXVirtualKeyboardService;
 begin
-   ConfirmarInativacao;
+   if TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(VirtualKeyboard)) then
+   begin
+      VirtualKeyboard.HideVirtualKeyboard;
+   end;
+
+   if (lblDesativar.Text = 'Desativar') then
+   begin
+      frmEdicaoAnimais.lblConfirmacao.Text := 'Deseja realmente inativar pet?';
+      frmEdicaoAnimais.ParametrosInativacao('Desativar', lblCodAnimal.Text);
+   end
+   else
+   begin
+      frmEdicaoAnimais.lblConfirmacao.Text := 'Deseja realmente ativar pet?';
+      frmEdicaoAnimais.ParametrosInativacao('Ativar', lblCodAnimal.Text);
+   end;
+
+   frmEdicaoAnimais.lytOpaco.Visible := True;
+   frmEdicaoAnimais.lytConfirmaInativacao.Visible := True;
 end;
 
 procedure TFrameEditarAnimais.btnEditarClick(Sender: TObject);
@@ -53,60 +74,6 @@ begin
    end;
 
    frmEditarAnimais.Show;
-end;
-
-procedure TFrameEditarAnimais.ConfirmarInativacao;
-begin
-   TDialogService.MessageDialog(
-       'Deseja realmente desativar este pet?',
-       TMsgDlgType.mtConfirmation,
-       [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
-       TMsgDlgBtn.mbNo, // Botão padrão
-       0,
-       procedure(const AResult: TModalResult)
-       begin
-         if AResult = mrYes then
-         begin
-           try
-               dtmServidor.qryUpdate.Active := False;
-               dtmServidor.qryUpdate.SQL.Clear;
-               dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
-                                                 ' SET IND_ATIVO = 0 '+
-                                                 ' WHERE COD_ANIMAL = :COD_ANIMAL ';
-
-               dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := lblCodAnimal.Text;
-
-               dtmServidor.qryInsert.ExecSQL;
-
-               try
-                   if dtmServidor.fdConexao.InTransaction then
-                   begin
-                      dtmServidor.fdConexao.Commit;
-                   end;
-               except
-                  TLoading.ToastMessage(frmEdicaoLares,
-                                       'Não foi possível realizar a operação!',
-                                        $FFFA3F3F,
-                                        TAlignLayout.Top);
-                  Exit;
-               end;
-
-           finally
-               TLoading.ToastMessage(frmEdicaoLares,
-                                    'Pet inativado com sucesso',
-                                     $FF22AF70,
-                                     TAlignLayout.Top);
-
-               frmEdicaoAnimais.Show;
-           end;
-         end
-         else
-         begin
-            // Código caso o usuário cancele a exclusão
-            ShowMessage('Ação cancelada!');
-         end;
-       end
-   );
 end;
 
 end.

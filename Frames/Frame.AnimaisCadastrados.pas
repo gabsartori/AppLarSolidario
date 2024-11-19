@@ -5,7 +5,11 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Objects, FMX.Controls.Presentation;
+  FMX.Objects, FMX.Controls.Presentation, FMX.VirtualKeyboard,
+  FMX.Platform;
+
+//  FMX.Helpers.Android, Androidapi.Helpers,
+//  Androidapi.JNI.GraphicsContentViewText,
 
 type
   TFrameAnimaisCadastrados = class(TFrame)
@@ -27,8 +31,11 @@ type
     Label1: TLabel;
     Rectangle1: TRectangle;
     imgWhatsApp: TImage;
+    lblCodAnimal: TLabel;
     procedure imgWhatsAppClick(Sender: TObject);
-    procedure AbrirWhatsApp(sTelefone: string);
+  //  procedure AbrirWhatsApp(sTelefone: string);
+    procedure btnAdotarClick(Sender: TObject);
+    procedure btnHospedarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,31 +46,75 @@ implementation
 
 {$R *.fmx}
 
-procedure TFrameAnimaisCadastrados.AbrirWhatsApp(sTelefone: string);
+uses uFrmPaginaBuscas;
+
+//procedure TFrameAnimaisCadastrados.AbrirWhatsApp(sTelefone: string);
+//var
+//  sURL: string;
+//begin
+//  sTelefone := sTelefone.Replace(' ', '').Replace('(', '').Replace(')', '').Replace('-', '').Replace('Telefone:', '');
+//  sURL := 'https://wa.me/55' + sTelefone;
+//
+//  TAndroidHelper.Context.startActivity(
+//  TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW,
+//  StrToJURI(sURL)));
+//end;
+
+procedure TFrameAnimaisCadastrados.btnAdotarClick(Sender: TObject);
 var
-  sURL: string;
+  VirtualKeyboard: IFMXVirtualKeyboardService;
 begin
-  // Formatar o número de telefone para o formato internacional correto
-  sTelefone := sTelefone.Replace(' ', '').Replace('(', '').Replace(')', '').Replace('-', '');
-  sURL := 'https://wa.me/' + sTelefone;
-  // Abrir a URL usando o intent do Android
-  TAndroidHelper.Context.startActivity(
-    TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW,
-    StrToJURI(sURL)));
+   if TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(VirtualKeyboard)) then
+   begin
+      VirtualKeyboard.HideVirtualKeyboard;
+   end;
+
+   frmPaginaBuscas.lblConfirmacao.Text := 'Deseja enviar solicitação para adoção?';
+
+   if (lblCodAnimal.Text <> '') then
+   begin
+      frmPaginaBuscas.BuscaCodigoAnimal(StrToInt(lblCodAnimal.Text));
+      frmPaginaBuscas.Show;
+   end;
+
+   frmPaginaBuscas.lytOpaco.Visible := True;
+   frmPaginaBuscas.lytConfirmaSolicitacao.Visible := True;
+   frmPaginaBuscas.sBotaoClicado := 'Adoção';
+end;
+
+procedure TFrameAnimaisCadastrados.btnHospedarClick(Sender: TObject);
+var
+  VirtualKeyboard: IFMXVirtualKeyboardService;
+begin
+   if TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(VirtualKeyboard)) then
+   begin
+      VirtualKeyboard.HideVirtualKeyboard;
+   end;
+
+   frmPaginaBuscas.lblConfirmacao.Text := 'Deseja enviar solicitação para hospedagem?';
+
+   if (lblCodAnimal.Text <> '') then
+   begin
+      frmPaginaBuscas.BuscaCodigoAnimal(StrToInt(lblCodAnimal.Text));
+      frmPaginaBuscas.Show;
+   end;
+
+   frmPaginaBuscas.lytOpaco.Visible := True;
+   frmPaginaBuscas.lytConfirmaSolicitacao.Visible := True;
+   frmPaginaBuscas.sBotaoClicado := 'Hospedagem';
 end;
 
 procedure TFrameAnimaisCadastrados.imgWhatsAppClick(Sender: TObject);
 begin
-   try
-      AbrirWhatsApp(lblTelefone.Text); // Substitua pelo número desejado
-   except
-      on E: Exception do
-      begin
-         ShowMessage('Não foi possível abrir o WhatsApp!'+#13+
-                     'Erro: '+E.Message);
-         Close;
-      end;
-   end;
+//   try
+//      AbrirWhatsApp(lblTelefone.Text); // Substitua pelo número desejado
+//   except
+//      on E: Exception do
+//      begin
+//         ShowMessage('Não foi possível abrir o WhatsApp!'+#13+
+//                     'Erro: '+E.Message);
+//      end;
+//   end;
 end;
 
 end.

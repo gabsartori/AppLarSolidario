@@ -7,7 +7,8 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Layouts, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, FMX.ComboEdit, FMX.Edit,
   FMX.Controls.Presentation, FMX.StdCtrls, System.Actions, FMX.ActnList,
-  FMX.StdActns, FMX.MediaLibrary.Actions, Data.DB, System.ImageList, FMX.ImgList;
+  FMX.StdActns, FMX.MediaLibrary.Actions, Data.DB, System.ImageList, FMX.ImgList,
+  u99Permissions;
 
 type
   TfrmEditarAnimais = class(TForm)
@@ -70,10 +71,30 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure BuscaCodigoAnimal(CodAnimal: Integer);
     procedure btnVoltarClick(Sender: TObject);
+    function ExtrairStringAntesVirgula(const Texto: string): string;
+    procedure cFotoEditarClick(Sender: TObject);
+    procedure actBuscaFotoDidFinishTaking(Image: TBitmap);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtNomeEnter(Sender: TObject);
+    procedure edtCorPelagemEnter(Sender: TObject);
+    procedure edtRuaEnter(Sender: TObject);
+    procedure edtNumeroEnter(Sender: TObject);
+    procedure edtIdadeEnter(Sender: TObject);
+    procedure cbxCastradoEnter(Sender: TObject);
+    procedure cbxGeneroEnter(Sender: TObject);
+    procedure cbxTipoAnimalEnter(Sender: TObject);
+    procedure edtBairroEnter(Sender: TObject);
+    procedure cbxCidadeEnter(Sender: TObject);
+    procedure cbxSituacaoEnter(Sender: TObject);
+    procedure mmoInformacoesEnter(Sender: TObject);
   private
     { Private declarations }
+    permissao: T99Permissions;
+    procedure TratarErroPermissao(Sender: TObject);
   public
     { Public declarations }
+    foco: TControl;
     iCodigoAnimal: Integer;
   end;
 
@@ -84,7 +105,25 @@ implementation
 
 {$R *.fmx}
 
-uses uFunctions, uDtmServidor, uPaginaConfiguracoes, Notificacao;
+uses uFunctions, uDtmServidor, uPaginaConfiguracoes, Notificacao,
+  uFrmEdicaoAnimais;
+
+procedure Ajustar_Scroll();
+var
+   x: Integer;
+begin
+   with frmEditarAnimais do
+   begin
+      VertScrollBox1.Margins.Bottom := 250;
+      VertScrollBox1.ViewportPosition := PointF(VertScrollBox1.ViewportPosition.X,
+                                                TControl(foco).Position.Y - 150);
+   end;
+end;
+
+procedure TfrmEditarAnimais.actBuscaFotoDidFinishTaking(Image: TBitmap);
+begin
+   cFotoEditar.Fill.Bitmap.Bitmap := Image;
+end;
 
 procedure TfrmEditarAnimais.btnAlterarCadastroClick(Sender: TObject);
 begin
@@ -115,20 +154,31 @@ begin
       dtmServidor.qryUpdate.Params.ParamByName('TIPO_ANIMAL').AsInteger := cbxTipoAnimal.ItemIndex;
       dtmServidor.qryUpdate.Params.ParamByName('INFORMACOES_ANIMAL').AsString := mmoInformacoes.Text;
       dtmServidor.qryUpdate.Params.ParamByName('SITUACAO_ANIMAL').AsString := cbxSituacao.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('DES_ENDERECO_ANIMAL').AsString := edtRua.Text + ',' +edtNumero.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('DES_ENDERECO_ANIMAL').AsString := edtRua.Text + ', ' +edtNumero.Text;
       dtmServidor.qryUpdate.Params.ParamByName('DES_BAIRRO_ANIMAL').AsString := edtBairro.Text;
+
+      if cFotoEditar.Fill.Bitmap.Bitmap <> nil then
+      begin
+         dtmServidor.qryUpdate.ParamByName('Foto_Animal').Assign(cFotoEditar.Fill.Bitmap.Bitmap);
+      end
+      else
+      begin
+         dtmServidor.qryUpdate.ParamByName('Foto_Animal').Value := unassigned;
+      end;
 
       dtmServidor.qryGeral2.Active := False;
       dtmServidor.qryGeral2.SQL.Clear;
       dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM CIDADES       '+
-                                        ' WHERE NOME_CIDADE = '+cbxCidade.Text;
+                                        ' WHERE NOME_CIDADE = :cidade ';
+
+      dtmServidor.qryGeral2.Params.ParamByName('cidade').AsString := cbxCidade.Text;
       dtmServidor.qryGeral2.Active := True;
 
       dtmServidor.qryUpdate.Params.ParamByName('COD_CIDADE').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
       dtmServidor.qryUpdate.Params.ParamByName('UF').AsString := dtmServidor.qryGeral2.FieldByName('UF').AsString;
-      dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := IntToStr(iCodigoAnimal); //INSERIR CÓDIGO DO ANIMAL
+      dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := IntToStr(iCodigoAnimal);
 
-      dtmServidor.qryInsert.ExecSQL;
+      dtmServidor.qryUpdate.ExecSQL;
 
       try
           if dtmServidor.fdConexao.InTransaction then
@@ -154,19 +204,24 @@ begin
       dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM ANIMAIS WHERE COD_ANIMAL = '+IntToStr(iCodigoAnimal); //INSERIR CÓDIGO DO ANIMAL
       dtmServidor.qryGeral.Active := True;
 
-      edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Animal').AsString;
-      edtCorPelagem.Text := dtmServidor.qryGeral.FieldByName('Cor_Pelagem').AsString;
-      cbxCastrado.Text := dtmServidor.qryGeral.FieldByName('Ind_Castrado').AsString;
-      cbxGenero.Text := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
-      edtRua.Text := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
-      edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString);
-      edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString;
-      cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
+//      edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Animal').AsString;
+//      edtCorPelagem.Text := dtmServidor.qryGeral.FieldByName('Cor_Pelagem').AsString;
+//      cbxCastrado.Text := dtmServidor.qryGeral.FieldByName('Ind_Castrado').AsString;
+//      cbxGenero.Text := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
+//      edtRua.Text := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
+//      edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString);
+//      edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString;
+//      cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
+
+      frmEdicaoAnimais.LimpaTodosFramesEditarAnimais;
+      frmEdicaoAnimais.ListarAnimais;
+      frmEdicaoAnimais.Show;
    end;
 end;
 
 procedure TfrmEditarAnimais.btnCancelarClick(Sender: TObject);
 begin
+   frmEditarAnimais.Close;
    frmPaginaConfiguracoes.Show;
 end;
 
@@ -175,8 +230,83 @@ begin
    iCodigoAnimal := CodAnimal;
 end;
 
+procedure TfrmEditarAnimais.cbxCastradoEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.cbxCidadeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.cbxGeneroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.cbxSituacaoEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.cbxTipoAnimalEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.cFotoEditarClick(Sender: TObject);
+begin
+   {$IFDEF MSWINDOWS}
+   {$ELSE}
+   permissao.PhotoLibrary(actBuscaFoto, TratarErroPermissao);
+   {$ENDIF}
+end;
+
+procedure TfrmEditarAnimais.edtBairroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.edtCorPelagemEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.edtIdadeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.edtNomeEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.edtNumeroEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.edtRuaEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
 procedure TfrmEditarAnimais.btnVoltarClick(Sender: TObject);
 begin
+   frmEditarAnimais.Close;
    frmPaginaConfiguracoes.Show;
 end;
 
@@ -193,6 +323,28 @@ begin
    begin
       Result := '';
    end;
+end;
+
+function TfrmEditarAnimais.ExtrairStringAntesVirgula(const Texto: string): string;
+var
+  VirgulaPos: Integer;
+begin
+  VirgulaPos := Pos(',', Texto);
+  if VirgulaPos > 0 then
+    Result := Copy(Texto, 1, VirgulaPos - 1)
+  else
+    Result := Texto;
+
+end;
+
+procedure TfrmEditarAnimais.FormCreate(Sender: TObject);
+begin
+   permissao := T99Permissions.Create;
+end;
+
+procedure TfrmEditarAnimais.FormDestroy(Sender: TObject);
+begin
+   permissao.DisposeOf;
 end;
 
 procedure TfrmEditarAnimais.FormShow(Sender: TObject);
@@ -225,10 +377,11 @@ begin
    dtmServidor.qryGeral2.Active := True;
 
    edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Animal').AsString;
-   edtCorPelagem.Text := dtmServidor.qryGeral.FieldByName('Cor_Palgem').AsString;
-   edtRua.Text := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
+   edtCorPelagem.Text := dtmServidor.qryGeral.FieldByName('Cor_Pelagem').AsString;
+   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString);
    edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString);
    edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString;
+   edtIdade.Text := dtmServidor.qryGeral.FieldByName('Idade_Animal').AsString;
    cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
    mmoInformacoes.Text := dtmServidor.qryGeral.FieldByName('Informacoes_Animal').AsString;
 
@@ -243,6 +396,17 @@ begin
    cbxGenero.ItemIndex := dtmServidor.qryGeral.FieldByName('Genero_Animal').AsInteger;
    cbxTipoAnimal.ItemIndex := dtmServidor.qryGeral.FieldByName('Tipo_Animal').AsInteger;
    cbxSituacao.Text := dtmServidor.qryGeral.FieldByName('Situacao_Animal').AsString;
+end;
+
+procedure TfrmEditarAnimais.mmoInformacoesEnter(Sender: TObject);
+begin
+   foco := TControl(TEdit(sender).Parent);
+   Ajustar_Scroll();
+end;
+
+procedure TfrmEditarAnimais.TratarErroPermissao(Sender: TObject);
+begin
+   ShowMessage('Você não possui permissão para este recurso!');
 end;
 
 end.

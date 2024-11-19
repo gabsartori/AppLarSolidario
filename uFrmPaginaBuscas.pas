@@ -22,11 +22,9 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
     cbxCastrado: TComboEdit;
     cbxCidade: TComboEdit;
     cbxTipoAnimal: TComboEdit;
-    cbxEstado: TComboEdit;
     Label6: TLabel;
     cbxGenero: TComboEdit;
     Layout3: TLayout;
@@ -44,6 +42,15 @@ type
     lytNaoEncontrou: TLayout;
     Label9: TLabel;
     Image3: TImage;
+    lytOpaco: TLayout;
+    Rectangle3: TRectangle;
+    lytConfirmaSolicitacao: TLayout;
+    Panel1: TPanel;
+    btnSim: TRoundRect;
+    Label5: TLabel;
+    btnNao: TRoundRect;
+    Label10: TLabel;
+    lblConfirmacao: TLabel;
 //    procedure AddAnimais(lb: TListBox; iCodAnimal: Integer; sNome, sTipo, sCor, sGenero, sCastrado,
 //                        sIdade, sResponsavel, sSituacao, sEndereco, sTelefone, sInformacoes: String);
     procedure ListarAnimais;
@@ -53,10 +60,14 @@ type
     procedure btnLimparFiltrosClick(Sender: TObject);
     procedure imgVoltarClick(Sender: TObject);
     procedure LimpaTodosFramesBusca;
+    procedure BuscaCodigoAnimal(CodAnimal: Integer);
+    procedure btnSimClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    iCodAnimal: Integer;
+    sBotaoClicado: String;
   end;
 
 var
@@ -66,7 +77,8 @@ implementation
 
 {$R *.fmx}
 
-uses Frame.AnimaisCadastrados, uDtmServidor, uFunctions, uPaginaInicial;
+uses Frame.AnimaisCadastrados, uDtmServidor, uFunctions, uPaginaInicial,
+  Notificacao, uFrmLogin, uFrmCadastroAnimais;
 
 { TfrmPaginaBuscas }
 
@@ -100,7 +112,145 @@ begin
    cbxCastrado.ItemIndex := 0;
    cbxGenero.ItemIndex := 0;
    cbxCidade.ItemIndex := 0;
-   cbxEstado.ItemIndex := 0;
+end;
+
+procedure TfrmPaginaBuscas.btnSimClick(Sender: TObject);
+var
+   sCodPessoa, sCodLar: String;
+begin
+   if (sBotaoClicado = 'Adoção') then
+   begin
+      try
+         dtmServidor.qryGeral.Active := False;
+         dtmServidor.qryGeral.SQL.Clear;
+         dtmServidor.qryGeral.SQL.Text := ' select cod_pessoa '+
+                                          ' from animais      '+
+                                          ' where cod_animal = '+IntToStr(iCodAnimal);
+         dtmServidor.qryGeral.Active := True;
+
+         sCodPessoa := dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString;
+
+         dtmServidor.qryInsert.Active := False;
+         dtmServidor.qryInsert.SQL.Clear;
+         dtmServidor.qryInsert.SQL.Text := ' INSERT INTO solicitacoes (Tipo_Solicitacao,        '+
+                                           '                           Status_Solicitacao,      '+
+                                           '                           Cod_Animal,      '+
+                                           '                           Cod_Pessoa_Solicitada,      '+
+                                           '                           Cod_Pessoa)  '+
+                                           '                  VALUES (:Tipo_Solicitacao,        '+
+                                           '                          :Status_Solicitacao,      '+
+                                           '                          :Cod_Animal,      '+
+                                           '                          :Cod_Pessoa_Solicitada,      '+
+                                           '                          :Cod_Pessoa); ';
+
+         dtmServidor.qryInsert.ParamByName('Tipo_Solicitacao').AsString := 'Adotar';
+         dtmServidor.qryInsert.ParamByName('Status_Solicitacao').AsInteger := 0;
+         dtmServidor.qryInsert.ParamByName('Cod_Animal').AsInteger := iCodAnimal;
+         dtmServidor.qryInsert.ParamByName('Cod_Pessoa_Solicitada').AsString := sCodPessoa;
+         dtmServidor.qryInsert.ParamByName('Cod_Pessoa').AsString := frmLogin.sUsuarioLogado;
+
+         dtmServidor.qryInsert.ExecSQL;
+
+         try
+             if dtmServidor.fdConexao.InTransaction then
+             begin
+                dtmServidor.fdConexao.Commit;
+             end;
+         except
+            TLoading.ToastMessage(frmPaginaBuscas,
+                               'Não foi possível enviar a solicitação!',
+                                $FFFA3F3F,
+                                TAlignLayout.Top);
+            Exit;
+         end;
+      finally
+         TLoading.ToastMessage(frmPaginaBuscas,
+                               'Solicitação enviada com sucesso!',
+                                $FF22AF70,
+                                TAlignLayout.Top);
+
+         lytOpaco.Visible := False;
+         lytConfirmaSolicitacao.Visible := False;
+      end;
+   end
+   else
+   begin
+      try
+         dtmServidor.qryGeral.Active := False;
+         dtmServidor.qryGeral.SQL.Clear;
+         dtmServidor.qryGeral.SQL.Text := ' select cod_pessoa '+
+                                          ' from animais      '+
+                                          ' where cod_animal = '+IntToStr(iCodAnimal);
+         dtmServidor.qryGeral.Active := True;
+
+         sCodPessoa := dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString;
+
+         dtmServidor.qryGeral.Active := False;
+         dtmServidor.qryGeral.SQL.Clear;
+         dtmServidor.qryGeral.SQL.Text := ' select cod_lar '+
+                                          ' from lartemporario      '+
+                                          ' where cod_pessoa = '+frmLogin.sUsuarioLogado;
+         dtmServidor.qryGeral.Active := True;
+
+         sCodLar := dtmServidor.qryGeral.FieldByName('cod_lar').AsString;
+
+         if (sCodLar = '') then
+         begin
+            ShowMessage('Você precisa ter um cadastro de lar temporário!');
+            Exit;
+         end;
+
+         dtmServidor.qryInsert.Active := False;
+         dtmServidor.qryInsert.SQL.Clear;
+         dtmServidor.qryInsert.SQL.Text := ' INSERT INTO solicitacoes (Tipo_Solicitacao,        '+
+                                           '                           Status_Solicitacao,      '+
+                                           '                           Cod_Animal,      '+
+                                           '                           Cod_Lar,      '+
+                                           '                           Cod_Pessoa_Solicitada,      '+
+                                           '                           Cod_Pessoa)  '+
+                                           '                  VALUES (:Tipo_Solicitacao,        '+
+                                           '                          :Status_Solicitacao,      '+
+                                           '                          :Cod_Animal,      '+
+                                           '                          :Cod_Lar,      '+
+                                           '                          :Cod_Pessoa_Solicitada,      '+
+                                           '                          :Cod_Pessoa); ';
+
+         dtmServidor.qryInsert.ParamByName('Tipo_Solicitacao').AsString := 'Hospedar';
+         dtmServidor.qryInsert.ParamByName('Status_Solicitacao').AsInteger := 0;
+         dtmServidor.qryInsert.ParamByName('Cod_Animal').AsInteger := iCodAnimal;
+         dtmServidor.qryInsert.ParamByName('Cod_Lar').AsString := sCodLar;
+         dtmServidor.qryInsert.ParamByName('Cod_Pessoa_Solicitada').AsString := sCodPessoa;
+         dtmServidor.qryInsert.ParamByName('Cod_Pessoa').AsString := frmLogin.sUsuarioLogado;
+
+         dtmServidor.qryInsert.ExecSQL;
+
+         try
+             if dtmServidor.fdConexao.InTransaction then
+             begin
+                dtmServidor.fdConexao.Commit;
+             end;
+         except
+            TLoading.ToastMessage(frmPaginaBuscas,
+                               'Não foi possível enviar a solicitação!',
+                                $FFFA3F3F,
+                                TAlignLayout.Top);
+            Exit;
+         end;
+      finally
+         TLoading.ToastMessage(frmPaginaBuscas,
+                               'Solicitação enviada com sucesso!',
+                                $FF22AF70,
+                                TAlignLayout.Top);
+
+         lytOpaco.Visible := False;
+         lytConfirmaSolicitacao.Visible := False;
+      end;
+   end;
+end;
+
+procedure TfrmPaginaBuscas.BuscaCodigoAnimal(CodAnimal: Integer);
+begin
+   iCodAnimal := CodAnimal;
 end;
 
 procedure TfrmPaginaBuscas.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -111,14 +261,35 @@ end;
 
 procedure TfrmPaginaBuscas.FormShow(Sender: TObject);
 begin
+   cbxCidade.Items.Clear;
+
+   if (cbxCidade.Items.Text = '') then
+   begin
+      cbxCidade.Items.Add('Todas');
+
+      dtmServidor.qryGeral.Active := False;
+      dtmServidor.qryGeral.SQL.Clear;
+      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.Active := True;
+
+      while not dtmServidor.qryGeral.Eof do
+      begin
+         cbxCidade.Items.Add(dtmServidor.qryGeral.FieldByName('nome_cidade').AsString);
+
+         dtmServidor.qryGeral.Next;
+      end;
+   end;
+
+   cbxCidade.ItemIndex := 0;
    lytNaoEncontrou.Visible := False;
-   LimparLista;
+   lytOpaco.Visible := False;
+   lytConfirmaSolicitacao.Visible := False;
+   LimpaTodosFramesBusca;
    Rectangle2.Visible := False;
 end;
 
 procedure TfrmPaginaBuscas.imgVoltarClick(Sender: TObject);
 begin
-   lbAnimais.Clear;
    frmPaginaBuscas.Close;
    frmPaginaInicial.Show;
 end;
@@ -127,12 +298,10 @@ procedure TfrmPaginaBuscas.LimpaTodosFramesBusca;
 var
    i: Integer;
 begin
-   // Percorre todos os componentes da tela principal
    for i := ComponentCount - 1 downto 0 do
    begin
       if Components[i] is TFrameAnimaisCadastrados then
       begin
-         // Se o componente for um TFrameBrinquedo, destrua-o
          TFrameAnimaisCadastrados(Components[i]).Free;
       end;
    end;
@@ -142,7 +311,8 @@ procedure TfrmPaginaBuscas.ListarAnimais;
 var
    Frame : TFrameAnimaisCadastrados;
    sCodAnimal, sNome, sTipo, sCor, sGenero, sCastrado, sIdade, sResponsavel, sSituacao,
-   sEndereco, sTelefone, sInformacoes, sSelectGenero, sSelectTipo, sSelectCastrado: String;
+   sEndereco, sTelefone, sInformacoes, sSelectGenero, sSelectTipo, sSelectCastrado,
+   sSelectEstado, sSelectCidade: String;
    i : Integer;
 begin
    try
@@ -188,6 +358,23 @@ begin
          sSelectTipo := '';
       end;
 
+      if (cbxCidade.ItemIndex = 0) then
+      begin
+         sSelectCidade := '';
+      end
+      else
+      begin
+         dtmServidor.qryGeral2.Active := False;
+         dtmServidor.qryGeral2.SQL.Clear;
+         dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM CIDADES       '+
+                                           ' WHERE NOME_CIDADE = :cidade ';
+
+         dtmServidor.qryGeral2.Params.ParamByName('cidade').AsString := cbxCidade.Text;
+         dtmServidor.qryGeral2.Active := True;
+
+         sSelectCidade := 'and a.cod_cidade = '+dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
+      end;
+
 
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Text := '';
@@ -204,6 +391,7 @@ begin
                                        '        END AS tipo_animal,                       '+
                                        '        a.Situacao_Animal,                     '+
                                        '        a.Des_Endereco_Animal,                 '+
+                                       '        a.Des_Bairro_Animal,                   '+
                                        '        CASE                                   '+
                                        '          WHEN a.Genero_Animal = 1 THEN ''Fêmea'' '+
                                        '          ELSE ''Macho''                         '+
@@ -211,6 +399,7 @@ begin
                                        '        a.Informacoes_Animal,                  '+
                                        '        a.Idade_Animal,                        '+
                                        '        a.Foto_Animal,                         '+
+                                       '        a.Cod_Cidade,                          '+
                                        '        b.Nome_Pessoa,                         '+
                                        '        b.Telefone_Pessoa                      '+
                                        ' from animais a, pessoas b                     '+
@@ -218,6 +407,7 @@ begin
                                        sSelectGenero                                    +
                                        sSelectTipo                                      +
                                        sSelectCastrado                                  +
+                                       sSelectCidade                                    +
                                        ' order by nome_animal                          ';
       dtmServidor.qryGeral.Active := True;
 
@@ -227,6 +417,13 @@ begin
           dtmServidor.qryGeral.First;
           while not dtmServidor.qryGeral.Eof do
           begin
+             dtmServidor.qryGeral2.Active := False;
+             dtmServidor.qryGeral2.SQL.Text := '';
+             dtmServidor.qryGeral2.SQL.Text := ' select nome_cidade, UF                                                          '+
+                                               ' from cidades                                                                '+
+                                               ' where cod_cidade = '+ dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
+             dtmServidor.qryGeral2.Active := True;
+
              sCodAnimal := dtmServidor.qryGeral.FieldByName('cod_animal').AsString;
              sNome := dtmServidor.qryGeral.FieldByName('nome_animal').AsString;
              sTipo := dtmServidor.qryGeral.FieldByName('tipo_animal').AsString;
@@ -236,7 +433,10 @@ begin
              sIdade := dtmServidor.qryGeral.FieldByName('idade_animal').AsString;
              sResponsavel := dtmServidor.qryGeral.FieldByName('Nome_Pessoa').AsString;
              sSituacao := dtmServidor.qryGeral.FieldByName('situacao_animal').AsString;
-             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
+             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString + ', '+
+                          dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString + ', '+
+                          dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString + ', '+
+                          dtmServidor.qryGeral2.FieldByName('uf').AsString;
              sTelefone := dtmServidor.qryGeral.FieldByName('telefone_pessoa').AsString;
              sInformacoes := dtmServidor.qryGeral.FieldByName('informacoes_animal').AsString;
 
@@ -244,11 +444,12 @@ begin
              Frame.Tag := StrToInt(sCodAnimal);
              Frame.Parent := vbsListaAnimais;
              frame.align := TAlignLayout.Top;
-             Frame.Name := 'Frame_' + sCodAnimal + '_' + IntToStr(i); // Definir um nome único para cada frame
+             Frame.Name := 'Frame_' + sCodAnimal + '_' + IntToStr(i);
              Frame.Visible := True;
-             frame.Margins.Top := 2; // Margem superior
-             frame.Margins.Bottom := 2; // Margem inferior
+             frame.Margins.Top := 2;
+             frame.Margins.Bottom := 2;
 
+             Frame.lblCodAnimal.text := sCodAnimal;
              Frame.lblNome.text := sNome;
              Frame.lblCor.Text := Frame.lblCor.Text + ' ' + sCor;
              Frame.lblTipo.Text := Frame.lblTipo.Text + ' ' + sTipo;

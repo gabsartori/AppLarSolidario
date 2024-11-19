@@ -231,7 +231,7 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
         Margins.Left = 10.000000000000000000
         Margins.Right = 10.000000000000000000
         Size.Width = 361.000000000000000000
-        Size.Height = 42.000000000000000000
+        Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Family = 'Arial'
         TextSettings.Font.Size = 16.000000000000000000
@@ -240,6 +240,15 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
         TextSettings.HorzAlign = Center
         Text = 'Menu de Configura'#231#245'es'
         TabOrder = 0
+      end
+      object Rectangle2: TRectangle
+        Align = MostBottom
+        Fill.Color = claDarkseagreen
+        Position.Y = 40.000000000000000000
+        Size.Width = 381.000000000000000000
+        Size.Height = 2.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
       end
     end
     object VertScrollBox1: TVertScrollBox
@@ -312,10 +321,10 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           StyledSettings = [Family, Style, FontColor]
           Margins.Left = 10.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 300.000000000000000000
+          Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
           Position.Y = 153.000000000000000000
-          Size.Width = 71.000000000000000000
+          Size.Width = 361.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 3
@@ -329,10 +338,10 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           StyledSettings = [Family, Style, FontColor]
           Margins.Left = 10.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 300.000000000000000000
+          Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
           Position.Y = 216.000000000000000000
-          Size.Width = 71.000000000000000000
+          Size.Width = 361.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 4
@@ -346,10 +355,10 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           StyledSettings = [Family, Style, FontColor]
           Margins.Left = 10.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 290.000000000000000000
+          Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
           Position.Y = 60.000000000000000000
-          Size.Width = 81.000000000000000000
+          Size.Width = 361.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 5
@@ -363,10 +372,10 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           StyledSettings = [Family, Style, FontColor]
           Margins.Left = 10.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 280.000000000000000000
+          Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
           Position.Y = 90.000000000000000000
-          Size.Width = 91.000000000000000000
+          Size.Width = 361.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 6
@@ -380,10 +389,10 @@ object frmPaginaConfiguracoes: TfrmPaginaConfiguracoes
           StyledSettings = [Family, Style, FontColor]
           Margins.Left = 10.000000000000000000
           Margins.Top = 5.000000000000000000
-          Margins.Right = 300.000000000000000000
+          Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
           Position.Y = 30.000000000000000000
-          Size.Width = 71.000000000000000000
+          Size.Width = 361.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 7

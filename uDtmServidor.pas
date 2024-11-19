@@ -41,25 +41,25 @@ implementation
 
 procedure TdtmServidor.DataModuleCreate(Sender: TObject);
 begin
-   with fdConexao do
-   begin
-      Params.Values['DriverID'] := 'SQLite';
-
-      {$IFDEF MSWINDOWS}
-      Params.Values['Database'] := System.SysUtils.GetCurrentDir + '\Banco\LarSolidario.db';
-      {$ELSE}
-      Params.Values['Database'] := TPath.Combine(TPath.GetDocumentsPath, 'LarSolidario.db');
-      {$ENDIF}
-
-       try
-          fdConexao.Connected := true;
-       except
-          on e:exception do
-          begin
-             raise Exception.Create('Erro de conexão com o banco de dados: ' + e.Message);
-          end;
-       end;
-   end;
+//   with fdConexao do
+//   begin
+//      Params.Values['DriverID'] := 'SQLite';
+//
+//      {$IFDEF MSWINDOWS}
+//      Params.Values['Database'] := System.SysUtils.GetCurrentDir + '\Banco\LarSolidario.db';
+//      {$ELSE}
+//      Params.Values['Database'] := TPath.Combine(TPath.GetDocumentsPath, 'LarSolidario.db');
+//      {$ENDIF}
+//
+//       try
+//          fdConexao.Connected := true;
+//       except
+//          on e:exception do
+//          begin
+//             raise Exception.Create('Erro de conexão com o banco de dados: ' + e.Message);
+//          end;
+//       end;
+//   end;
 end;
 
 procedure TdtmServidor.fdConexaoAfterConnect(Sender: TObject);
@@ -93,9 +93,8 @@ begin
 
    fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Motivos (          '+
                      ' Cod_Motivo INTEGER PRIMARY KEY AUTOINCREMENT, '+
-                     ' Descricao TEXT NOT NULL,                      '+
-                     ' Status INTEGER                                '+
-                     ');                                             ');
+                     ' Descricao TEXT NOT NULL                       '+
+                     ' );                                            ');
 
   fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS LarTemporario (                    '+
                     '     Cod_Lar          INTEGER PRIMARY KEY AUTOINCREMENT,       '+
@@ -143,10 +142,12 @@ begin
                     ' Tipo_Solicitacao TEXT,                                   '+
                     ' Status_Solicitacao INTEGER,                              '+
                     ' Cod_Motivo INTEGER,                                      '+
+                    ' Cod_Animal INTEGER,                                      '+
+                    ' Cod_Pessoa_Solicitada INTEGER,                           '+
                     ' Cod_Pessoa INTEGER,                                      '+
                     ' Cod_Lar INTEGER,                                         '+
                     ' FOREIGN KEY (Cod_Motivo) REFERENCES Motivos(Cod_Motivo), '+
-                    ' FOREIGN KEY (Cod_Pessoa) REFERENCES Pessoa(Cod_Pessoa),  '+
+                    ' FOREIGN KEY (Cod_Pessoa) REFERENCES Pessoas(Cod_Pessoa), '+
                     ' FOREIGN KEY (Cod_Lar) REFERENCES LarTemporario(Cod_Lar)  '+
                     ' );                                                       ');
 
@@ -163,6 +164,10 @@ begin
                     ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Concórdia'', ''SC'');   '+
                     ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Cascavel'', ''PR'');    '+
                     ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Curitiba'', ''PR'');    ');
+//
+  fdConexao.ExecSQL(' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Pet já foi adotado'');           '+
+                    ' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Lar não possui telas'');         '+
+                    ' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Pet não está mais disponível''); ');
 end;
 
 end.

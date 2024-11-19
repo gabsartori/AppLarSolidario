@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.Objects, FMX.DialogService;
+  FMX.Controls.Presentation, FMX.Objects, FMX.DialogService, FMX.VirtualKeyboard,
+  FMX.Platform;
 
 type
   TFrameEditarLaresTemporarios = class(TFrame)
@@ -15,16 +16,18 @@ type
     lblTipoAnimal: TLabel;
     lblQtdAnimais: TLabel;
     lblTelas: TLabel;
-    RoundRect1: TRoundRect;
-    RoundRect2: TRoundRect;
+    btnDesativar: TRoundRect;
+    btnEditar: TRoundRect;
     Label1: TLabel;
     lblDesativar: TLabel;
     lblSituacao: TLabel;
     Rectangle1: TRectangle;
-    lblCodLar: TLabel;
+    lbl1: TLabel;
     lblInformacoes: TLabel;
-    procedure RoundRect2Click(Sender: TObject);
-    procedure ConfirmarInativacao;
+    lblCodLar: TLabel;
+    Rectangle2: TRectangle;
+    procedure btnEditarClick(Sender: TObject);
+    procedure btnDesativarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,68 +40,37 @@ implementation
 
 uses uFrmEditarLarTemporario, uDtmServidor, uFrmEdicaoLares, Notificacao;
 
-procedure TFrameEditarLaresTemporarios.ConfirmarInativacao;
+procedure TFrameEditarLaresTemporarios.btnDesativarClick(Sender: TObject);
+var
+  VirtualKeyboard: IFMXVirtualKeyboardService;
 begin
-   TDialogService.MessageDialog(
-       'Deseja realmente desativar este lar?',
-       TMsgDlgType.mtConfirmation,
-       [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
-       TMsgDlgBtn.mbNo, // Botão padrão
-       0,
-       procedure(const AResult: TModalResult)
-       begin
-         if AResult = mrYes then
-         begin
-           try
-               dtmServidor.qryUpdate.Active := False;
-               dtmServidor.qryUpdate.SQL.Clear;
-               dtmServidor.qryUpdate.SQL.Text := ' UPDATE Lar_Temporario '+
-                                                 ' SET IND_ATIVO = 0 '+
-                                                 ' WHERE COD_LAR = :COD_LAR ';
-
-               dtmServidor.qryUpdate.Params.ParamByName('COD_LAR').AsString := lblCodLar.Text;
-
-               dtmServidor.qryInsert.ExecSQL;
-
-               try
-                   if dtmServidor.fdConexao.InTransaction then
-                   begin
-                      dtmServidor.fdConexao.Commit;
-                   end;
-               except
-                  TLoading.ToastMessage(frmEdicaoLares,
-                                       'Não foi possível realizar a operação!',
-                                        $FFFA3F3F,
-                                        TAlignLayout.Top);
-                  Exit;
-               end;
-
-           finally
-               TLoading.ToastMessage(frmEdicaoLares,
-                                    'Lar inativado com sucesso',
-                                     $FF22AF70,
-                                     TAlignLayout.Top);
-
-               frmEdicaoLares.Show;
-           end;
-         end
-         else
-         begin
-            // Código caso o usuário cancele a exclusão
-            ShowMessage('Ação cancelada!');
-         end;
-       end
-   );
-end;
-
-procedure TFrameEditarLaresTemporarios.RoundRect2Click(Sender: TObject);
-begin
-   if lblCodLar.Text <> '' then
+   if TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(VirtualKeyboard)) then
    begin
-      frmEditarLarTemporario.BuscaCodigoLar(StrToInt(lblCodLar.text));
+      VirtualKeyboard.HideVirtualKeyboard;
    end;
 
-   frmEditarLarTemporario.Show;
+   if (lblDesativar.Text = 'Desativar') then
+   begin
+      frmEdicaoLares.lblConfirmacao.Text := 'Deseja realmente inativar lar temporário?';
+      frmEdicaoLares.ParametrosInativacao('Desativar', lblCodLar.Text);
+   end
+   else
+   begin
+      frmEdicaoLares.lblConfirmacao.Text := 'Deseja realmente ativar lar temporário?';
+      frmEdicaoLares.ParametrosInativacao('Ativar', lblCodLar.Text);
+   end;
+
+   frmEdicaoLares.lytOpaco.Visible := True;
+   frmEdicaoLares.lytConfirmaInativacao.Visible := True;
+end;
+
+procedure TFrameEditarLaresTemporarios.btnEditarClick(Sender: TObject);
+begin
+   if (lblCodLar.Text <> '') then
+   begin
+      frmEditarLarTemporario.BuscaCodigoLar(StrToInt(lblCodLar.Text));
+      frmEditarLarTemporario.Show;
+   end;
 end;
 
 end.

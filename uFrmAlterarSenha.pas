@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Layouts, FMX.Controls.Presentation, FMX.Objects, FMX.Edit;
+  FMX.Layouts, FMX.Controls.Presentation, FMX.Objects, FMX.Edit, FMX.VirtualKeyboard,
+  FMX.Platform;
 
 type
   TfrmAlterarSenha = class(TForm)
@@ -28,18 +29,19 @@ type
     Layout5: TLayout;
     Layout6: TLayout;
     Layout7: TLayout;
-    btnCriarConta: TRoundRect;
+    btnAlterarSenha: TRoundRect;
     Label9: TLabel;
     Layout8: TLayout;
     btnCancelar: TRoundRect;
     Label4: TLabel;
     procedure edtSenhaAtualExit(Sender: TObject);
     procedure edtSenhaNovaExit(Sender: TObject);
-    procedure btnCriarContaClick(Sender: TObject);
+    procedure btnAlterarSenhaClick(Sender: TObject);
     procedure LimparCampos(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edtConfirmarSenhaExit(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure imgSairClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -58,10 +60,11 @@ uses uFrmLogin, uDtmServidor, uCriarCadastro, Notificacao, uPaginaConfiguracoes;
 procedure TfrmAlterarSenha.btnCancelarClick(Sender: TObject);
 begin
    LimparCampos(Sender);
+   frmAlterarSenha.Close;
    frmPaginaConfiguracoes.Show;
 end;
 
-procedure TfrmAlterarSenha.btnCriarContaClick(Sender: TObject);
+procedure TfrmAlterarSenha.btnAlterarSenhaClick(Sender: TObject);
 begin
    if (edtSenhaNova.Text = edtConfirmarSenha.Text) then
    begin
@@ -75,7 +78,7 @@ begin
          dtmServidor.qryUpdate.Params.ParamByName('SENHA_PESSOA').AsString := edtConfirmarSenha.Text;
          dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
 
-         dtmServidor.qryInsert.ExecSQL;
+         dtmServidor.qryUpdate.ExecSQL;
 
          try
              if dtmServidor.fdConexao.InTransaction then
@@ -92,10 +95,9 @@ begin
 
       finally
          TLoading.ToastMessage(frmAlterarSenha,
-                              'Senha alterada com sucesso',
+                              'Senha alterada com sucesso!',
                                $FF22AF70,
                                TAlignLayout.Top);
-
          LimparCampos(Sender);
          frmAlterarSenha.Close;
       end;
@@ -151,6 +153,12 @@ end;
 procedure TfrmAlterarSenha.FormShow(Sender: TObject);
 begin
    LimparCampos(Sender);
+end;
+
+procedure TfrmAlterarSenha.imgSairClick(Sender: TObject);
+begin
+   frmAlterarSenha.Close;
+   frmPaginaConfiguracoes.Show;
 end;
 
 procedure TfrmAlterarSenha.LimparCampos(Sender: TObject);

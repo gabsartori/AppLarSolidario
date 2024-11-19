@@ -174,11 +174,11 @@ begin
       dtmServidor.qryInsert.ParamByName('Nome_Lar').AsString := edtNome.Text;
       dtmServidor.qryInsert.ParamByName('Telefone_Lar').AsString := edtTelefone.Text;
       dtmServidor.qryInsert.ParamByName('Des_Bairro_Lar').AsString := edtBairro.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +','+sNumero;
+      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +', '+sNumero;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
       dtmServidor.qryInsert.ParamByName('Qtd_Animais').AsString := edtQuantidade.Text;
       dtmServidor.qryInsert.ParamByName('Ind_Telas').AsInteger := cbxTelas.ItemIndex;
-      dtmServidor.qryInsert.ParamByName('Tipo_Animal').AsString := cbxTipoAnimal.Text;
+      dtmServidor.qryInsert.ParamByName('Tipo_Animal').AsInteger := cbxTipoAnimal.ItemIndex;
       dtmServidor.qryInsert.ParamByName('Informacoes_Lar').AsString := mmoInformacoes.Text;
       dtmServidor.qryInsert.ParamByName('Ind_Ativo').AsString := '1';
       dtmServidor.qryInsert.ParamByName('Cod_Pessoa').AsString := frmLogin.sUsuarioLogado;
@@ -210,6 +210,7 @@ end;
 procedure TfrmCadastroLarTemporario.btnVoltarClick(Sender: TObject);
 begin
    LimpaCampos(Sender);
+   frmCadastroLarTemporario.Close;
    frmPaginaInicial.Show;
 end;
 

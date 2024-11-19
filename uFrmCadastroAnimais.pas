@@ -227,7 +227,7 @@ begin
       dtmServidor.qryInsert.ParamByName('Idade_Animal').AsString := edtIdade.Text;
       dtmServidor.qryInsert.ParamByName('Genero_Animal').AsInteger := cbxGenero.ItemIndex;
       dtmServidor.qryInsert.ParamByName('Cor_Pelagem').AsString := edtCorPelagem.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Endereco_Animal').AsString := edtRua.Text +','+ sNumero;
+      dtmServidor.qryInsert.ParamByName('Des_Endereco_Animal').AsString := edtRua.Text +', '+ sNumero;
       dtmServidor.qryInsert.ParamByName('Des_Bairro_Animal').AsString := edtBairro.Text;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
       dtmServidor.qryInsert.ParamByName('Cod_Cidade').AsInteger := iCodCidade;
@@ -241,7 +241,6 @@ begin
       end
       else
       begin
-//         dtmServidor.qryGeral.ParamByName('imagem_usuario').DataType := ftString;
          dtmServidor.qryInsert.ParamByName('Foto_Animal').Value := unassigned;
       end;
 
@@ -423,6 +422,8 @@ end;
 
 procedure TfrmCadastroAnimais.btnVoltarClick(Sender: TObject);
 begin
+   frmCadastroAnimais.Close;
+   LimpaCampos(Sender);
    frmPaginaInicial.Show;
 end;
 

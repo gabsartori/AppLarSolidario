@@ -1,0 +1,95 @@
+unit Frame.AnimaisCadastrados;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Objects, FMX.Controls.Presentation, FMX.Helpers.Android, Androidapi.Helpers,
+  Androidapi.JNI.GraphicsContentViewText, FMX.VirtualKeyboard,
+  FMX.Platform;
+
+type
+  TFrameAnimaisCadastrados = class(TFrame)
+    lblNome: TLabel;
+    lblResponsavel: TLabel;
+    lblEndereco: TLabel;
+    lblTelefone: TLabel;
+    lblGenero: TLabel;
+    lblCor: TLabel;
+    lblTipo: TLabel;
+    lblSituacao: TLabel;
+    lblCastrado: TLabel;
+    lblInformacoes: TLabel;
+    lblIdade: TLabel;
+    cFotoAnimal: TCircle;
+    btnHospedar: TRoundRect;
+    btnAdotar: TRoundRect;
+    Label2: TLabel;
+    Label1: TLabel;
+    Rectangle1: TRectangle;
+    imgWhatsApp: TImage;
+    procedure imgWhatsAppClick(Sender: TObject);
+    procedure AbrirWhatsApp(sTelefone: string);
+    procedure btnAdotarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.fmx}
+
+procedure TFrameAnimaisCadastrados.AbrirWhatsApp(sTelefone: string);
+var
+  sURL: string;
+begin
+  // Formatar o número de telefone para o formato internacional correto
+  sTelefone := sTelefone.Replace(' ', '').Replace('(', '').Replace(')', '').Replace('-', '').Replace('Telefone:', '');
+  sURL := 'https://wa.me/55' + sTelefone;
+  // Abrir a URL usando o intent do Android
+  TAndroidHelper.Context.startActivity(
+    TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW,
+    StrToJURI(sURL)));
+end;
+
+procedure TFrameAnimaisCadastrados.btnAdotarClick(Sender: TObject);
+var
+  VirtualKeyboard: IFMXVirtualKeyboardService;
+begin
+   if TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(VirtualKeyboard)) then
+   begin
+      VirtualKeyboard.HideVirtualKeyboard;
+   end;
+
+   if (lblDesativar.Text = 'Desativar') then
+   begin
+      frmEdicaoLares.lblConfirmacao.Text := 'Deseja realmente inativar lar temporário?';
+      frmEdicaoLares.ParametrosInativacao('Desativar', lblCodLar.Text);
+   end
+   else
+   begin
+      frmEdicaoLares.lblConfirmacao.Text := 'Deseja realmente ativar lar temporário?';
+      frmEdicaoLares.ParametrosInativacao('Ativar', lblCodLar.Text);
+   end;
+
+   frmEdicaoLares.lytOpaco.Visible := True;
+   frmEdicaoLares.lytConfirmaSenha.Visible := True;
+end;
+
+procedure TFrameAnimaisCadastrados.imgWhatsAppClick(Sender: TObject);
+begin
+   try
+      AbrirWhatsApp(lblTelefone.Text); // Substitua pelo número desejado
+   except
+      on E: Exception do
+      begin
+         ShowMessage('Não foi possível abrir o WhatsApp!'+#13+
+                     'Erro: '+E.Message);
+      end;
+   end;
+end;
+
+end.

@@ -7,8 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Layouts, FMX.StdCtrls, FMX.ExtCtrls, FMX.Edit, FMX.Controls.Presentation,
   FMX.DateTimeCtrls, REST.Types, REST.Client, Data.Bind.Components,
-  Data.Bind.ObjectScope, Androidapi.JNI.GraphicsContentViewText,
-  Androidapi.Helpers, FMX.Helpers.Android, FMX.ComboEdit, System.ImageList,
+  Data.Bind.ObjectScope, FMX.ComboEdit, System.ImageList,
   FMX.ImgList;
 
 type
@@ -50,7 +49,6 @@ type
     ImageList1: TImageList;
     procedure btnVoltarClick(Sender: TObject);
     procedure btnCriarContaClick(Sender: TObject);
-    procedure AbrirWhatsApp(sTelefone: string);
     procedure Label9Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     //procedure edtCepExit(Sender: TObject);
@@ -98,19 +96,6 @@ begin
       VertScrollBox1.ViewportPosition := PointF(VertScrollBox1.ViewportPosition.X,
                                                 TControl(foco).Position.Y - 150);
    end;
-end;
-
-procedure TfrmCriarCadastro.AbrirWhatsApp(sTelefone: string);
-var
-  sURL: string;
-begin
-  // Formatar o número de telefone para o formato internacional correto
-  sTelefone := sTelefone.Replace(' ', '').Replace('(', '').Replace(')', '').Replace('-', '');
-  sURL := 'https://wa.me/' + sTelefone;
-  // Abrir a URL usando o intent do Android
-  TAndroidHelper.Context.startActivity(
-    TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW,
-    StrToJURI(sURL)));
 end;
 
 procedure TfrmCriarCadastro.btnCriarContaClick(Sender: TObject);
@@ -202,7 +187,7 @@ begin
 
       dtmServidor.qryInsert.ParamByName('Nome_Pessoa').AsString := edtNome.Text;
       dtmServidor.qryInsert.ParamByName('Telefone_Pessoa').AsString := edtTelefone.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Rua').AsString := edtRua.Text +','+ sNumero;
+      dtmServidor.qryInsert.ParamByName('Des_Rua').AsString := edtRua.Text +', '+ sNumero;
       dtmServidor.qryInsert.ParamByName('Des_Bairro').AsString := edtBairro.Text;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
       dtmServidor.qryInsert.ParamByName('Email_Pessoa').AsString := edtEmail.Text;
@@ -361,6 +346,7 @@ end;
 procedure TfrmCriarCadastro.btnVoltarClick(Sender: TObject);
 begin
    LimpaCampos(Sender);
+   frmCriarCadastro.Close;
    frmLogin.Show;
 end;
 

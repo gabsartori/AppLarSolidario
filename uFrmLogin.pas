@@ -36,6 +36,7 @@ type
     procedure Label9Click(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -56,27 +57,21 @@ procedure TfrmLogin.btnAcessarClick(Sender: TObject);
 begin
    if (edtUsuario.Text = '') then
    begin
-      TLoading.ToastMessage(frmLogin,
-                            'Informe o e-mail',
-                             $FFFA3F3F,
-                             TAlignLayout.Top);
+      ShowMessage('Informe o e-mail');
       Exit;
    end;
 
    if (edtSenha.Text = '') then
    begin
-      TLoading.ToastMessage(frmLogin,
-                            'Informe a senha',
-                             $FFFA3F3F,
-                             TAlignLayout.Top);
+      ShowMessage('Infome a senha');
       Exit;
    end;
 
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Text := '';
-   dtmServidor.qryGeral.SQL.Text := ' select * from pessoa '+
-                                    ' where email = :email '+
-                                    ' and senha = :senha   '+
+   dtmServidor.qryGeral.SQL.Text := ' select * from pessoas '+
+                                    ' where Email_Pessoa = :email '+
+                                    ' and Senha_Pessoa = :senha   '+
                                     ' and ind_ativo = 1    ';
 
    dtmServidor.qryGeral.Params.ParamByName('email').AsString := edtUsuario.Text;
@@ -86,7 +81,7 @@ begin
    if (dtmServidor.qryGeral.RecordCount > 0) then
    begin
       sUsuarioLogado := dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString;
-      sNomeUsuarioLogado := dtmServidor.qryGeral.FieldByName('nome').AsString;
+      sNomeUsuarioLogado := dtmServidor.qryGeral.FieldByName('nome_pessoa').AsString;
       edtUsuario.Text := '';
       edtSenha.Text := '';
       frmPaginaInicial.Show;
@@ -102,13 +97,22 @@ end;
 
 procedure TfrmLogin.btnCriarContaClick(Sender: TObject);
 begin
+   edtUsuario.Text := '';
+   edtSenha.Text := '';
    frmCriarCadastro.Show;
+end;
+
+procedure TfrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+   dtmServidor.fdConexao.Connected := False;
 end;
 
 procedure TfrmLogin.FormShow(Sender: TObject);
 begin
    edtUsuario.Text := '';
    edtSenha.Text := '';
+   sUsuarioLogado := '';
+   sNomeUsuarioLogado := '';
 end;
 
 procedure TfrmLogin.Label1Click(Sender: TObject);

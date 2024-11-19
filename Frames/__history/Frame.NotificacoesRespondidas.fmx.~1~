@@ -1,0 +1,42 @@
+object FrameNotificacoesRespondidas: TFrameNotificacoesRespondidas
+  Size.Width = 381.000000000000000000
+  Size.Height = 136.000000000000000000
+  Size.PlatformDefault = False
+  object lblNotificacao: TLabel
+    StyledSettings = [Family]
+    Position.X = 27.000000000000000000
+    Position.Y = 3.000000000000000000
+    Size.Width = 335.000000000000000000
+    Size.Height = 88.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 15.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claDarkseagreen
+    TextSettings.HorzAlign = Center
+    Text = 
+      'O usu'#225'rio Gabriela Sartori deseja oferecer lar tempor'#225'rio para o' +
+      ' pet Yumi.'
+    TabOrder = 0
+  end
+  object btnVerPerfil: TRoundRect
+    Fill.Color = claDarkseagreen
+    Position.X = 304.000000000000000000
+    Position.Y = 92.000000000000000000
+    Size.Width = 69.000000000000000000
+    Size.Height = 35.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = claWhite
+    object Label1: TLabel
+      Align = Center
+      StyledSettings = [Family, Style]
+      Size.Width = 67.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Text = 'OK'
+      TabOrder = 0
+    end
+  end
+end
