@@ -6,9 +6,9 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Layouts, FMX.StdCtrls, FMX.ExtCtrls, FMX.Edit, FMX.Controls.Presentation,
-  FMX.DateTimeCtrls, REST.Types, REST.Client, Data.Bind.Components,
-  Data.Bind.ObjectScope, FMX.ComboEdit, System.ImageList,
-  FMX.ImgList;
+  FMX.DateTimeCtrls, REST.Types, REST.Client, Data.Bind.Components, Data.Bind.ObjectScope,
+  FMX.ComboEdit, System.ImageList, FMX.ImgList, FMX.DialogService, FMX.VirtualKeyboard,
+  FMX.Platform;
 
 type
   TfrmCriarCadastro = class(TForm)
@@ -47,16 +47,23 @@ type
     cbxCidade: TComboEdit;
     btnVoltar: TButton;
     ImageList1: TImageList;
+    lytOpaco: TLayout;
+    Rectangle3: TRectangle;
+    lytConfirmaAtivacao: TLayout;
+    Panel1: TPanel;
+    btnSim: TRoundRect;
+    Label5: TLabel;
+    btnNao: TRoundRect;
+    Label10: TLabel;
+    lblConfirmacao: TLabel;
     procedure btnVoltarClick(Sender: TObject);
     procedure btnCriarContaClick(Sender: TObject);
     procedure Label9Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    //procedure edtCepExit(Sender: TObject);
     procedure FormVirtualKeyboardHidden(Sender: TObject;
       KeyboardVisible: Boolean; const Bounds: TRect);
     procedure LimpaCampos(Sender: TObject);
     procedure edtBairroEnter(Sender: TObject);
-   // procedure edtCepEnter(Sender: TObject);
     procedure edtRuaEnter(Sender: TObject);
     procedure edtNumeroEnter(Sender: TObject);
     procedure edtCidadeEnter(Sender: TObject);
@@ -65,16 +72,16 @@ type
     procedure edtTelefoneEnter(Sender: TObject);
     procedure edtNomeEnter(Sender: TObject);
     procedure edtEmailEnter(Sender: TObject);
+    procedure btnNaoClick(Sender: TObject);
+    procedure btnSimClick(Sender: TObject);
   private
     { Private declarations }
     foco: TControl;
   public
     { Public declarations }
-    sNumero: String;
+    sNumero, sCodPessoa: String;
   end;
 
-  const
-    _URL_CONSULTAR_CEP = 'https://brasilapi.com.br/api/cep/v1/%s';
 
 var
   frmCriarCadastro: TfrmCriarCadastro;
@@ -102,7 +109,12 @@ procedure TfrmCriarCadastro.btnCriarContaClick(Sender: TObject);
 var
    iCodCidade: integer;
    sUF: String;
+   VirtualKeyboard: IFMXVirtualKeyboardService;
 begin
+   if TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(VirtualKeyboard)) then
+   begin
+      VirtualKeyboard.HideVirtualKeyboard;
+   end;
    if edtNome.Text = '' then
    begin
       ShowMessage('Informe o nome');
@@ -133,89 +145,101 @@ begin
       Exit;
    end;
 
-   dtmServidor.qryGeral2.Active := False;
-   dtmServidor.qryGeral2.SQL.Clear;
-   dtmServidor.qryGeral2.SQL.Text := ' select * from pessoas '+
-                                     ' where email_pessoa = '''+edtEmail.Text+''''+
-                                     ' and ind_ativo = 1     ';
-   dtmServidor.qryGeral2.Active := True;
-
-   if (dtmServidor.qryGeral2.RecordCount > 0) then
-   begin
-
-   end;
-
-
    dtmServidor.qryGeral.Active := False;
-   dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := 'select * from cidades where nome_cidade = '''+cbxCidade.Text+'''';
-   dtmServidor.qryGeral.Active := True;
+   dtmServidor.qryGeral.SQL.Text := '';
+   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM pessoas              '+
+                                    ' WHERE email_pessoa = :email_pessoa '+
+                                    ' AND ind_ativo = 0                  ';
 
-   iCodCidade := dtmServidor.qryGeral.FieldByName('cod_cidade').AsInteger;
-   sUF := dtmServidor.qryGeral.FieldByName('uf').AsString;
+   dtmServidor.qryGeral.Params.ParamByName('email_pessoa').AsString := edtEmail.Text;
+   dtmServidor.qryGeral.Active := true;
 
-   try
-      dtmServidor.qryInsert.Active := False;
-      dtmServidor.qryInsert.SQL.Clear;
-      dtmServidor.qryInsert.SQL.Text := ' insert into Pessoas (Nome_Pessoa,     '+
-                                       '                      Telefone_Pessoa, '+
-                                       '                      Des_Rua,         '+
-                                       '                      Des_Bairro,      '+
-                                       '                      UF,              '+
-                                       '                      Email_Pessoa,    '+
-                                       '                      Senha_Pessoa,    '+
-                                       '                      Ind_Ativo,       '+
-                                       '                      Cod_Cidade)      '+
-                                       '             values (:Nome_Pessoa,     '+
-                                       '                     :Telefone_Pessoa, '+
-                                       '                     :Des_Rua,         '+
-                                       '                     :Des_Bairro,      '+
-                                       '                     :UF,              '+
-                                       '                     :Email_Pessoa,    '+
-                                       '                     :Senha_Pessoa,    '+
-                                       '                     :Ind_Ativo,       '+
-                                       '                     :Cod_Cidade);     ';
+   sCodPessoa := dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString;
 
-      if (edtNumero.Text = '') then
+   if (dtmServidor.qryGeral.RecordCount > 0) then
+   begin
+      if TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService, IInterface(VirtualKeyboard)) then
       begin
-         sNumero := 'S/N';
-      end
-      else
-      begin
-         sNumero := edtNumero.Text;
+         VirtualKeyboard.HideVirtualKeyboard;
       end;
 
-      dtmServidor.qryInsert.ParamByName('Nome_Pessoa').AsString := edtNome.Text;
-      dtmServidor.qryInsert.ParamByName('Telefone_Pessoa').AsString := edtTelefone.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Rua').AsString := edtRua.Text +', '+ sNumero;
-      dtmServidor.qryInsert.ParamByName('Des_Bairro').AsString := edtBairro.Text;
-      dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
-      dtmServidor.qryInsert.ParamByName('Email_Pessoa').AsString := edtEmail.Text;
-      dtmServidor.qryInsert.ParamByName('Senha_Pessoa').AsString := edtSenha.Text;
-      dtmServidor.qryInsert.ParamByName('Ind_Ativo').AsString := '1';
-      dtmServidor.qryInsert.ParamByName('Cod_Cidade').AsInteger := iCodCidade;
+      lytOpaco.Visible := True;
+      lytConfirmaAtivacao.Visible := True;
+   end
+   else
+   begin
+      dtmServidor.qryGeral.Active := False;
+      dtmServidor.qryGeral.SQL.Clear;
+      dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM cidades                     '+
+                                       ' WHERE nome_cidade = '''+cbxCidade.Text+'''';
+      dtmServidor.qryGeral.Active := True;
 
-      dtmServidor.qryInsert.ExecSQL;
+      iCodCidade := dtmServidor.qryGeral.FieldByName('cod_cidade').AsInteger;
+      sUF := dtmServidor.qryGeral.FieldByName('uf').AsString;
 
       try
-          if dtmServidor.fdConexao.InTransaction then
-          begin
-             dtmServidor.fdConexao.Commit;
-          end;
-      except
-         TLoading.ToastMessage(frmCriarCadastro,
-                            'Não foi possível realizar o cadastro!',
-                             $FFFA3F3F,
-                             TAlignLayout.Top);
-         Exit;
-      end;
+         dtmServidor.qryInsert.Active := False;
+         dtmServidor.qryInsert.SQL.Clear;
+         dtmServidor.qryInsert.SQL.Text := ' INSERT INTO Pessoas (nome_pessoa,     '+
+                                          '                       telefone_pessoa, '+
+                                          '                       des_rua,         '+
+                                          '                       des_bairro,      '+
+                                          '                       UF,              '+
+                                          '                       email_pessoa,    '+
+                                          '                       senha_pessoa,    '+
+                                          '                       ind_ativo,       '+
+                                          '                       cod_cidade)      '+
+                                          '              VALUES (:nome_pessoa,     '+
+                                          '                      :telefone_pessoa, '+
+                                          '                      :des_rua,         '+
+                                          '                      :des_bairro,      '+
+                                          '                      :UF,              '+
+                                          '                      :email_pessoa,    '+
+                                          '                      :senha_pessoa,    '+
+                                          '                      :ind_ativo,       '+
+                                          '                      :cod_cidade);     ';
 
-   finally
-      TLoading.ToastMessage(frmCriarCadastro,
-                            'Cadastrado com sucesso',
-                             $FF22AF70,
-                             TAlignLayout.Top);
-      LimpaCampos(Sender);
+         if (edtNumero.Text = '') then
+         begin
+            sNumero := 'S/N';
+         end
+         else
+         begin
+            sNumero := edtNumero.Text;
+         end;
+
+         dtmServidor.qryInsert.ParamByName('nome_pessoa').AsString := edtNome.Text;
+         dtmServidor.qryInsert.ParamByName('telefone_pessoa').AsString := edtTelefone.Text;
+         dtmServidor.qryInsert.ParamByName('des_rua').AsString := edtRua.Text +', '+ sNumero;
+         dtmServidor.qryInsert.ParamByName('des_bairro').AsString := edtBairro.Text;
+         dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
+         dtmServidor.qryInsert.ParamByName('email_pessoa').AsString := edtEmail.Text;
+         dtmServidor.qryInsert.ParamByName('senha_pessoa').AsString := edtSenha.Text;
+         dtmServidor.qryInsert.ParamByName('ind_ativo').AsString := '1';
+         dtmServidor.qryInsert.ParamByName('cod_cidade').AsInteger := iCodCidade;
+
+         dtmServidor.qryInsert.ExecSQL;
+
+         try
+             if dtmServidor.fdConexao.InTransaction then
+             begin
+                dtmServidor.fdConexao.Commit;
+             end;
+         except
+            TLoading.ToastMessage(frmCriarCadastro,
+                               'Não foi possível realizar o cadastro!',
+                                $FFFA3F3F,
+                                TAlignLayout.Top);
+            Exit;
+         end;
+
+      finally
+         TLoading.ToastMessage(frmCriarCadastro,
+                               'Cadastrado com sucesso',
+                                $FF22AF70,
+                                TAlignLayout.Top);
+         LimpaCampos(Sender);
+      end;
    end;
 end;
 
@@ -224,50 +248,6 @@ begin
    foco := TControl(TEdit(sender).Parent);
    Ajustar_Scroll();
 end;
-
-//procedure TfrmCriarCadastro.edtCepEnter(Sender: TObject);
-//begin
-//   foco := TControl(TEdit(sender).Parent);
-//   Ajustar_Scroll();
-//end;
-
-//procedure TfrmCriarCadastro.edtCepExit(Sender: TObject);
-//var
-//  LCEP: String;
-//  LJSONObj: TJSONObject;
-//begin
-//   if (edtCep.Text <> '') then
-//   begin
-//      try
-//         LCEP := trim(edtCep.Text);
-//
-//         dtmServidor.RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
-//         dtmServidor.RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
-//
-//         dtmServidor.RESTRequest1.Method := rmGET;
-//         dtmServidor.RESTRequest1.Execute;
-//
-//         LJSONObj := dtmServidor.RESTRequest1.Response.JSONValue AS TJSONObject;
-//
-//         edtCep.Text := LJSONObj.values['cep'].Value;
-//         edtEstado.Text := LJSONObj.values['state'].Value;
-//         edtCidade.Text := LJSONObj.values['city'].Value;
-//         edtRua.Text := LJSONObj.values['street'].Value;
-//         edtBairro.Text := LJSONObj.values['neighborhood'].Value;
-//
-//         edtNumero.SetFocus;
-//      except
-//         on E: Exception do
-//         begin
-//            TLoading.ToastMessage(frmCriarCadastro,
-//                                  'Não foi possível consultar o CEP!'+#13+
-//                                  'Erro: '+E.Message,
-//                             $FFFA3F3F,
-//                             TAlignLayout.Bottom);
-//         end;
-//      end;
-//   end;
-//end;
 
 procedure TfrmCriarCadastro.edtCidadeEnter(Sender: TObject);
 begin
@@ -323,7 +303,9 @@ begin
    begin
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.SQL.Text := ' SELECT nome_cidade   '+
+                                       ' FROM cidades         '+
+                                       ' ORDER BY nome_cidade ';
       dtmServidor.qryGeral.Active := True;
 
       while not dtmServidor.qryGeral.Eof do
@@ -335,12 +317,58 @@ begin
    end;
 
    LimpaCampos(Sender);
+   lytOpaco.Visible := False;
+   lytConfirmaAtivacao.Visible := False;
 end;
 
 procedure TfrmCriarCadastro.FormVirtualKeyboardHidden(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);
 begin
    VertScrollBox1.Margins.Bottom := 0;
+end;
+
+procedure TfrmCriarCadastro.btnNaoClick(Sender: TObject);
+begin
+   lytOpaco.Visible := False;
+   lytConfirmaAtivacao.Visible := False;
+end;
+
+procedure TfrmCriarCadastro.btnSimClick(Sender: TObject);
+begin
+   try
+      dtmServidor.qryUpdate.Active := False;
+      dtmServidor.qryUpdate.SQL.Clear;
+      dtmServidor.qryUpdate.SQL.Text := ' UPDATE pessoas '+
+                                        ' SET ind_ativo = 1 '+
+                                        ' WHERE cod_pessoa = :cod_pessoa ';
+
+      dtmServidor.qryUpdate.Params.ParamByName('cod_pessoa').AsString := sCodPessoa;
+
+      dtmServidor.qryUpdate.ExecSQL;
+
+      try
+          if dtmServidor.fdConexao.InTransaction then
+          begin
+             dtmServidor.fdConexao.Commit;
+          end;
+      except
+         TLoading.ToastMessage(frmCriarCadastro,
+                            'Não foi possível realizar a operação!',
+                             $FFFA3F3F,
+                             TAlignLayout.Top);
+         Exit;
+      end;
+
+   finally
+      TLoading.ToastMessage(frmCriarCadastro,
+                           'Conta reativada com sucesso',
+                           $FF22AF70,
+                           TAlignLayout.Top);
+
+      lytOpaco.Visible := False;
+      lytConfirmaAtivacao.Visible := False;
+      frmLogin.Show;
+   end;
 end;
 
 procedure TfrmCriarCadastro.btnVoltarClick(Sender: TObject);

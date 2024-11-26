@@ -83,77 +83,165 @@ implementation
 uses uPaginaInicial, Frame.Notificacoes, uDtmServidor, uFrmEdicaoLares,
   uFrmLogin, Notificacao, Frame.NotificacoesRespondidas;
 
-procedure TfrmNotificacoes.AceitaSolicitacaoAdocao(CodSolicitacao, CodAnimal,
-  CodPessoa: String);
+procedure TfrmNotificacoes.AceitaSolicitacaoAdocao(CodSolicitacao, CodAnimal, CodPessoa: String);
 begin
-   dtmServidor.qryUpdate.Active := False;
-   dtmServidor.qryUpdate.SQL.Clear;
-   dtmServidor.qryUpdate.SQL.Text := ' UPDATE solicitacoes '+
-                                     ' SET status_solicitacao = 1 '+
-                                     ' WHERE cod_solicitacao = :cod_solicitacao ';
+   try
+      dtmServidor.qryUpdate.Active := False;
+      dtmServidor.qryUpdate.SQL.Clear;
+      dtmServidor.qryUpdate.SQL.Text := ' UPDATE solicitacoes '+
+                                        ' SET status_solicitacao = 1 '+
+                                        ' WHERE cod_solicitacao = :cod_solicitacao ';
 
-   dtmServidor.qryUpdate.Params.ParamByName('cod_solicitacao').AsString := CodSolicitacao;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_solicitacao').AsString := CodSolicitacao;
 
-   dtmServidor.qryUpdate.ExecSQL;
+      dtmServidor.qryUpdate.ExecSQL;
 
-   dtmServidor.qryUpdate.Active := False;
-   dtmServidor.qryUpdate.SQL.Clear;
-   dtmServidor.qryUpdate.SQL.Text := ' UPDATE animais '+
-                                     ' SET cod_pessoa = :cod_pessoa, '+
-                                     '     situacao_animal = ''Adotado'' '+
-                                     ' WHERE cod_animal = :cod_animal ';
+      try
+         if dtmServidor.fdConexao.InTransaction then
+         begin
+            dtmServidor.fdConexao.Commit;
+         end;
+      except
+         TLoading.ToastMessage(frmNotificacoes,
+                            'Não foi possível realizar a operação!',
+                             $FFFA3F3F,
+                             TAlignLayout.Top);
+         Exit;
+      end;
 
-   dtmServidor.qryUpdate.Params.ParamByName('cod_pessoa').AsString := CodPessoa;
-   dtmServidor.qryUpdate.Params.ParamByName('cod_animal').AsString := CodAnimal;
+      dtmServidor.qryUpdate.Active := False;
+      dtmServidor.qryUpdate.SQL.Clear;
+      dtmServidor.qryUpdate.SQL.Text := ' UPDATE animais '+
+                                        ' SET cod_pessoa = :cod_pessoa, '+
+                                        '     situacao_animal = ''Adotado'' '+
+                                        ' WHERE cod_animal = :cod_animal ';
 
-   dtmServidor.qryUpdate.ExecSQL;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_pessoa').AsString := CodPessoa;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_animal').AsString := CodAnimal;
 
-   LimpaTodosFramesNotificacoes;
-   ListarNotificacoes;
+      dtmServidor.qryUpdate.ExecSQL;
+
+      try
+         if dtmServidor.fdConexao.InTransaction then
+         begin
+            dtmServidor.fdConexao.Commit;
+         end;
+      except
+         TLoading.ToastMessage(frmNotificacoes,
+                            'Não foi possível realizar a operação!',
+                             $FFFA3F3F,
+                             TAlignLayout.Top);
+         Exit;
+      end;
+
+   finally
+      TLoading.ToastMessage(frmNotificacoes,
+                            'Solicitação aceita!',
+                             $FF22AF70,
+                             TAlignLayout.Top);
+
+      LimpaTodosFramesNotificacoes;
+      ListarNotificacoes;
+   end;
 end;
 
 procedure TfrmNotificacoes.AceitaSolicitacaoLar(CodSolicitacao, CodAnimal, CodLar: String);
 begin
-   dtmServidor.qryUpdate.Active := False;
-   dtmServidor.qryUpdate.SQL.Clear;
-   dtmServidor.qryUpdate.SQL.Text := ' UPDATE solicitacoes '+
-                                     ' SET status_solicitacao = 1 '+
-                                     ' WHERE cod_solicitacao = :cod_solicitacao ';
+   try
+      dtmServidor.qryUpdate.Active := False;
+      dtmServidor.qryUpdate.SQL.Clear;
+      dtmServidor.qryUpdate.SQL.Text := ' UPDATE solicitacoes '+
+                                        ' SET status_solicitacao = 1 '+
+                                        ' WHERE cod_solicitacao = :cod_solicitacao ';
 
-   dtmServidor.qryUpdate.Params.ParamByName('cod_solicitacao').AsString := CodSolicitacao;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_solicitacao').AsString := CodSolicitacao;
 
-   dtmServidor.qryUpdate.ExecSQL;
+      dtmServidor.qryUpdate.ExecSQL;
 
-   dtmServidor.qryUpdate.Active := False;
-   dtmServidor.qryUpdate.SQL.Clear;
-   dtmServidor.qryUpdate.SQL.Text := ' UPDATE animais '+
-                                     ' SET cod_lar = :cod_lar, '+
-                                     '     situacao_animal = ''Em lar temporário'' '+
-                                     ' WHERE cod_animal = :cod_animal ';
+      try
+         if dtmServidor.fdConexao.InTransaction then
+         begin
+            dtmServidor.fdConexao.Commit;
+         end;
+      except
+         TLoading.ToastMessage(frmNotificacoes,
+                              'Não foi possível realizar a operação!',
+                               $FFFA3F3F,
+                               TAlignLayout.Top);
+         Exit;
+      end;
 
-   dtmServidor.qryUpdate.Params.ParamByName('cod_lar').AsString := CodLar;
-   dtmServidor.qryUpdate.Params.ParamByName('cod_animal').AsString := CodAnimal;
+      dtmServidor.qryUpdate.Active := False;
+      dtmServidor.qryUpdate.SQL.Clear;
+      dtmServidor.qryUpdate.SQL.Text := ' UPDATE animais '+
+                                        ' SET cod_lar = :cod_lar, '+
+                                        '     situacao_animal = ''Em lar temporário'' '+
+                                        ' WHERE cod_animal = :cod_animal ';
 
-   dtmServidor.qryUpdate.ExecSQL;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_lar').AsString := CodLar;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_animal').AsString := CodAnimal;
 
-   LimpaTodosFramesNotificacoes;
-   ListarNotificacoes;
+      dtmServidor.qryUpdate.ExecSQL;
+
+      try
+         if dtmServidor.fdConexao.InTransaction then
+         begin
+            dtmServidor.fdConexao.Commit;
+         end;
+      except
+         TLoading.ToastMessage(frmNotificacoes,
+                              'Não foi possível realizar a operação!',
+                               $FFFA3F3F,
+                               TAlignLayout.Top);
+         Exit;
+      end;
+
+   finally
+      TLoading.ToastMessage(frmNotificacoes,
+                            'Solicitação aceita!',
+                             $FF22AF70,
+                             TAlignLayout.Top);
+
+      LimpaTodosFramesNotificacoes;
+      ListarNotificacoes;
+   end;
 end;
 
 procedure TfrmNotificacoes.AtualizaSolicitacao(CodSolicitacao: String);
 begin
-   dtmServidor.qryUpdate.Active := False;
-   dtmServidor.qryUpdate.SQL.Clear;
-   dtmServidor.qryUpdate.SQL.Text := ' UPDATE solicitacoes '+
-                                     ' SET status_solicitacao = 3 '+
-                                     ' WHERE cod_solicitacao = :cod_solicitacao ';
+   try
+       dtmServidor.qryUpdate.Active := False;
+       dtmServidor.qryUpdate.SQL.Clear;
+       dtmServidor.qryUpdate.SQL.Text := ' UPDATE solicitacoes '+
+                                         ' SET status_solicitacao = 3 '+
+                                         ' WHERE cod_solicitacao = :cod_solicitacao ';
 
-   dtmServidor.qryUpdate.Params.ParamByName('cod_solicitacao').AsString := CodSolicitacao;
+       dtmServidor.qryUpdate.Params.ParamByName('cod_solicitacao').AsString := CodSolicitacao;
 
-   dtmServidor.qryUpdate.ExecSQL;
+       dtmServidor.qryUpdate.ExecSQL;
 
-   LimpaTodosFramesNotificacoes;
-   ListarNotificacoes;
+       try
+           if dtmServidor.fdConexao.InTransaction then
+           begin
+              dtmServidor.fdConexao.Commit;
+           end;
+       except
+          TLoading.ToastMessage(frmNotificacoes,
+                             'Não foi possível realizar a operação!',
+                              $FFFA3F3F,
+                              TAlignLayout.Top);
+          Exit;
+       end;
+
+   finally
+      TLoading.ToastMessage(frmNotificacoes,
+                            'Solicitação finalizada!',
+                             $FF22AF70,
+                             TAlignLayout.Top);
+
+      LimpaTodosFramesNotificacoes;
+      ListarNotificacoes;
+   end;
 end;
 
 procedure TfrmNotificacoes.btnCancelarClick(Sender: TObject);
@@ -172,6 +260,16 @@ end;
 
 procedure TfrmNotificacoes.btnOkClick(Sender: TObject);
 begin
+   lblNome.Text := 'Nome: ';
+   lblTelefone.Text := 'Telefone: ';
+   lblEndereco.Text := 'Endereço: ';
+   lblCidade.Text := 'Cidade: ';
+   lblTelefoneLar.Text := 'Telefone: ';
+   lblEnderecoLar.Text := 'Endereço: ';
+   lblCidadeLar.Text := 'Cidade: ';
+   lblTelas.Text := 'Lar com Telas: ';
+   lblTipo.Text :=  'Tipo de Pet Aceito: ';
+
    lytOpaco.Visible := False;
    lytPerfil.Visible := False;
 end;
@@ -198,9 +296,9 @@ begin
 
          dtmServidor.qryGeral.Active := False;
          dtmServidor.qryGeral.SQL.Text := '';
-         dtmServidor.qryGeral.SQL.Text := ' select cod_motivo '+
-                                          ' from motivos  '+
-                                          ' where descricao = '''+mmoMotivo.Text+''' ';
+         dtmServidor.qryGeral.SQL.Text := ' SELECT cod_motivo '+
+                                          ' FROM motivos  '+
+                                          ' WHERE descricao = '''+mmoMotivo.Text+''' ';
          dtmServidor.qryGeral.Active := True;
 
          sCodMotivo := dtmServidor.qryGeral.FieldByName('cod_motivo').AsString;
@@ -261,7 +359,7 @@ begin
       end;
    finally
       TLoading.ToastMessage(frmNotificacoes,
-                            'Cadastrado com sucesso!',
+                            'Resposta enviada com sucesso!',
                              $FF22AF70,
                              TAlignLayout.Top);
 
@@ -301,10 +399,10 @@ begin
 
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Text := '';
-      dtmServidor.qryGeral.SQL.Text := ' select descricao '+
-                                       ' from motivos  '+
-                                       ' where cod_motivo in (1,2,3)'+
-                                       ' order by cod_motivo  ';
+      dtmServidor.qryGeral.SQL.Text := ' SELECT descricao            '+
+                                       ' FROM motivos                '+
+                                       ' WHERE cod_motivo in (1,2,3) '+
+                                       ' ORDER BY cod_motivo         ';
       dtmServidor.qryGeral.Active := True;
 
       while not dtmServidor.qryGeral.Eof do
@@ -377,22 +475,22 @@ begin
 
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Text := '';
-   dtmServidor.qryGeral.SQL.Text := ' select a.Tipo_Solicitacao,                      '+
-                                    '        a.Cod_Solicitacao,                       '+
-                                    '        a.Status_Solicitacao,                       '+
-                                    '        a.Cod_Animal,                            '+
-                                    '        a.Cod_Pessoa,                            '+
-                                    '        a.Cod_Pessoa_Solicitada,                 '+
-                                    '        a.Cod_Lar,                               '+
-                                    '        a.Cod_Motivo,                               '+
-                                    '        b.Nome_Animal,                           '+
-                                    '        c.Nome_Pessoa                            '+
-                                    ' from solicitacoes a, animais b, pessoas c       '+
-                                    ' where a.cod_animal = b.cod_animal               '+
-                                    ' and a.cod_pessoa = c.cod_pessoa                 '+
-                                    ' and a.status_solicitacao in (0,1,2)             '+
-                                    ' and (a.cod_pessoa_solicitada = '+frmLogin.sUsuarioLogado+
-                                    ' or a.cod_pessoa = '+frmLogin.sUsuarioLogado+')  ';
+   dtmServidor.qryGeral.SQL.Text := ' SELECT a.Tipo_Solicitacao,                             '+
+                                    '        a.Cod_Solicitacao,                              '+
+                                    '        a.Status_Solicitacao,                           '+
+                                    '        a.Cod_Animal,                                   '+
+                                    '        a.Cod_Pessoa,                                   '+
+                                    '        a.Cod_Pessoa_Solicitada,                        '+
+                                    '        a.Cod_Lar,                                      '+
+                                    '        a.Cod_Motivo,                                   '+
+                                    '        b.Nome_Animal,                                  '+
+                                    '        c.Nome_Pessoa                                   '+
+                                    ' FROM solicitacoes a, animais b, pessoas c              '+
+                                    ' WHERE a.cod_animal = b.cod_animal                      '+
+                                    ' AND a.cod_pessoa = c.cod_pessoa                        '+
+                                    ' AND a.status_solicitacao in (0,1,2)                    '+
+                                    ' AND (a.cod_pessoa_solicitada = '+frmLogin.sUsuarioLogado+
+                                    ' OR a.cod_pessoa = '+frmLogin.sUsuarioLogado+')         ';
 
    dtmServidor.qryGeral.Active := True;
 
@@ -402,17 +500,17 @@ begin
        dtmServidor.qryGeral.First;
        while not dtmServidor.qryGeral.Eof do
        begin
-          if (dtmServidor.qryGeral.FieldByName('Cod_Pessoa_Solicitada').AsString = frmLogin.sUsuarioLogado) and
-             (dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '0') then
+          if (dtmServidor.qryGeral.FieldByName('cod_pessoa_solicitada').AsString = frmLogin.sUsuarioLogado) and
+             (dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString = '0') then
           begin
              sCodSolicitacao := dtmServidor.qryGeral.FieldByName('cod_solicitacao').AsString;
              sNomePessoa := dtmServidor.qryGeral.FieldByName('nome_pessoa').AsString;
              sTipo := dtmServidor.qryGeral.FieldByName('tipo_solicitacao').AsString;
              sStatus := dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString;
-             sNomeAnimal := dtmServidor.qryGeral.FieldByName('Nome_Animal').AsString;
-             sCodPessoaSolicitada := dtmServidor.qryGeral.FieldByName('Cod_Pessoa_Solicitada').AsString;
-             sCodPessoa := dtmServidor.qryGeral.FieldByName('Cod_Pessoa').AsString;
-             sCodLar := dtmServidor.qryGeral.FieldByName('Cod_Lar').AsString;
+             sNomeAnimal := dtmServidor.qryGeral.FieldByName('nome_animal').AsString;
+             sCodPessoaSolicitada := dtmServidor.qryGeral.FieldByName('cod_pessoa_solicitada').AsString;
+             sCodPessoa := dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString;
+             sCodLar := dtmServidor.qryGeral.FieldByName('cod_lar').AsString;
 
              Frame := TFrameNotificacoes.Create(Self);
              Frame.Tag := StrToInt(sCodSolicitacao);
@@ -443,18 +541,18 @@ begin
              i := i + 1;
           end
           else
-          if (dtmServidor.qryGeral.FieldByName('Cod_Pessoa').AsString = frmLogin.sUsuarioLogado) and
-             ((dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '1') or
-              (dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '2')) then
+          if (dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString = frmLogin.sUsuarioLogado) and
+             ((dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString = '1') or
+              (dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString = '2')) then
           begin
              sCodSolicitacao := dtmServidor.qryGeral.FieldByName('cod_solicitacao').AsString;
              sNomePessoa := dtmServidor.qryGeral.FieldByName('nome_pessoa').AsString;
              sTipo := dtmServidor.qryGeral.FieldByName('tipo_solicitacao').AsString;
              sStatus := dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString;
-             sNomeAnimal := dtmServidor.qryGeral.FieldByName('Nome_Animal').AsString;
-             sCodPessoaSolicitada := dtmServidor.qryGeral.FieldByName('Cod_Pessoa_Solicitada').AsString;
-             sCodPessoa := dtmServidor.qryGeral.FieldByName('Cod_Pessoa').AsString;
-             sCodLar := dtmServidor.qryGeral.FieldByName('Cod_Lar').AsString;
+             sNomeAnimal := dtmServidor.qryGeral.FieldByName('nome_Animal').AsString;
+             sCodPessoaSolicitada := dtmServidor.qryGeral.FieldByName('cod_pessoa_solicitada').AsString;
+             sCodPessoa := dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString;
+             sCodLar := dtmServidor.qryGeral.FieldByName('cod_lar').AsString;
 
              Frame2 := TFrameNotificacoesRespondidas.Create(Self);
              Frame2.Tag := StrToInt(sCodSolicitacao);
@@ -483,9 +581,9 @@ begin
              begin
                 dtmServidor.qryGeral2.Active := False;
                 dtmServidor.qryGeral2.SQL.Text := '';
-                dtmServidor.qryGeral2.SQL.Text := ' select descricao '+
-                                                  ' from motivos  '+
-                                                  ' where cod_motivo = :cod_motivo ';
+                dtmServidor.qryGeral2.SQL.Text := ' SELECT descricao '+
+                                                  ' FROM motivos  '+
+                                                  ' WHERE cod_motivo = :cod_motivo ';
 
                 dtmServidor.qryGeral2.Params.ParamByName('cod_motivo').AsString := dtmServidor.qryGeral.FieldByName('cod_motivo').AsString;
                 dtmServidor.qryGeral2.Active := True;

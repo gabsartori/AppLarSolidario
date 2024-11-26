@@ -71,11 +71,11 @@ begin
       try
          dtmServidor.qryUpdate.Active := False;
          dtmServidor.qryUpdate.SQL.Clear;
-         dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
-                                           ' SET IND_ATIVO = 0 '+
-                                           ' WHERE COD_ANIMAL = :COD_ANIMAL ';
+         dtmServidor.qryUpdate.SQL.Text := ' UPDATE animais                 '+
+                                           ' SET ind_ativo = 0              '+
+                                           ' WHERE cod_animal = :cod_animal ';
 
-         dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := sCodAnimal;
+         dtmServidor.qryUpdate.Params.ParamByName('cod_animal').AsString := sCodAnimal;
 
          dtmServidor.qryUpdate.ExecSQL;
 
@@ -109,11 +109,11 @@ begin
       try
           dtmServidor.qryUpdate.Active := False;
           dtmServidor.qryUpdate.SQL.Clear;
-          dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
-                                            ' SET IND_ATIVO = 1 '+
-                                            ' WHERE COD_ANIMAL = :COD_ANIMAL ';
+          dtmServidor.qryUpdate.SQL.Text := ' UPDATE animais '+
+                                            ' SET ind_ativo = 1 '+
+                                            ' WHERE cod_animal = :cod_animal ';
 
-          dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := sCodAnimal;
+          dtmServidor.qryUpdate.Params.ParamByName('cod_animal').AsString := sCodAnimal;
 
           dtmServidor.qryUpdate.ExecSQL;
 
@@ -204,33 +204,33 @@ begin
 
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Text := '';
-      dtmServidor.qryGeral.SQL.Text := ' select cod_animal,                          '+
-                                       '        nome_animal,                         '+
-                                       '        cor_pelagem,                         '+
-                                       '        UF,                                  '+
-                                       '        CASE                                   '+
-                                       '          WHEN ind_castrado = 1 THEN ''Sim'' '+
-                                       '          ELSE ''Não''                         '+
-                                       '        END AS castrado,                       '+
-                                       '        CASE                                   '+
-                                       '          WHEN Tipo_Animal = 1 THEN ''Cachorro'' '+
-                                       '          ELSE ''Gato''                         '+
-                                       '        END AS tipo_animal,                       '+
-                                       '        Situacao_Animal,                     '+
-                                       '        Ind_Ativo,                           '+
-                                       '        Des_Endereco_Animal,                 '+
-                                       '        Des_Bairro_Animal,                   '+
-                                       '        CASE                                   '+
-                                       '          WHEN Genero_Animal = 1 THEN ''Fêmea'' '+
+      dtmServidor.qryGeral.SQL.Text := ' SELECT cod_animal,                              '+
+                                       '        nome_animal,                             '+
+                                       '        cor_pelagem,                             '+
+                                       '        UF,                                      '+
+                                       '        CASE                                     '+
+                                       '          WHEN ind_castrado = 1 THEN ''Sim''     '+
+                                       '          ELSE ''Não''                           '+
+                                       '        END AS castrado,                         '+
+                                       '        CASE                                     '+
+                                       '          WHEN tipo_animal = 1 THEN ''Cachorro'' '+
+                                       '          ELSE ''Gato''                          '+
+                                       '        END AS tipo_animal,                      '+
+                                       '        situacao_animal,                         '+
+                                       '        ind_ativo,                               '+
+                                       '        des_endereco_animal,                     '+
+                                       '        des_bairro_animal,                       '+
+                                       '        CASE                                     '+
+                                       '          WHEN genero_animal = 1 THEN ''Fêmea''  '+
                                        '          ELSE ''Macho''                         '+
-                                       '        END AS Genero_Animal,                       '+
-                                       '        Informacoes_Animal,                  '+
-                                       '        Idade_Animal,                        '+
-                                       '        Foto_Animal,                         '+
-                                       '        cod_cidade                            '+
-                                       ' from animais                                 '+
-                                       ' where cod_pessoa = '+ frmLogin.sUsuarioLogado +
-                                       ' order by cod_lar                             ';
+                                       '        END AS genero_animal,                    '+
+                                       '        informacoes_animal,                      '+
+                                       '        idade_animal,                            '+
+                                       '        foto_animal,                             '+
+                                       '        cod_cidade                               '+
+                                       ' FROM animais                                    '+
+                                       ' WHERE cod_pessoa = '+ frmLogin.sUsuarioLogado    +
+                                       ' ORDER BY cod_animal                             ';
       dtmServidor.qryGeral.Active := True;
 
       if (dtmServidor.qryGeral.RecordCount > 0) then
@@ -241,9 +241,9 @@ begin
           begin
              dtmServidor.qryGeral2.Active := False;
              dtmServidor.qryGeral2.SQL.Text := '';
-             dtmServidor.qryGeral2.SQL.Text := ' select nome_cidade, UF                                                         '+
-                                               ' from cidades                                                                '+
-                                               ' where cod_cidade = '+ dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
+             dtmServidor.qryGeral2.SQL.Text := ' SELECT nome_cidade, UF                                                         '+
+                                               ' FROM cidades                                                                '+
+                                               ' WHERE cod_cidade = '+ dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
              dtmServidor.qryGeral2.Active := True;
 
              sCodAnimal := dtmServidor.qryGeral.FieldByName('cod_animal').AsString;
@@ -254,8 +254,8 @@ begin
              sCastrado := dtmServidor.qryGeral.FieldByName('castrado').AsString;
              sIdade := dtmServidor.qryGeral.FieldByName('idade_animal').AsString;
              sSituacao := dtmServidor.qryGeral.FieldByName('situacao_animal').AsString;
-             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString + ', '+
-                          dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString + ', '+
+             sEndereco := dtmServidor.qryGeral.FieldByName('des_endereco_animal').AsString + ', '+
+                          dtmServidor.qryGeral.FieldByName('des_bairro_animal').AsString + ', '+
                           dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString + ', '+
                           dtmServidor.qryGeral2.FieldByName('uf').AsString;
              sInformacoes := dtmServidor.qryGeral.FieldByName('informacoes_animal').AsString;
@@ -299,6 +299,12 @@ begin
              if (dtmServidor.qryGeral.FieldByName('ind_ativo').AsString = '0') then
              begin
                 Frame.lblDesativar.Text := 'Ativar';
+             end;
+
+             if (sSituacao = 'Adotado') then
+             begin
+                Frame.btnDesativar.Enabled := False;
+                Frame.btnEditar.Enabled := False;
              end;
 
              if frame.Height > vbsAnimais.Height then

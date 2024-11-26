@@ -16,7 +16,7 @@ object frmLogin: TfrmLogin
     Size.Width = 381.000000000000000000
     Size.Height = 649.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 1
+    TabOrder = 2
     object Layout2: TLayout
       Align = Top
       Size.Width = 381.000000000000000000
@@ -643,6 +643,101 @@ object frmLogin: TfrmLogin
           Text = 'Crie sua conta agora'
           TabOrder = 0
         end
+      end
+    end
+  end
+  object lytOpaco: TLayout
+    Align = Contents
+    HitTest = True
+    Opacity = 0.500000000000000000
+    Size.Width = 381.000000000000000000
+    Size.Height = 649.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 1
+    object Rectangle3: TRectangle
+      Align = Contents
+      Fill.Color = claBlack
+      Size.Width = 381.000000000000000000
+      Size.Height = 649.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+  object lytConfirmaAtivacao: TLayout
+    Align = Center
+    Size.Width = 214.000000000000000000
+    Size.Height = 151.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 4
+    object Panel1: TPanel
+      Align = Client
+      Size.Width = 214.000000000000000000
+      Size.Height = 151.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object btnSim: TRoundRect
+        Fill.Color = claDarkseagreen
+        Position.X = 8.000000000000000000
+        Position.Y = 108.000000000000000000
+        Size.Width = 86.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claWhite
+        OnClick = btnSimClick
+        object Label5: TLabel
+          Align = Center
+          StyledSettings = [Family, Style]
+          Size.Width = 41.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Text = 'Sim'
+          TabOrder = 0
+        end
+      end
+      object btnNao: TRoundRect
+        Fill.Color = claTomato
+        Position.X = 127.000000000000000000
+        Position.Y = 108.000000000000000000
+        Size.Width = 79.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claWhite
+        OnClick = btnNaoClick
+        object Label10: TLabel
+          Align = Center
+          StyledSettings = [Family, Style]
+          Size.Width = 37.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Text = 'N'#227'o'
+          TabOrder = 0
+        end
+      end
+      object lblConfirmacao: TLabel
+        Align = Top
+        StyledSettings = []
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Position.X = 10.000000000000000000
+        Position.Y = 20.000000000000000000
+        Size.Width = 194.000000000000000000
+        Size.Height = 69.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Arial'
+        TextSettings.Font.Size = 17.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = claDarkseagreen
+        TextSettings.HorzAlign = Center
+        Text = 'Seu cadastro est'#225' inativo. Deseja reativar?'
+        TabOrder = 2
       end
     end
   end

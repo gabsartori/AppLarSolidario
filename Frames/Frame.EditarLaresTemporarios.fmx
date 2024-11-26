@@ -1,6 +1,6 @@
 object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
   Size.Width = 381.000000000000000000
-  Size.Height = 167.000000000000000000
+  Size.Height = 181.000000000000000000
   Size.PlatformDefault = False
   object lblNome: TLabel
     Align = Top
@@ -26,12 +26,13 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
     Margins.Right = 10.000000000000000000
     Position.X = 20.000000000000000000
     Position.Y = 23.000000000000000000
-    Size.Width = 322.000000000000000000
-    Size.Height = 17.000000000000000000
+    Size.Width = 341.000000000000000000
+    Size.Height = 34.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 11.000000000000000000
     TextSettings.Font.StyleExt = {00070000000000000004000000}
     TextSettings.FontColor = claGray
+    TextSettings.VertAlign = Leading
     Text = 'Endere'#231'o:'
     TabOrder = 1
   end
@@ -41,7 +42,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
     Margins.Top = 3.000000000000000000
     Margins.Right = 10.000000000000000000
     Position.X = 20.000000000000000000
-    Position.Y = 42.000000000000000000
+    Position.Y = 55.000000000000000000
     Size.Width = 261.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
@@ -57,7 +58,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
     Margins.Top = 3.000000000000000000
     Margins.Right = 10.000000000000000000
     Position.X = 20.000000000000000000
-    Position.Y = 60.000000000000000000
+    Position.Y = 73.000000000000000000
     Size.Width = 131.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
@@ -73,7 +74,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
     Margins.Top = 3.000000000000000000
     Margins.Right = 10.000000000000000000
     Position.X = 20.000000000000000000
-    Position.Y = 78.000000000000000000
+    Position.Y = 91.000000000000000000
     Size.Width = 149.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
@@ -89,7 +90,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
     Margins.Top = 3.000000000000000000
     Margins.Right = 10.000000000000000000
     Position.X = 215.000000000000000000
-    Position.Y = 60.000000000000000000
+    Position.Y = 73.000000000000000000
     Size.Width = 102.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
@@ -102,7 +103,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
   object btnDesativar: TRoundRect
     Fill.Color = claTomato
     Position.X = 291.000000000000000000
-    Position.Y = 129.000000000000000000
+    Position.Y = 140.000000000000000000
     Size.Width = 80.000000000000000000
     Size.Height = 30.000000000000000000
     Size.PlatformDefault = False
@@ -124,7 +125,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
   object btnEditar: TRoundRect
     Fill.Color = claDarkseagreen
     Position.X = 203.000000000000000000
-    Position.Y = 129.000000000000000000
+    Position.Y = 140.000000000000000000
     Size.Width = 80.000000000000000000
     Size.Height = 30.000000000000000000
     Size.PlatformDefault = False
@@ -149,7 +150,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
     Margins.Top = 3.000000000000000000
     Margins.Right = 10.000000000000000000
     Position.X = 215.000000000000000000
-    Position.Y = 78.000000000000000000
+    Position.Y = 91.000000000000000000
     Size.Width = 102.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
@@ -162,7 +163,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
   object Rectangle1: TRectangle
     Align = Bottom
     Fill.Color = claDarkseagreen
-    Position.Y = 164.000000000000000000
+    Position.Y = 178.000000000000000000
     Size.Width = 381.000000000000000000
     Size.Height = 1.000000000000000000
     Size.PlatformDefault = False
@@ -184,7 +185,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
   object lblInformacoes: TLabel
     StyledSettings = [Family]
     Position.X = 20.000000000000000000
-    Position.Y = 95.000000000000000000
+    Position.Y = 108.000000000000000000
     Size.Width = 263.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
@@ -209,7 +210,7 @@ object FrameEditarLaresTemporarios: TFrameEditarLaresTemporarios
   object Rectangle2: TRectangle
     Align = MostBottom
     Fill.Color = claDarkseagreen
-    Position.Y = 165.000000000000000000
+    Position.Y = 179.000000000000000000
     Size.Width = 381.000000000000000000
     Size.Height = 2.000000000000000000
     Size.PlatformDefault = False

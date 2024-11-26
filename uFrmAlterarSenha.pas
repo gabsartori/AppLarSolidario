@@ -71,12 +71,12 @@ begin
       try
          dtmServidor.qryUpdate.Active := False;
          dtmServidor.qryUpdate.SQL.Clear;
-         dtmServidor.qryUpdate.SQL.Text := ' UPDATE PESSOAS '+
-                                           ' SET SENHA_PESSOA = :SENHA_PESSOA '+
-                                           ' WHERE COD_PESSOA = :COD_PESSOA ';
+         dtmServidor.qryUpdate.SQL.Text := ' UPDATE pessoas                   '+
+                                           ' SET senha_pessoa = :senha_pessoa '+
+                                           ' WHERE cod_pessoa = :cod_pessoa   ';
 
-         dtmServidor.qryUpdate.Params.ParamByName('SENHA_PESSOA').AsString := edtConfirmarSenha.Text;
-         dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
+         dtmServidor.qryUpdate.Params.ParamByName('senha_pessoa').AsString := edtConfirmarSenha.Text;
+         dtmServidor.qryUpdate.Params.ParamByName('cod_pessoa').AsString := frmLogin.sUsuarioLogado;
 
          dtmServidor.qryUpdate.ExecSQL;
 
@@ -122,12 +122,12 @@ procedure TfrmAlterarSenha.edtSenhaAtualExit(Sender: TObject);
 begin
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := ' SELECT SENHA_PESSOA '+
-                                    ' FROM PESSOAS        '+
-                                    ' WHERE COD_PESSOA = '+frmLogin.sUsuarioLogado;
+   dtmServidor.qryGeral.SQL.Text := ' SELECT senha_pessoa                        '+
+                                    ' FROM pessoas                               '+
+                                    ' WHERE cod_pessoa = '+frmLogin.sUsuarioLogado;
    dtmServidor.qryGeral.Active := True;
 
-   if (edtSenhaAtual.Text <> dtmServidor.qryGeral.FieldByName('SENHA_PESSOA').AsString) then
+   if (edtSenhaAtual.Text <> dtmServidor.qryGeral.FieldByName('senha_pessoa').AsString) then
    begin
       ShowMessage('A senha informada é diferente da senha atual!');
       Exit;
@@ -138,12 +138,12 @@ procedure TfrmAlterarSenha.edtSenhaNovaExit(Sender: TObject);
 begin
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := ' SELECT SENHA_PESSOA '+
-                                    ' FROM PESSOAS        '+
-                                    ' WHERE COD_PESSOA = '+frmLogin.sUsuarioLogado;
+   dtmServidor.qryGeral.SQL.Text := ' SELECT senha_pessoa                        '+
+                                    ' FROM pessoas                               '+
+                                    ' WHERE cod_pessoa = '+frmLogin.sUsuarioLogado;
    dtmServidor.qryGeral.Active := True;
 
-   if (edtSenhaNova.Text = dtmServidor.qryGeral.FieldByName('SENHA_PESSOA').AsString) then
+   if (edtSenhaNova.Text = dtmServidor.qryGeral.FieldByName('senha_pessoa').AsString) then
    begin
       ShowMessage('A senha informada é igual a senha atual!');
       Exit;

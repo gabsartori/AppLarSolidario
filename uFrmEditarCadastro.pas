@@ -95,33 +95,33 @@ begin
    try
       dtmServidor.qryUpdate.Active := False;
       dtmServidor.qryUpdate.SQL.Clear;
-      dtmServidor.qryUpdate.SQL.Text := ' UPDATE PESSOAS '+
-                                        ' SET NOME_PESSOA = :NOME_PESSOA, '+
-                                        '     TELEFONE_PESSOA = :TELEFONE_PESSOA,'+
-                                        '     DES_RUA = :DES_RUA, '+
-                                        '     DES_BAIRRO = :DES_BAIRRO, '+
-                                        '     EMAIL_PESSOA = :EMAIL_PESSOA, '+
-                                        '     COD_CIDADE = :COD_CIDADE, '+
-                                        '     UF = :UF '+
-                                        ' WHERE COD_PESSOA = :COD_PESSOA ';
+      dtmServidor.qryUpdate.SQL.Text := ' UPDATE pessoas                         '+
+                                        ' SET nome_pessoa = :nome_pessoa,        '+
+                                        '     telefone_pessoa = :telefone_pessoa,'+
+                                        '     des_rua = :telefone_pessoa,        '+
+                                        '     des_bairro = :des_bairro,          '+
+                                        '     email_pessoa = :email_pessoa,      '+
+                                        '     cod_cidade = :cod_cidade,          '+
+                                        '     UF = :UF                           '+
+                                        ' WHERE cod_pessoa = :cod_pessoa         ';
 
-      dtmServidor.qryUpdate.Params.ParamByName('NOME_PESSOA').AsString := edtNome.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('TELEFONE_PESSOA').AsString := edtNome.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('DES_RUA').AsString := edtRua.Text + ', ' +edtNumero.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('DES_BAIRRO').AsString := edtBairro.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('EMAIL_PESSOA').AsString := edtEmail.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('nome_pessoa').AsString := edtNome.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('telefone_pessoa').AsString := edtNome.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('telefone_pessoa').AsString := edtRua.Text + ', ' +edtNumero.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('des_bairro').AsString := edtBairro.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('email_pessoa').AsString := edtEmail.Text;
 
       dtmServidor.qryGeral2.Active := False;
       dtmServidor.qryGeral2.SQL.Clear;
-      dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM CIDADES       '+
-                                        ' WHERE NOME_CIDADE = :cidade ';
+      dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM cidades       '+
+                                        ' WHERE nome_cidade = :nome_cidade ';
 
-      dtmServidor.qryGeral2.Params.ParamByName('cidade').AsString := cbxCidade.Text;
+      dtmServidor.qryGeral2.Params.ParamByName('nome_cidade').AsString := cbxCidade.Text;
       dtmServidor.qryGeral2.Active := True;
 
-      dtmServidor.qryUpdate.Params.ParamByName('COD_CIDADE').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_cidade').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
       dtmServidor.qryUpdate.Params.ParamByName('UF').AsString := dtmServidor.qryGeral2.FieldByName('UF').AsString;
-      dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_pessoa').AsString := frmLogin.sUsuarioLogado;
 
       dtmServidor.qryUpdate.ExecSQL;
 
@@ -146,7 +146,8 @@ begin
 
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM PESSOAS WHERE COD_PESSOA = '+frmLogin.sUsuarioLogado;
+      dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM pessoas                      '+
+                                       ' WHERE cod_pessoa = '+frmLogin.sUsuarioLogado;
       dtmServidor.qryGeral.Active := True;
 
       frmPaginaConfiguracoes.Show;
@@ -240,7 +241,9 @@ begin
    begin
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.SQL.Text := ' SELECT nome_cidade   '+
+                                       ' FROM cidades         '+
+                                       ' ORDER BY nome_cidade ';
       dtmServidor.qryGeral.Active := True;
 
       while not dtmServidor.qryGeral.Eof do
@@ -253,23 +256,24 @@ begin
 
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM PESSOAS WHERE COD_PESSOA = '+frmLogin.sUsuarioLogado;
+   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM pessoas                      '+
+                                    ' WHERE cod_pessoa = '+frmLogin.sUsuarioLogado;
    dtmServidor.qryGeral.Active := True;
 
    dtmServidor.qryGeral2.Active := False;
    dtmServidor.qryGeral2.SQL.Clear;
-   dtmServidor.qryGeral2.SQL.Text := ' SELECT NOME_CIDADE '+
-                                     ' FROM CIDADES       '+
-                                     ' WHERE COD_CIDADE = '+dtmServidor.qryGeral.FieldByName('COD_CIDADE').AsString;
+   dtmServidor.qryGeral2.SQL.Text := ' SELECT nome_cidade                                                         '+
+                                     ' FROM cidades                                                               '+
+                                     ' WHERE cod_cidade = '+dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
    dtmServidor.qryGeral2.Active := True;
 
-   edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Pessoa').AsString;
-   edtTelefone.Text := dtmServidor.qryGeral.FieldByName('Telefone_Pessoa').AsString;
-   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('Des_Rua').AsString);
-   edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Rua').AsString);
-   edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro').AsString;
-   cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
-   edtEmail.Text := dtmServidor.qryGeral.FieldByName('Email_Pessoa').AsString;
+   edtNome.Text := dtmServidor.qryGeral.FieldByName('nome_pessoa').AsString;
+   edtTelefone.Text := dtmServidor.qryGeral.FieldByName('telefone_pessoa').AsString;
+   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('des_rua').AsString);
+   edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('des_rua').AsString);
+   edtBairro.Text := dtmServidor.qryGeral.FieldByName('des_bairro').AsString;
+   cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString;
+   edtEmail.Text := dtmServidor.qryGeral.FieldByName('email_pessoa').AsString;
 end;
 
 procedure TfrmEditarCadastro.Label2Click(Sender: TObject);

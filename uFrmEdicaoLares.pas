@@ -100,10 +100,10 @@ begin
           dtmServidor.qryUpdate.Active := False;
           dtmServidor.qryUpdate.SQL.Clear;
           dtmServidor.qryUpdate.SQL.Text := ' UPDATE LarTemporario '+
-                                            ' SET IND_ATIVO = 0 '+
-                                            ' WHERE COD_LAR = :COD_LAR ';
+                                            ' SET ind_ativo = 0 '+
+                                            ' WHERE cod_lar = :cod_lar ';
 
-          dtmServidor.qryUpdate.Params.ParamByName('COD_LAR').AsString := sCodLar;
+          dtmServidor.qryUpdate.Params.ParamByName('cod_lar').AsString := sCodLar;
 
           dtmServidor.qryUpdate.ExecSQL;
 
@@ -138,10 +138,10 @@ begin
            dtmServidor.qryUpdate.Active := False;
            dtmServidor.qryUpdate.SQL.Clear;
            dtmServidor.qryUpdate.SQL.Text := ' UPDATE LarTemporario '+
-                                             ' SET IND_ATIVO = 1 '+
-                                             ' WHERE COD_LAR = :COD_LAR ';
+                                             ' SET ind_ativo = 1 '+
+                                             ' WHERE cod_lar = :cod_lar ';
 
-           dtmServidor.qryUpdate.Params.ParamByName('COD_LAR').AsString := sCodLar;
+           dtmServidor.qryUpdate.Params.ParamByName('cod_lar').AsString := sCodLar;
 
            dtmServidor.qryUpdate.ExecSQL;
 
@@ -211,29 +211,29 @@ begin
       dtmServidor.qryGeral.SQL.Text := '';
       dtmServidor.qryGeral.SQL.Text := ' select cod_lar,                                 '+
                                        '        nome_lar,                                '+
-                                       '        Des_Endereco_Lar,                        '+
-                                       '        Des_Bairro_Lar,                          '+
+                                       '        des_endereco_lar,                        '+
+                                       '        des_bairro_lar,                          '+
                                        '        UF,                                      '+
                                        '        CASE                                     '+
                                        '          WHEN ind_ativo = 1 THEN ''Ativo''      '+
                                        '          ELSE ''Inativo''                       '+
                                        '        END AS situacao,                         '+
-                                       '        Telefone_Lar,                            '+
-                                       '        Qtd_Animais,                             '+
+                                       '        telefone_lar,                            '+
+                                       '        qtd_animais,                             '+
                                        '        CASE                                     '+
                                        '          WHEN tipo_animal = 1 THEN ''Cachorro'' '+
                                        '          WHEN tipo_animal = 2 THEN ''Gato''     '+
                                        '          ELSE ''Ambos''                         '+
-                                       '        END AS Tipo_Animal,                      '+
-                                       '        Informacoes_Lar,                         '+
+                                       '        END AS tipo_animal,                      '+
+                                       '        informacoes_lar,                         '+
                                        '        CASE                                     '+
                                        '          WHEN Ind_Telas = 1 THEN ''Sim''        '+
                                        '          ELSE ''Não''                           '+
-                                       '        END AS Telas,                            '+
+                                       '        END AS telas,                            '+
                                        '        cod_cidade                               '+
-                                       ' from lartemporario                              '+
-                                       ' where cod_pessoa = '+ frmLogin.sUsuarioLogado    +
-                                       ' order by cod_lar                                ';
+                                       ' FROM LarTemporario                              '+
+                                       ' WHERE cod_pessoa = '+ frmLogin.sUsuarioLogado    +
+                                       ' ORDER BY cod_lar                                ';
       dtmServidor.qryGeral.Active := True;
 
       if (dtmServidor.qryGeral.RecordCount > 0) then
@@ -244,17 +244,17 @@ begin
           begin
              dtmServidor.qryGeral2.Active := False;
              dtmServidor.qryGeral2.SQL.Text := '';
-             dtmServidor.qryGeral2.SQL.Text := ' select nome_cidade                                                          '+
-                                               ' from cidades                                                                '+
-                                               ' where cod_cidade = '+ dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
+             dtmServidor.qryGeral2.SQL.Text := ' SELECT nome_cidade                                                          '+
+                                               ' FROM cidades                                                                '+
+                                               ' WHERE cod_cidade = '+ dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
              dtmServidor.qryGeral2.Active := True;
 
              sCodLar := dtmServidor.qryGeral.FieldByName('cod_lar').AsString;
              sNome := dtmServidor.qryGeral.FieldByName('nome_lar').AsString;
              sTipo := dtmServidor.qryGeral.FieldByName('tipo_animal').AsString;
              sSituacao := dtmServidor.qryGeral.FieldByName('situacao').AsString;
-             sEndereco := dtmServidor.qryGeral.FieldByName('Des_Endereco_Lar').AsString + ', '+
-                          dtmServidor.qryGeral.FieldByName('Des_Bairro_Lar').AsString + ', '+
+             sEndereco := dtmServidor.qryGeral.FieldByName('des_endereco_lar').AsString + ', '+
+                          dtmServidor.qryGeral.FieldByName('des_bairro_lar').AsString + ', '+
                           dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString + ', '+
                           dtmServidor.qryGeral.FieldByName('uf').AsString;
              sTelefone := dtmServidor.qryGeral.FieldByName('telefone_lar').AsString;

@@ -130,53 +130,53 @@ begin
       try
       dtmServidor.qryUpdate.Active := False;
       dtmServidor.qryUpdate.SQL.Clear;
-      dtmServidor.qryUpdate.SQL.Text := ' UPDATE ANIMAIS '+
-                                        ' SET NOME_ANIMAL = :NOME_ANIMAL, '+
-                                        '     GENERO_ANIMAL = :GENERO_ANIMAL,'+
-                                        '     IDADE_ANIMAL = :IDADE_ANIMAL, '+
-                                        '     COR_PELAGEM = :COR_PELAGEM, '+
-                                        '     UF = :UF, '+
-                                        '     IND_CASTRADO = :IND_CASTRADO, '+
-                                        '     FOTO_ANIMAL = :FOTO_ANIMAL, '+
-                                        '     TIPO_ANIMAL = :TIPO_ANIMAL, '+
-                                        '     INFORMACOES_ANIMAL = :INFORMACOES_ANIMAL, '+
-                                        '     SITUACAO_ANIMAL = :SITUACAO_ANIMAL, '+
-                                        '     DES_ENDERECO_ANIMAL = :DES_ENDERECO_ANIMAL, '+
-                                        '     DES_BAIRRO_ANIMAL = :DES_BAIRRO_ANIMAL, '+
-                                        '     COD_CIDADE = :COD_CIDADE '+
-                                        ' WHERE COD_ANIMAL = :COD_ANIMAL ';
+      dtmServidor.qryUpdate.SQL.Text := ' UPDATE animais                                  '+
+                                        ' SET nome_animal = :nome_animal,                 '+
+                                        '     genero_animal = :genero_animal,             '+
+                                        '     idade_animal = :idade_animal,               '+
+                                        '     cor_pelagem = :cor_pelagem,                 '+
+                                        '     UF = :UF,                                   '+
+                                        '     ind_castrado = :ind_castrado,               '+
+                                        '     foto_animal = :foto_animal,                 '+
+                                        '     tipo_animal = :tipo_animal,                 '+
+                                        '     informacoes_animal = :informacoes_animal,   '+
+                                        '     situacao_animal = :situacao_animal,         '+
+                                        '     des_endereco_animal = :des_endereco_animal, '+
+                                        '     des_bairro_animal = :des_bairro_animal,     '+
+                                        '     cod_cidade = :cod_cidade                    '+
+                                        ' WHERE cod_animal = :cod_animal                  ';
 
-      dtmServidor.qryUpdate.Params.ParamByName('NOME_ANIMAL').AsString := edtNome.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('GENERO_ANIMAL').AsInteger := cbxGenero.ItemIndex;
-      dtmServidor.qryUpdate.Params.ParamByName('IDADE_ANIMAL').AsString := edtIdade.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('COR_PELAGEM').AsString := edtCorPelagem.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('IND_CASTRADO').AsInteger := cbxCastrado.ItemIndex;
-      dtmServidor.qryUpdate.Params.ParamByName('TIPO_ANIMAL').AsInteger := cbxTipoAnimal.ItemIndex;
-      dtmServidor.qryUpdate.Params.ParamByName('INFORMACOES_ANIMAL').AsString := mmoInformacoes.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('SITUACAO_ANIMAL').AsString := cbxSituacao.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('DES_ENDERECO_ANIMAL').AsString := edtRua.Text + ', ' +edtNumero.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('DES_BAIRRO_ANIMAL').AsString := edtBairro.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('nome_animal').AsString := edtNome.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('genero_animal').AsInteger := cbxGenero.ItemIndex;
+      dtmServidor.qryUpdate.Params.ParamByName('idade_animal').AsString := edtIdade.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('cor_pelagem').AsString := edtCorPelagem.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('ind_castrado').AsInteger := cbxCastrado.ItemIndex;
+      dtmServidor.qryUpdate.Params.ParamByName('tipo_animal').AsInteger := cbxTipoAnimal.ItemIndex;
+      dtmServidor.qryUpdate.Params.ParamByName('informacoes_animal').AsString := mmoInformacoes.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('situacao_animal').AsString := cbxSituacao.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('des_endereco_animal').AsString := edtRua.Text + ', ' +edtNumero.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('des_bairro_animal').AsString := edtBairro.Text;
 
       if cFotoEditar.Fill.Bitmap.Bitmap <> nil then
       begin
-         dtmServidor.qryUpdate.ParamByName('Foto_Animal').Assign(cFotoEditar.Fill.Bitmap.Bitmap);
+         dtmServidor.qryUpdate.ParamByName('foto_animal').Assign(cFotoEditar.Fill.Bitmap.Bitmap);
       end
       else
       begin
-         dtmServidor.qryUpdate.ParamByName('Foto_Animal').Value := unassigned;
+         dtmServidor.qryUpdate.ParamByName('foto_animal').Value := unassigned;
       end;
 
       dtmServidor.qryGeral2.Active := False;
       dtmServidor.qryGeral2.SQL.Clear;
-      dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM CIDADES       '+
-                                        ' WHERE NOME_CIDADE = :cidade ';
+      dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM cidades            '+
+                                        ' WHERE nome_cidade = :nome_cidade ';
 
-      dtmServidor.qryGeral2.Params.ParamByName('cidade').AsString := cbxCidade.Text;
+      dtmServidor.qryGeral2.Params.ParamByName('nome_cidade').AsString := cbxCidade.Text;
       dtmServidor.qryGeral2.Active := True;
 
-      dtmServidor.qryUpdate.Params.ParamByName('COD_CIDADE').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_cidade').AsString := dtmServidor.qryGeral2.FieldByName('cod_cidade').AsString;
       dtmServidor.qryUpdate.Params.ParamByName('UF').AsString := dtmServidor.qryGeral2.FieldByName('UF').AsString;
-      dtmServidor.qryUpdate.Params.ParamByName('COD_ANIMAL').AsString := IntToStr(iCodigoAnimal);
+      dtmServidor.qryUpdate.Params.ParamByName('cod_animal').AsString := IntToStr(iCodigoAnimal);
 
       dtmServidor.qryUpdate.ExecSQL;
 
@@ -201,17 +201,9 @@ begin
 
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM ANIMAIS WHERE COD_ANIMAL = '+IntToStr(iCodigoAnimal); //INSERIR CÓDIGO DO ANIMAL
+      dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM animais '+
+                                       ' WHERE cod_animal = '+IntToStr(iCodigoAnimal);
       dtmServidor.qryGeral.Active := True;
-
-//      edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Animal').AsString;
-//      edtCorPelagem.Text := dtmServidor.qryGeral.FieldByName('Cor_Pelagem').AsString;
-//      cbxCastrado.Text := dtmServidor.qryGeral.FieldByName('Ind_Castrado').AsString;
-//      cbxGenero.Text := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
-//      edtRua.Text := dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString;
-//      edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString);
-//      edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString;
-//      cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
 
       frmEdicaoAnimais.LimpaTodosFramesEditarAnimais;
       frmEdicaoAnimais.ListarAnimais;
@@ -353,7 +345,9 @@ begin
    begin
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.SQL.Text := ' SELECT nome_cidade   '+
+                                       ' FROM cidades         '+
+                                       ' ORDER BY nome_cidade ';
       dtmServidor.qryGeral.Active := True;
 
       while not dtmServidor.qryGeral.Eof do
@@ -366,24 +360,25 @@ begin
 
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM ANIMAIS WHERE COD_ANIMAL = '+IntToStr(iCodigoAnimal);
+   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM animais                      '+
+                                    ' WHERE cod_animal = '+IntToStr(iCodigoAnimal);
    dtmServidor.qryGeral.Active := True;
 
    dtmServidor.qryGeral2.Active := False;
    dtmServidor.qryGeral2.SQL.Clear;
-   dtmServidor.qryGeral2.SQL.Text := ' SELECT NOME_CIDADE '+
-                                     ' FROM CIDADES       '+
-                                     ' WHERE COD_CIDADE = '+dtmServidor.qryGeral.FieldByName('COD_CIDADE').AsString;
+   dtmServidor.qryGeral2.SQL.Text := ' SELECT nome_cidade '+
+                                     ' FROM cidades       '+
+                                     ' WHERE cod_cidade = '+dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
    dtmServidor.qryGeral2.Active := True;
 
-   edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Animal').AsString;
-   edtCorPelagem.Text := dtmServidor.qryGeral.FieldByName('Cor_Pelagem').AsString;
-   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString);
-   edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Animal').AsString);
-   edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro_Animal').AsString;
-   edtIdade.Text := dtmServidor.qryGeral.FieldByName('Idade_Animal').AsString;
-   cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
-   mmoInformacoes.Text := dtmServidor.qryGeral.FieldByName('Informacoes_Animal').AsString;
+   edtNome.Text := dtmServidor.qryGeral.FieldByName('nome_animal').AsString;
+   edtCorPelagem.Text := dtmServidor.qryGeral.FieldByName('cor_pelagem').AsString;
+   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('des_endereco_animal').AsString);
+   edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('des_endereco_animal').AsString);
+   edtBairro.Text := dtmServidor.qryGeral.FieldByName('des_bairro_animal').AsString;
+   edtIdade.Text := dtmServidor.qryGeral.FieldByName('idade_animal').AsString;
+   cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString;
+   mmoInformacoes.Text := dtmServidor.qryGeral.FieldByName('informacoes_animal').AsString;
 
    if dtmServidor.qryGeral.FieldByName('foto_animal').AsString <> '' then
    begin
@@ -392,10 +387,10 @@ begin
       cFotoEditar.Repaint;
    end;
 
-   cbxCastrado.ItemIndex := dtmServidor.qryGeral.FieldByName('Ind_Castrado').AsInteger;
-   cbxGenero.ItemIndex := dtmServidor.qryGeral.FieldByName('Genero_Animal').AsInteger;
-   cbxTipoAnimal.ItemIndex := dtmServidor.qryGeral.FieldByName('Tipo_Animal').AsInteger;
-   cbxSituacao.Text := dtmServidor.qryGeral.FieldByName('Situacao_Animal').AsString;
+   cbxCastrado.ItemIndex := dtmServidor.qryGeral.FieldByName('ind_castrado').AsInteger;
+   cbxGenero.ItemIndex := dtmServidor.qryGeral.FieldByName('genero_animal').AsInteger;
+   cbxTipoAnimal.ItemIndex := dtmServidor.qryGeral.FieldByName('tipo_animal').AsInteger;
+   cbxSituacao.Text := dtmServidor.qryGeral.FieldByName('situacao_animal').AsString;
 end;
 
 procedure TfrmEditarAnimais.mmoInformacoesEnter(Sender: TObject);

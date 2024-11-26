@@ -106,38 +106,38 @@ begin
       dtmServidor.qryUpdate.Active := False;
       dtmServidor.qryUpdate.SQL.Clear;
       dtmServidor.qryUpdate.SQL.Text := ' UPDATE LarTemporario '+
-                                        ' SET Nome_Lar = :Nome_Lar, '+
-                                        '     Telefone_Lar = :Telefone_Lar,     '+
-                                        '     Qtd_Animais = :Qtd_Animais,'+
+                                        ' SET nome_lar = :nome_lar, '+
+                                        '     telefone_lar = :telefone_lar,     '+
+                                        '     qtd_animais = :qtd_animais,'+
                                         '     UF = :UF, '+
-                                        '     Ind_Telas = :Ind_Telas, '+
-                                        '     Tipo_Animal = :Tipo_Animal, '+
-                                        '     Informacoes_Lar = :Informacoes_Lar, '+
-                                        '     Des_Endereco_Lar = :Des_Endereco_Lar, '+
-                                        '     Des_Bairro_Lar = :Des_Bairro_Lar, '+
-                                        '     Cod_Cidade = :Cod_Cidade '+
+                                        '     ind_telas = :ind_telas, '+
+                                        '     tipo_animal = :tipo_animal, '+
+                                        '     informacoes_lar = :informacoes_lar, '+
+                                        '     des_endereco_lar = :des_endereco_lar, '+
+                                        '     des_bairro_lar = :des_bairro_lar, '+
+                                        '     cod_cidade = :Cod_Cidade '+
                                         ' WHERE Cod_Lar = :Cod_Lar ';
 
-      dtmServidor.qryUpdate.Params.ParamByName('Nome_Lar').AsString := edtNome.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('Telefone_Lar').AsString := edtTelefone.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('Qtd_Animais').AsString := edtQuantidade.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('Ind_Telas').AsInteger := cbxTelas.ItemIndex;
-      dtmServidor.qryUpdate.Params.ParamByName('Tipo_Animal').AsInteger := cbxTipoAnimal.ItemIndex;
-      dtmServidor.qryUpdate.Params.ParamByName('Informacoes_Lar').AsString := mmoInformacoes.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text + ', ' +edtNumero.Text;
-      dtmServidor.qryUpdate.Params.ParamByName('Des_Bairro_Lar').AsString := edtBairro.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('nome_lar').AsString := edtNome.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('telefone_lar').AsString := edtTelefone.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('qtd_animais').AsString := edtQuantidade.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('ind_telas').AsInteger := cbxTelas.ItemIndex;
+      dtmServidor.qryUpdate.Params.ParamByName('tipo_animal').AsInteger := cbxTipoAnimal.ItemIndex;
+      dtmServidor.qryUpdate.Params.ParamByName('informacoes_lar').AsString := mmoInformacoes.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('des_endereco_lar').AsString := edtRua.Text + ', ' +edtNumero.Text;
+      dtmServidor.qryUpdate.Params.ParamByName('des_bairro_lar').AsString := edtBairro.Text;
 
       dtmServidor.qryGeral2.Active := False;
       dtmServidor.qryGeral2.SQL.Clear;
-      dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM CIDADES       '+
-                                        ' WHERE NOME_CIDADE = :cidade ';
+      dtmServidor.qryGeral2.SQL.Text := ' SELECT * FROM cidades            '+
+                                        ' WHERE nome_cidade = :nome_cidade ';
 
-      dtmServidor.qryGeral2.Params.ParamByName('cidade').AsString := cbxCidade.Text;
+      dtmServidor.qryGeral2.Params.ParamByName('nome_cidade').AsString := cbxCidade.Text;
       dtmServidor.qryGeral2.Active := True;
 
-      dtmServidor.qryUpdate.Params.ParamByName('Cod_Cidade').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
+      dtmServidor.qryUpdate.Params.ParamByName('cod_cidade').AsString := dtmServidor.qryGeral2.FieldByName('COD_CIDADE').AsString;
       dtmServidor.qryUpdate.Params.ParamByName('UF').AsString := dtmServidor.qryGeral2.FieldByName('UF').AsString;
-      dtmServidor.qryUpdate.Params.ParamByName('Cod_Lar').AsString := IntToStr(iCodigoLar);
+      dtmServidor.qryUpdate.Params.ParamByName('cod_lar').AsString := IntToStr(iCodigoLar);
 
       try
          dtmServidor.qryUpdate.ExecSQL;
@@ -274,7 +274,9 @@ begin
    begin
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.SQL.Text := ' SELECT nome_cidade   '+
+                                       ' FROM cidades         '+
+                                       ' ORDER BY nome_cidade ';
       dtmServidor.qryGeral.Active := True;
 
       while not dtmServidor.qryGeral.Eof do
@@ -287,26 +289,27 @@ begin
 
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM LarTemporario WHERE COD_LAR = '+IntToStr(iCodigoLar);
+   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM LarTemporario          '+
+                                    ' WHERE cod_lar = '+IntToStr(iCodigoLar);
    dtmServidor.qryGeral.Active := True;
 
    dtmServidor.qryGeral2.Active := False;
    dtmServidor.qryGeral2.SQL.Clear;
-   dtmServidor.qryGeral2.SQL.Text := ' SELECT NOME_CIDADE '+
-                                     ' FROM CIDADES       '+
-                                     ' WHERE COD_CIDADE = '+dtmServidor.qryGeral.FieldByName('COD_CIDADE').AsString;
+   dtmServidor.qryGeral2.SQL.Text := ' SELECT nome_cidade                                                         '+
+                                     ' FROM cidades                                                               '+
+                                     ' WHERE cod_cidade = '+dtmServidor.qryGeral.FieldByName('cod_cidade').AsString;
    dtmServidor.qryGeral2.Active := True;
 
-   edtNome.Text := dtmServidor.qryGeral.FieldByName('Nome_Lar').AsString;
-   edtTelefone.Text := dtmServidor.qryGeral.FieldByName('Telefone_Lar').AsString;
-   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Lar').AsString);
-   edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('Des_Endereco_Lar').AsString);
-   edtBairro.Text := dtmServidor.qryGeral.FieldByName('Des_Bairro_Lar').AsString;
-   cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('Nome_Cidade').AsString;
-   edtQuantidade.Text := dtmServidor.qryGeral.FieldByName('Qtd_Animais').AsString;
-   cbxTelas.ItemIndex := dtmServidor.qryGeral.FieldByName('Ind_Telas').AsInteger;
-   cbxTipoAnimal.ItemIndex := dtmServidor.qryGeral.FieldByName('Tipo_Animal').AsInteger;
-   mmoInformacoes.Text := dtmServidor.qryGeral.FieldByName('Informacoes_Lar').AsString;
+   edtNome.Text := dtmServidor.qryGeral.FieldByName('nome_lar').AsString;
+   edtTelefone.Text := dtmServidor.qryGeral.FieldByName('telefone_lar').AsString;
+   edtRua.Text := ExtrairStringAntesVirgula(dtmServidor.qryGeral.FieldByName('des_endereco_lar').AsString);
+   edtNumero.Text := ExtrairNumeroAposVirgula(dtmServidor.qryGeral.FieldByName('des_endereco_lar').AsString);
+   edtBairro.Text := dtmServidor.qryGeral.FieldByName('des_bairro_lar').AsString;
+   cbxCidade.Text := dtmServidor.qryGeral2.FieldByName('nome_cidade').AsString;
+   edtQuantidade.Text := dtmServidor.qryGeral.FieldByName('qtd_Animais').AsString;
+   cbxTelas.ItemIndex := dtmServidor.qryGeral.FieldByName('ind_telas').AsInteger;
+   cbxTipoAnimal.ItemIndex := dtmServidor.qryGeral.FieldByName('tipo_animal').AsInteger;
+   mmoInformacoes.Text := dtmServidor.qryGeral.FieldByName('informacoes_lar').AsString;
 end;
 
 procedure TfrmEditarLarTemporario.mmoInformacoesEnter(Sender: TObject);

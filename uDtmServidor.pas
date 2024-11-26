@@ -41,115 +41,116 @@ implementation
 
 procedure TdtmServidor.DataModuleCreate(Sender: TObject);
 begin
-//   with fdConexao do
-//   begin
-//      Params.Values['DriverID'] := 'SQLite';
-//
-//      {$IFDEF MSWINDOWS}
-//      Params.Values['Database'] := System.SysUtils.GetCurrentDir + '\Banco\LarSolidario.db';
-//      {$ELSE}
-//      Params.Values['Database'] := TPath.Combine(TPath.GetDocumentsPath, 'LarSolidario.db');
-//      {$ENDIF}
-//
-//       try
-//          fdConexao.Connected := true;
-//       except
-//          on e:exception do
-//          begin
-//             raise Exception.Create('Erro de conexão com o banco de dados: ' + e.Message);
-//          end;
-//       end;
-//   end;
+   with fdConexao do
+   begin
+      Params.Values['DriverID'] := 'SQLite';
+
+      {$IFDEF MSWINDOWS}
+      Params.Values['Database'] := System.SysUtils.GetCurrentDir + '\Banco\LarSolidario.db';
+      {$ELSE}
+      Params.Values['Database'] := TPath.Combine(TPath.GetDocumentsPath, 'LarSolidario.db');
+      {$ENDIF}
+
+       try
+          fdConexao.Connected := true;
+       except
+          on e:exception do
+          begin
+             raise Exception.Create('Erro de conexão com o banco de dados: ' + e.Message);
+          end;
+       end;
+   end;
 end;
 
 procedure TdtmServidor.fdConexaoAfterConnect(Sender: TObject);
 begin
-   fdConexao.ExecSQL(' DROP TABLE IF EXISTS SOLICITACOES;');
-   fdConexao.ExecSQL(' DROP TABLE IF EXISTS ANIMAIS;');
-   fdConexao.ExecSQL(' DROP TABLE IF EXISTS LARTEMPORARIO;');
-   fdConexao.ExecSQL(' DROP TABLE IF EXISTS PESSOAS;');
-   fdConexao.ExecSQL(' DROP TABLE IF EXISTS MOTIVOS;');
-   fdConexao.ExecSQL(' DROP TABLE IF EXISTS CIDADES;');
+//   fdConexao.ExecSQL(' DROP TABLE IF EXISTS SOLICITACOES;');
+//   fdConexao.ExecSQL(' DROP TABLE IF EXISTS ANIMAIS;');
+//   fdConexao.ExecSQL(' DROP TABLE IF EXISTS LARTEMPORARIO;');
+//   fdConexao.ExecSQL(' DROP TABLE IF EXISTS PESSOAS;');
+//   fdConexao.ExecSQL(' DROP TABLE IF EXISTS MOTIVOS;');
+//   fdConexao.ExecSQL(' DROP TABLE IF EXISTS CIDADES;');
 
-   fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Cidades (			       	  '+
-                     '     Cod_Cidade  INTEGER PRIMARY KEY AUTOINCREMENT, '+
-                     '     Nome_Cidade TEXT    NOT NULL,                  '+
+   fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS cidades (			       	  '+
+                     '     cod_cidade  INTEGER PRIMARY KEY AUTOINCREMENT, '+
+                     '     nome_cidade TEXT    NOT NULL,                  '+
                      '     UF          TEXT    NOT NULL                   '+
                      ' );                                                 ');
 
-   fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Pessoas (	   				              '+
-                     '     Cod_Pessoa      INTEGER PRIMARY KEY AUTOINCREMENT,       '+
-                     '     Nome_Pessoa     TEXT    NOT NULL,                        '+
-                     '     Telefone_Pessoa TEXT,                                    '+
-                     '     Des_Rua         TEXT,                                    '+
-                     '     UF              TEXT,                                    '+
-                     '     Email_Pessoa    TEXT,                                    '+
-                     '     Senha_Pessoa    TEXT,                                    '+
-                     '     Des_Bairro      TEXT,                                    '+
-                     '     Ind_Ativo       INTEGER,                                 '+
-                     '     Cod_Cidade      INTEGER,                                 '+
-                     '     FOREIGN KEY (Cod_Cidade) REFERENCES Cidades (Cod_Cidade) '+
-                     ' );                 										                      ');
+   fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Pessoas (	   				                 '+
+                     '        cod_pessoa      INTEGER PRIMARY KEY AUTOINCREMENT,       '+
+                     '        nome_pessoa     TEXT    NOT NULL,                        '+
+                     '        telefone_pessoa TEXT,                                    '+
+                     '        des_rua         TEXT,                                    '+
+                     '        UF              TEXT,                                    '+
+                     '        email_pessoa    TEXT,                                    '+
+                     '        senha_pessoa    TEXT,                                    '+
+                     '        des_bairro      TEXT,                                    '+
+                     '        ind_ativo       INTEGER,                                 '+
+                     '        cod_cidade      INTEGER,                                 '+
+                     '        FOREIGN KEY (cod_cidade) REFERENCES cidades (cod_cidade) '+
+                     ' );                 										                         ');
 
-   fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Motivos (          '+
-                     ' Cod_Motivo INTEGER PRIMARY KEY AUTOINCREMENT, '+
-                     ' Descricao TEXT NOT NULL                       '+
-                     ' );                                            ');
+   fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Motivos (                 '+
+                     '        cod_motivo INTEGER PRIMARY KEY AUTOINCREMENT, '+
+                     '        descricao TEXT NOT NULL                       '+
+                     ' );                                                   ');
 
-  fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS LarTemporario (                    '+
-                    '     Cod_Lar          INTEGER PRIMARY KEY AUTOINCREMENT,       '+
-                    '     Nome_Lar         TEXT    NOT NULL,                        '+
-                    '     Des_Endereco_Lar TEXT,                                    '+
-                    '     Des_Bairro_Lar   TEXT,                                    '+
-                    '     Telefone_Lar     TEXT,                                    '+
-                    '     UF               TEXT,                                    '+
-                    '     Qtd_Animais      INTEGER,                                 '+
-                    '     Informacoes_Lar  TEXT,                                    '+
-                    '     Tipo_Animal      TEXT,                                    '+
-                    '     Ind_Telas        INTEGER,                                 '+
-                    '     Ind_Ativo        INTEGER,                                 '+
-                    '     Cod_Pessoa       INTEGER,                                 '+
-                    '     Cod_Cidade       INTEGER,                                 '+
-                    '     FOREIGN KEY (Cod_Pessoa) REFERENCES Pessoas (Cod_Pessoa), '+
-                    '     FOREIGN KEY (Cod_Cidade) REFERENCES Cidades (Cod_Cidade)  '+
-                    ' );                                                            ');
+  fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS LarTemporario (                       '+
+                    '        cod_lar          INTEGER PRIMARY KEY AUTOINCREMENT,       '+
+                    '        nome_lar         TEXT    NOT NULL,                        '+
+                    '        des_endereco_lar TEXT,                                    '+
+                    '        des_bairro_lar   TEXT,                                    '+
+                    '        telefone_lar     TEXT,                                    '+
+                    '        UF               TEXT,                                    '+
+                    '        qtd_animais      INTEGER,                                 '+
+                    '        informacoes_lar  TEXT,                                    '+
+                    '        tipo_animal      TEXT,                                    '+
+                    '        ind_telas        INTEGER,                                 '+
+                    '        ind_ativo        INTEGER,                                 '+
+                    '        cod_pessoa       INTEGER,                                 '+
+                    '        cod_cidade       INTEGER,                                 '+
+                    '        FOREIGN KEY (cod_pessoa) REFERENCES Pessoas (cod_pessoa), '+
+                    '        FOREIGN KEY (cod_cidade) REFERENCES Cidades (cod_cidade)  '+
+                    ' );                                                               ');
 
-  fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Animais (							            '+
-                    '     Cod_Animal          INTEGER PRIMARY KEY AUTOINCREMENT,    '+
-                    '     Nome_Animal         TEXT    NOT NULL,                     '+
-                    '     Genero_Animal       TEXT,                                 '+
-                    '     Idade_Animal        TEXT,                                 '+
-                    '     Cor_Pelagem         TEXT,                                 '+
-                    '     Ind_Ativo           INTEGER,                              '+
-                    '     Ind_Castrado        INTEGER,                              '+
-                    '     Foto_Animal         BLOB,                                 '+
-                    '     Tipo_Animal         TEXT,                                 '+
-                    '     Informacoes_Animal  TEXT,                                 '+
-                    '     Situacao_Animal     TEXT,                                 '+
-                    '     Des_Endereco_Animal TEXT,                                 '+
-                    '     Des_Bairro_Animal   TEXT,                                 '+
-                    '     UF                  TEXT,                                 '+
-                    '     Cod_Lar             INTEGER,                              '+
-                    '     Cod_Pessoa          INTEGER,                              '+
-                    '     Cod_Cidade          INTEGER,                              '+
-                    '     FOREIGN KEY (Cod_Lar) REFERENCES LarTemporario (Cod_Lar), '+
-                    '     FOREIGN KEY (Cod_Pessoa) REFERENCES Pessoas (Cod_Pessoa), '+
-                    '     FOREIGN KEY (Cod_Cidade) REFERENCES Cidades (Cod_Cidade)  '+
-                    ' );															                              ');
+  fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Animais (							               '+
+                    '        cod_animal          INTEGER PRIMARY KEY AUTOINCREMENT,    '+
+                    '        nome_animal         TEXT    NOT NULL,                     '+
+                    '        genero_animal       TEXT,                                 '+
+                    '        idade_animal        TEXT,                                 '+
+                    '        cor_pelagem         TEXT,                                 '+
+                    '        ind_ativo           INTEGER,                              '+
+                    '        ind_castrado        INTEGER,                              '+
+                    '        foto_animal         BLOB,                                 '+
+                    '        tipo_animal         TEXT,                                 '+
+                    '        informacoes_animal  TEXT,                                 '+
+                    '        situacao_animal     TEXT,                                 '+
+                    '        des_endereco_animal TEXT,                                 '+
+                    '        des_bairro_animal   TEXT,                                 '+
+                    '        UF                  TEXT,                                 '+
+                    '        cod_lar             INTEGER,                              '+
+                    '        cod_pessoa          INTEGER,                              '+
+                    '        cod_cidade          INTEGER,                              '+
+                    '        FOREIGN KEY (cod_lar) REFERENCES LarTemporario (cod_lar), '+
+                    '        FOREIGN KEY (cod_pessoa) REFERENCES Pessoas (cod_pessoa), '+
+                    '        FOREIGN KEY (cod_cidade) REFERENCES Cidades (cod_cidade)  '+
+                    ' );															                                 ');
 
-  fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Solicitacoes (                '+
-                    ' Cod_Solicitacao INTEGER PRIMARY KEY AUTOINCREMENT,       '+
-                    ' Tipo_Solicitacao TEXT,                                   '+
-                    ' Status_Solicitacao INTEGER,                              '+
-                    ' Cod_Motivo INTEGER,                                      '+
-                    ' Cod_Animal INTEGER,                                      '+
-                    ' Cod_Pessoa_Solicitada INTEGER,                           '+
-                    ' Cod_Pessoa INTEGER,                                      '+
-                    ' Cod_Lar INTEGER,                                         '+
-                    ' FOREIGN KEY (Cod_Motivo) REFERENCES Motivos(Cod_Motivo), '+
-                    ' FOREIGN KEY (Cod_Pessoa) REFERENCES Pessoas(Cod_Pessoa), '+
-                    ' FOREIGN KEY (Cod_Lar) REFERENCES LarTemporario(Cod_Lar)  '+
-                    ' );                                                       ');
+  fdConexao.ExecSQL(' CREATE TABLE IF NOT EXISTS Solicitacoes (                       '+
+                    '        cod_solicitacao INTEGER PRIMARY KEY AUTOINCREMENT,       '+
+                    '        tipo_solicitacao TEXT,                                   '+
+                    '        status_solicitacao INTEGER,                              '+
+                    '        cod_motivo INTEGER,                                      '+
+                    '        cod_animal INTEGER,                                      '+
+                    '        cod_pessoa_solicitada INTEGER,                           '+
+                    '        cod_pessoa INTEGER,                                      '+
+                    '        cod_lar INTEGER,                                         '+
+                    '        FOREIGN KEY (cod_motivo) REFERENCES Motivos(cod_motivo), '+
+                    '        FOREIGN KEY (cod_animal) REFERENCES Animais(cod_animal), '+
+                    '        FOREIGN KEY (cod_pessoa) REFERENCES Pessoas(cod_pessoa), '+
+                    '        FOREIGN KEY (cod_lar) REFERENCES LarTemporario(cod_lar)  '+
+                    ' );                                                              ');
 
   fdConexao.ExecSQL(' DELETE FROM SOLICITACOES;');
   fdConexao.ExecSQL(' DELETE FROM ANIMAIS;');
@@ -158,16 +159,16 @@ begin
   fdConexao.ExecSQL(' DELETE FROM MOTIVOS;');
   fdConexao.ExecSQL(' DELETE FROM CIDADES;');
 
-  fdConexao.ExecSQL(' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Passo Fundo'', ''RS''); '+
-                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Marau'', ''RS'');       '+
-                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Itajaí'', ''SC'');      '+
-                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Concórdia'', ''SC'');   '+
-                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Cascavel'', ''PR'');    '+
-                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Curitiba'', ''PR'');    ');
+//  fdConexao.ExecSQL(' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Passo Fundo'', ''RS''); '+
+//                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Marau'', ''RS'');       '+
+//                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Itajaí'', ''SC'');      '+
+//                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Concórdia'', ''SC'');   '+
+//                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Cascavel'', ''PR'');    '+
+//                    ' INSERT INTO CIDADES (NOME_CIDADE, UF) VALUES (''Curitiba'', ''PR'');    ');
 //
-  fdConexao.ExecSQL(' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Pet já foi adotado'');           '+
-                    ' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Lar não possui telas'');         '+
-                    ' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Pet não está mais disponível''); ');
+//  fdConexao.ExecSQL(' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Pet já foi adotado'');           '+
+//                    ' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Lar não possui telas'');         '+
+//                    ' INSERT INTO MOTIVOS (DESCRICAO) VALUES (''Pet não está mais disponível''); ');
 end;
 
 end.

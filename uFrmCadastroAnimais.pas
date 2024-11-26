@@ -96,9 +96,6 @@ type
     sNumero: String;
   end;
 
-  const
-  _URL_CONSULTAR_CEP = 'https://brasilapi.com.br/api/cep/v1/%s';
-
 var
   frmCadastroAnimais: TfrmCadastroAnimais;
 
@@ -174,7 +171,8 @@ begin
 
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := 'select * from cidades where nome_cidade = '''+cbxCidade.Text+'''';
+   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM cidades                     '+
+                                    ' WHERE nome_cidade = '''+cbxCidade.Text+'''';
    dtmServidor.qryGeral.Active := True;
 
    iCodCidade := dtmServidor.qryGeral.FieldByName('cod_cidade').AsInteger;
@@ -183,36 +181,36 @@ begin
    try
       dtmServidor.qryInsert.Active := False;
       dtmServidor.qryInsert.SQL.Clear;
-      dtmServidor.qryInsert.SQL.Text := ' INSERT INTO Animais (Nome_Animal,        '+
-                                       '                      Genero_Animal,      '+
-                                       '                      Idade_Animal,       '+
-                                       '                      Cor_Pelagem, '+
-                                       '                      Ind_Ativo,   '+
-                                       '                      UF,          '+
-                                       '                      Ind_Castrado,'+
-                                       '                      Foto_Animal,        '+
-                                       '                      Tipo_Animal, '+
-                                       '                      Informacoes_Animal, '+
-                                       '                      Situacao_Animal,    '+
-                                       '                      Des_Endereco_Animal,    '+
-                                       '                      Des_Bairro_Animal, '+
-                                       '                      Cod_Cidade,      '+
-                                       '                      Cod_Pessoa)  '+
-                                       '             VALUES (:Nome_Animal,        '+
-                                       '                     :Genero_Animal,      '+
-                                       '                     :Idade_Animal,       '+
-                                       '                     :Cor_Pelagem, '+
-                                       '                     :UF,          '+
-                                       '                     :Ind_Ativo,   '+
-                                       '                     :Ind_Castrado,'+
-                                       '                     :Foto_Animal,        '+
-                                       '                     :Tipo_Animal, '+
-                                       '                     :Informacoes_Animal, '+
-                                       '                     :Situacao_Animal,    '+
-                                       '                     :Des_Endereco_Animal,    '+
-                                       '                     :Des_Bairro_Animal, '+
-                                       '                     :Cod_Cidade,      '+
-                                       '                     :Cod_Pessoa); ';
+      dtmServidor.qryInsert.SQL.Text := ' INSERT INTO Animais (nome_animal,        '+
+                                       '                       genero_animal,      '+
+                                       '                       idade_animal,       '+
+                                       '                       cor_pelagem, '+
+                                       '                       ind_ativo,   '+
+                                       '                       UF,          '+
+                                       '                       ind_castrado,'+
+                                       '                       foto_animal,        '+
+                                       '                       tipo_animal, '+
+                                       '                       informacoes_animal, '+
+                                       '                       situacao_animal,    '+
+                                       '                       des_endereco_animal,    '+
+                                       '                       des_bairro_animal, '+
+                                       '                       cod_cidade,      '+
+                                       '                       cod_Pessoa)  '+
+                                       '              VALUES (:nome_animal,        '+
+                                       '                      :genero_animal,      '+
+                                       '                      :idade_animal,       '+
+                                       '                      :cor_pelagem, '+
+                                       '                      :ind_ativo,   '+
+                                       '                      :UF,          '+
+                                       '                      :ind_castrado,'+
+                                       '                      :foto_animal,        '+
+                                       '                      :tipo_animal, '+
+                                       '                      :informacoes_animal, '+
+                                       '                      :situacao_animal,    '+
+                                       '                      :des_endereco_animal,    '+
+                                       '                      :des_bairro_animal, '+
+                                       '                      :cod_cidade,      '+
+                                       '                      :cod_Pessoa); ';
 
       if (edtNumero.Text = '') then
       begin
@@ -223,30 +221,30 @@ begin
          sNumero := edtNumero.Text;
       end;
 
-      dtmServidor.qryInsert.ParamByName('Nome_Animal').AsString := edtNome.Text;
-      dtmServidor.qryInsert.ParamByName('Idade_Animal').AsString := edtIdade.Text;
-      dtmServidor.qryInsert.ParamByName('Genero_Animal').AsInteger := cbxGenero.ItemIndex;
-      dtmServidor.qryInsert.ParamByName('Cor_Pelagem').AsString := edtCorPelagem.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Endereco_Animal').AsString := edtRua.Text +', '+ sNumero;
-      dtmServidor.qryInsert.ParamByName('Des_Bairro_Animal').AsString := edtBairro.Text;
+      dtmServidor.qryInsert.ParamByName('nome_animal').AsString := edtNome.Text;
+      dtmServidor.qryInsert.ParamByName('idade_animal').AsString := edtIdade.Text;
+      dtmServidor.qryInsert.ParamByName('genero_animal').AsInteger := cbxGenero.ItemIndex;
+      dtmServidor.qryInsert.ParamByName('cor_pelagem').AsString := edtCorPelagem.Text;
+      dtmServidor.qryInsert.ParamByName('des_endereco_animal').AsString := edtRua.Text +', '+ sNumero;
+      dtmServidor.qryInsert.ParamByName('des_bairro_animal').AsString := edtBairro.Text;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
-      dtmServidor.qryInsert.ParamByName('Cod_Cidade').AsInteger := iCodCidade;
-      dtmServidor.qryInsert.ParamByName('Tipo_Animal').AsInteger := cbxTipoAnimal.ItemIndex;
-      dtmServidor.qryInsert.ParamByName('Ind_Ativo').AsString := '1';
-      dtmServidor.qryInsert.ParamByName('Ind_Castrado').AsInteger := cbxCastrado.ItemIndex;
+      dtmServidor.qryInsert.ParamByName('cod_cidade').AsInteger := iCodCidade;
+      dtmServidor.qryInsert.ParamByName('tipo_animal').AsInteger := cbxTipoAnimal.ItemIndex;
+      dtmServidor.qryInsert.ParamByName('ind_ativo').AsString := '1';
+      dtmServidor.qryInsert.ParamByName('ind_castrado').AsInteger := cbxCastrado.ItemIndex;
 
       if cFotoEditar.Fill.Bitmap.Bitmap <> nil then
       begin
-         dtmServidor.qryInsert.ParamByName('Foto_Animal').Assign(cFotoEditar.Fill.Bitmap.Bitmap);
+         dtmServidor.qryInsert.ParamByName('foto_animal').Assign(cFotoEditar.Fill.Bitmap.Bitmap);
       end
       else
       begin
-         dtmServidor.qryInsert.ParamByName('Foto_Animal').Value := unassigned;
+         dtmServidor.qryInsert.ParamByName('foto_animal').Value := unassigned;
       end;
 
-      dtmServidor.qryInsert.ParamByName('Informacoes_Animal').AsString := mmoInformacoes.Text;
-      dtmServidor.qryInsert.ParamByName('Situacao_Animal').AsString := cbxSituacao.Text;
-      dtmServidor.qryInsert.ParamByName('Cod_Pessoa').AsString := frmLogin.sUsuarioLogado;
+      dtmServidor.qryInsert.ParamByName('informacoes_animal').AsString := mmoInformacoes.Text;
+      dtmServidor.qryInsert.ParamByName('situacao_animal').AsString := cbxSituacao.Text;
+      dtmServidor.qryInsert.ParamByName('cod_Pessoa').AsString := frmLogin.sUsuarioLogado;
 
       dtmServidor.qryInsert.ExecSQL;
 
@@ -302,44 +300,6 @@ begin
    permissao.PhotoLibrary(actBuscaFoto, TratarErroPermissao);
    {$ENDIF}
 end;
-
-//procedure TfrmCadastroAnimais.edtCepExit(Sender: TObject);
-//var
-//  LCEP: String;
-//  LJSONObj: TJSONObject;
-//begin
-//   if (edtCep.Text <> '') then
-//   begin
-//      try
-//         LCEP := trim(edtCep.Text);
-//
-//         dtmServidor.RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
-//         dtmServidor.RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
-//
-//         dtmServidor.RESTRequest1.Method := rmGET;
-//         dtmServidor.RESTRequest1.Execute;
-//
-//         LJSONObj := dtmServidor.RESTRequest1.Response.JSONValue AS TJSONObject;
-//
-//         edtCep.Text := LJSONObj.values['cep'].Value;
-//         edtCidade.Text := LJSONObj.values['city'].Value;
-//         edtRua.Text := LJSONObj.values['street'].Value;
-//         edtRua.Text := edtRua.Text + ' ,' + LJSONObj.values['neighborhood'].Value;
-//
-//         edtNumero.SetFocus;
-//      except
-//         on E: Exception do
-//         begin
-//            TLoading.ToastMessage(frmCadastroAnimais,
-//                                  'Não foi possível consultar o CEP!'+#13+
-//                                  'Erro: '+E.Message,
-//                             $FFFA3F3F,
-//                             TAlignLayout.Top);
-//            edtNumero.SetFocus;
-//         end;
-//      end;
-//   end;
-//end;
 
 procedure TfrmCadastroAnimais.edtBairroEnter(Sender: TObject);
 begin
@@ -399,7 +359,9 @@ begin
    begin
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.SQL.Text := ' SELECT nome_cidade   '+
+                                       ' FROM cidades         '+
+                                       ' ORDER BY nome_cidade ';
       dtmServidor.qryGeral.Active := True;
 
       while not dtmServidor.qryGeral.Eof do

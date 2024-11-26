@@ -74,8 +74,6 @@ type
     sNumero: String;
   end;
 
-//  const
-//  _URL_CONSULTAR_CEP = 'https://brasilapi.com.br/api/cep/v1/%s';
 var
   frmCadastroLarTemporario: TfrmCadastroLarTemporario;
 
@@ -128,7 +126,8 @@ begin
 
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Clear;
-   dtmServidor.qryGeral.SQL.Text := 'select * from cidades where nome_cidade = '''+cbxCidade.Text+'''';
+   dtmServidor.qryGeral.SQL.Text := ' SELECT * FROM cidades                     '+
+                                    ' WHERE nome_cidade = '''+cbxCidade.Text+'''';
    dtmServidor.qryGeral.Active := True;
 
    iCodCidade := dtmServidor.qryGeral.FieldByName('cod_cidade').AsInteger;
@@ -137,30 +136,30 @@ begin
    try
       dtmServidor.qryInsert.Active := False;
       dtmServidor.qryInsert.SQL.Clear;
-      dtmServidor.qryInsert.SQL.Text := ' INSERT INTO LarTemporario (Nome_Lar,         '+
-                                        ' 					   	             Telefone_Lar,     '+
-                                        ' 				            	     Des_Endereco_Lar, '+
-                                        ' 				             	     Des_Bairro_Lar,   '+
+      dtmServidor.qryInsert.SQL.Text := ' INSERT INTO LarTemporario (nome_lar,         '+
+                                        ' 					   	             telefone_lar,     '+
+                                        ' 				            	     des_endereco_lar, '+
+                                        ' 				             	     des_bairro_lar,   '+
                                         ' 				            	     UF,               '+
-                                        ' 				            	     Qtd_Animais,      '+
-                                        ' 				            	     Ind_Telas,        '+
-                                        ' 				            	     Tipo_Animal,      '+
-                                        ' 				            	     Informacoes_Lar,  '+
-                                        ' 				            	     Ind_Ativo,        '+
-                                        ' 				             	     Cod_Pessoa,       '+
-                                        '                            Cod_Cidade)       '+
-                                        ' 				          VALUES (:Nome_Lar,         '+
-                                        ' 				          	  		:Telefone_Lar,     '+
-                                        ' 				          	  		:Des_Endereco_Lar, '+
-                                        ' 				             	    :Des_Bairro_Lar,   '+
+                                        ' 				            	     qtd_animais,      '+
+                                        ' 				            	     ind_telas,        '+
+                                        ' 				            	     tipo_animal,      '+
+                                        ' 				            	     informacoes_lar,  '+
+                                        ' 				            	     ind_ativo,        '+
+                                        ' 				             	     cod_pessoa,       '+
+                                        '                            cod_cidade)       '+
+                                        ' 				          VALUES (:nome_lar,         '+
+                                        ' 				          	  		:telefone_lar,     '+
+                                        ' 				          	  		:des_endereco_lar, '+
+                                        ' 				             	    :des_bairro_lar,   '+
                                         ' 				          	  		:UF,               '+
-                                        ' 				          	  		:Qtd_Animais,      '+
-                                        ' 				          	  		:Ind_Telas,        '+
-                                        ' 				          	  		:Tipo_Animal,      '+
-                                        ' 				          	  		:Informacoes_Lar,  '+
-                                        ' 				          	  		:Ind_Ativo,        '+
-                                        ' 				          	  		:Cod_Pessoa,       '+
-                                        '                           :Cod_Cidade);      ';
+                                        ' 				          	  		:qtd_animais,      '+
+                                        ' 				          	  		:ind_telas,        '+
+                                        ' 				          	  		:tipo_animal,      '+
+                                        ' 				          	  		:informacoes_lar,  '+
+                                        ' 				          	  		:ind_ativo,        '+
+                                        ' 				          	  		:cod_pessoa,       '+
+                                        '                           :cod_cidade);      ';
 
       if (edtNumero.Text = '') then
       begin
@@ -171,18 +170,18 @@ begin
          sNumero := edtNumero.Text;
       end;
 
-      dtmServidor.qryInsert.ParamByName('Nome_Lar').AsString := edtNome.Text;
-      dtmServidor.qryInsert.ParamByName('Telefone_Lar').AsString := edtTelefone.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Bairro_Lar').AsString := edtBairro.Text;
-      dtmServidor.qryInsert.ParamByName('Des_Endereco_Lar').AsString := edtRua.Text +', '+sNumero;
+      dtmServidor.qryInsert.ParamByName('nome_lar').AsString := edtNome.Text;
+      dtmServidor.qryInsert.ParamByName('telefone_lar').AsString := edtTelefone.Text;
+      dtmServidor.qryInsert.ParamByName('des_bairro_lar').AsString := edtBairro.Text;
+      dtmServidor.qryInsert.ParamByName('des_endereco_lar').AsString := edtRua.Text +', '+sNumero;
       dtmServidor.qryInsert.ParamByName('UF').AsString := sUF;
-      dtmServidor.qryInsert.ParamByName('Qtd_Animais').AsString := edtQuantidade.Text;
-      dtmServidor.qryInsert.ParamByName('Ind_Telas').AsInteger := cbxTelas.ItemIndex;
-      dtmServidor.qryInsert.ParamByName('Tipo_Animal').AsInteger := cbxTipoAnimal.ItemIndex;
-      dtmServidor.qryInsert.ParamByName('Informacoes_Lar').AsString := mmoInformacoes.Text;
-      dtmServidor.qryInsert.ParamByName('Ind_Ativo').AsString := '1';
-      dtmServidor.qryInsert.ParamByName('Cod_Pessoa').AsString := frmLogin.sUsuarioLogado;
-      dtmServidor.qryInsert.ParamByName('Cod_Cidade').AsInteger := iCodCidade;
+      dtmServidor.qryInsert.ParamByName('qtd_animais').AsString := edtQuantidade.Text;
+      dtmServidor.qryInsert.ParamByName('ind_telas').AsInteger := cbxTelas.ItemIndex;
+      dtmServidor.qryInsert.ParamByName('tipo_animal').AsInteger := cbxTipoAnimal.ItemIndex;
+      dtmServidor.qryInsert.ParamByName('informacoes_lar').AsString := mmoInformacoes.Text;
+      dtmServidor.qryInsert.ParamByName('ind_ativo').AsString := '1';
+      dtmServidor.qryInsert.ParamByName('cod_pessoa').AsString := frmLogin.sUsuarioLogado;
+      dtmServidor.qryInsert.ParamByName('cod_cidade').AsInteger := iCodCidade;
 
       dtmServidor.qryInsert.ExecSQL;
 
@@ -232,43 +231,6 @@ begin
    Ajustar_Scroll();
 end;
 
-//procedure TfrmCadastroLarTemporario.edtCepExit(Sender: TObject);
-//var
-//  LCEP: String;
-//  LJSONObj: TJSONObject;
-//begin
-//   if (edtCep.Text <> '') then
-//   begin
-//      try
-//         LCEP := trim(edtCep.Text);
-//
-//         dtmServidor.RESTClient1.BaseURL := format(_URL_CONSULTAR_CEP,[LCEP]);
-//         dtmServidor.RESTClient1.SecureProtocols := [THTTPSecureProtocol.TLS12];
-//
-//         dtmServidor.RESTRequest1.Method := rmGET;
-//         dtmServidor.RESTRequest1.Execute;
-//
-//         LJSONObj := dtmServidor.RESTRequest1.Response.JSONValue AS TJSONObject;
-//
-//         edtCep.Text := LJSONObj.values['cep'].Value;
-//         edtCidade.Text := LJSONObj.values['city'].Value;
-//         edtRua.Text := LJSONObj.values['street'].Value;
-//         edtRua.Text := edtRua.Text + ' ,' + LJSONObj.values['neighborhood'].Value;
-//
-//         edtNumero.SetFocus;
-//      except
-//         on E: Exception do
-//         begin
-//            TLoading.ToastMessage(frmCadastroLarTemporario,
-//                                  'Não foi possível consultar o CEP!'+#13+
-//                                  'Erro: '+E.Message,
-//                             $FFFA3F3F,
-//                             TAlignLayout.Bottom);
-//         end;
-//      end;
-//   end;
-//end;
-
 procedure TfrmCadastroLarTemporario.edtNomeEnter(Sender: TObject);
 begin
    foco := TControl(TEdit(sender).Parent);
@@ -305,7 +267,9 @@ begin
    begin
       dtmServidor.qryGeral.Active := False;
       dtmServidor.qryGeral.SQL.Clear;
-      dtmServidor.qryGeral.SQL.Text := 'select nome_cidade from cidades order by nome_cidade ';
+      dtmServidor.qryGeral.SQL.Text := ' SELECT nome_cidade   '+
+                                       ' FROM cidades         '+
+                                       ' ORDER BY nome_cidade ';
       dtmServidor.qryGeral.Active := True;
 
       while not dtmServidor.qryGeral.Eof do

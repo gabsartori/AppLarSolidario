@@ -41,6 +41,7 @@ type
     procedure imgConfiguracoesClick(Sender: TObject);
     procedure imgNotificacoesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Circle1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -72,6 +73,11 @@ begin
    frmCadastroLarTemporario.Show;
 end;
 
+procedure TfrmPaginaInicial.Circle1Click(Sender: TObject);
+begin
+   imgNotificacoesClick(Sender);
+end;
+
 procedure TfrmPaginaInicial.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -86,13 +92,13 @@ begin
    lblUsuario.Text := 'Bem-Vindo(a), '+ frmLogin.sNomeUsuarioLogado +'!';
    dtmServidor.qryGeral.Active := False;
    dtmServidor.qryGeral.SQL.Text := '';
-   dtmServidor.qryGeral.SQL.Text := ' select Status_Solicitacao,                      '+
-                                    '        Cod_Pessoa,                              '+
-                                    '        Cod_Pessoa_Solicitada                    '+
-                                    ' from solicitacoes                               '+
-                                    ' where status_solicitacao in (0,1,2)             '+
-                                    ' and (cod_pessoa_solicitada = '+frmLogin.sUsuarioLogado+
-                                    ' or cod_pessoa = '+frmLogin.sUsuarioLogado+')    ';
+   dtmServidor.qryGeral.SQL.Text := ' SELECT status_solicitacao,                      '+
+                                    '        cod_pessoa,                              '+
+                                    '        cod_pessoa_solicitada                    '+
+                                    ' FROM solicitacoes                               '+
+                                    ' WHERE status_solicitacao IN (0,1,2)             '+
+                                    ' AND (cod_pessoa_solicitada = '+frmLogin.sUsuarioLogado+
+                                    ' OR cod_pessoa = '+frmLogin.sUsuarioLogado+')    ';
    dtmServidor.qryGeral.Active := True;
 
    if (dtmServidor.qryGeral.RecordCount > 0) then
@@ -102,15 +108,15 @@ begin
 
       while not dtmServidor.qryGeral.Eof do
       begin
-         if (dtmServidor.qryGeral.FieldByName('Cod_Pessoa_Solicitada').AsString = frmLogin.sUsuarioLogado) and
-            (dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '0') then
+         if (dtmServidor.qryGeral.FieldByName('cod_pessoa_solicitada').AsString = frmLogin.sUsuarioLogado) and
+            (dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString = '0') then
          begin
             i := i + 1;
          end
          else
-         if (dtmServidor.qryGeral.FieldByName('Cod_Pessoa').AsString = frmLogin.sUsuarioLogado) and
-            ((dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '1') or
-             (dtmServidor.qryGeral.FieldByName('Status_Solicitacao').AsString = '2')) then
+         if (dtmServidor.qryGeral.FieldByName('cod_pessoa').AsString = frmLogin.sUsuarioLogado) and
+            ((dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString = '1') or
+             (dtmServidor.qryGeral.FieldByName('status_solicitacao').AsString = '2')) then
          begin
             i := i + 1;
          end;

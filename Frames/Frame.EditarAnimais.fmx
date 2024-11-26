@@ -18,7 +18,7 @@ object FrameEditarAnimais: TFrameEditarAnimais
   end
   object lblGenero: TLabel
     StyledSettings = [Family]
-    Position.X = 233.000000000000000000
+    Position.X = 221.000000000000000000
     Position.Y = 57.000000000000000000
     Size.Width = 103.000000000000000000
     Size.Height = 17.000000000000000000
@@ -54,7 +54,7 @@ object FrameEditarAnimais: TFrameEditarAnimais
   end
   object lblIdade: TLabel
     StyledSettings = [Family]
-    Position.X = 233.000000000000000000
+    Position.X = 221.000000000000000000
     Position.Y = 75.000000000000000000
     Size.Width = 103.000000000000000000
     Size.Height = 17.000000000000000000
@@ -94,9 +94,9 @@ object FrameEditarAnimais: TFrameEditarAnimais
   end
   object lblSituacao: TLabel
     StyledSettings = [Family]
-    Position.X = 233.000000000000000000
+    Position.X = 221.000000000000000000
     Position.Y = 92.000000000000000000
-    Size.Width = 131.000000000000000000
+    Size.Width = 152.000000000000000000
     Size.Height = 33.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 11.000000000000000000

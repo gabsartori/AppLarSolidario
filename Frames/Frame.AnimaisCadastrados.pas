@@ -5,11 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Objects, FMX.Controls.Presentation, FMX.VirtualKeyboard,
-  FMX.Platform;
-
-//  FMX.Helpers.Android, Androidapi.Helpers,
-//  Androidapi.JNI.GraphicsContentViewText,
+  FMX.Objects, FMX.Controls.Presentation, FMX.VirtualKeyboard, FMX.Platform,
+  FMX.Helpers.Android, Androidapi.Helpers, Androidapi.JNI.GraphicsContentViewText;
 
 type
   TFrameAnimaisCadastrados = class(TFrame)
@@ -33,7 +30,7 @@ type
     imgWhatsApp: TImage;
     lblCodAnimal: TLabel;
     procedure imgWhatsAppClick(Sender: TObject);
-  //  procedure AbrirWhatsApp(sTelefone: string);
+    procedure AbrirWhatsApp(sTelefone: string);
     procedure btnAdotarClick(Sender: TObject);
     procedure btnHospedarClick(Sender: TObject);
   private
@@ -48,17 +45,17 @@ implementation
 
 uses uFrmPaginaBuscas;
 
-//procedure TFrameAnimaisCadastrados.AbrirWhatsApp(sTelefone: string);
-//var
-//  sURL: string;
-//begin
-//  sTelefone := sTelefone.Replace(' ', '').Replace('(', '').Replace(')', '').Replace('-', '').Replace('Telefone:', '');
-//  sURL := 'https://wa.me/55' + sTelefone;
-//
-//  TAndroidHelper.Context.startActivity(
-//  TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW,
-//  StrToJURI(sURL)));
-//end;
+procedure TFrameAnimaisCadastrados.AbrirWhatsApp(sTelefone: string);
+var
+  sURL: string;
+begin
+  sTelefone := sTelefone.Replace(' ', '').Replace('(', '').Replace(')', '').Replace('-', '').Replace('Telefone:', '');
+  sURL := 'https://wa.me/55' + sTelefone;
+
+  TAndroidHelper.Context.startActivity(
+  TJIntent.JavaClass.init(TJIntent.JavaClass.ACTION_VIEW,
+  StrToJURI(sURL)));
+end;
 
 procedure TFrameAnimaisCadastrados.btnAdotarClick(Sender: TObject);
 var
@@ -106,15 +103,15 @@ end;
 
 procedure TFrameAnimaisCadastrados.imgWhatsAppClick(Sender: TObject);
 begin
-//   try
-//      AbrirWhatsApp(lblTelefone.Text); // Substitua pelo número desejado
-//   except
-//      on E: Exception do
-//      begin
-//         ShowMessage('Não foi possível abrir o WhatsApp!'+#13+
-//                     'Erro: '+E.Message);
-//      end;
-//   end;
+   try
+      AbrirWhatsApp(lblTelefone.Text); // Substitua pelo número desejado
+   except
+      on E: Exception do
+      begin
+         ShowMessage('Não foi possível abrir o WhatsApp!'+#13+
+                     'Erro: '+E.Message);
+      end;
+   end;
 end;
 
 end.

@@ -76,18 +76,18 @@
     <Transaction>2024/11/10 00:14:27.000.549,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
     <Transaction>2024/11/10 00:20:16.000.752,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarLarTemporario.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
     <Transaction>2024/11/10 00:20:16.000.752,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmEditarLarTemporario.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/17 18:31:52.920,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/17 18:35:49.588,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmNotificacoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
-    <Transaction>2024/11/17 18:35:49.588,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmNotificacoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/17 18:49:27.149,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/17 18:49:41.086,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.Notificacoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/17 18:49:41.086,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.Notificacoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
-    <Transaction>2024/11/18 17:52:34.338,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
-    <Transaction>2024/11/18 17:55:08.852,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.NotificacoesRespondidas.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
-    <Transaction>2024/11/18 17:55:08.852,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.NotificacoesRespondidas.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/17 18:31:52.000.920,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/17 18:35:49.000.588,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmNotificacoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
+    <Transaction>2024/11/17 18:35:49.000.588,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\uFrmNotificacoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/17 18:49:27.000.149,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/17 18:49:41.000.086,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.Notificacoes.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
+    <Transaction>2024/11/17 18:49:41.000.086,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.Notificacoes.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/18 17:52:34.000.338,=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
+    <Transaction>2024/11/18 17:55:08.000.852,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.NotificacoesRespondidas.fmx=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.fmx</Transaction>
+    <Transaction>2024/11/18 17:55:08.000.852,C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Frames\Frame.NotificacoesRespondidas.pas=C:\Users\gabri\Documents\Embarcadero\Studio\Projects\AppLarSolidario\Unit1.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
-		<NoProfile Android64="RX8R90JJ8GF" Android="RX8R90JJ8GF"/>
+		<NoProfile Android64="" Android=""/>
 	</ActiveMobileDevice>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="activity-1.1.0.dex.jar"/>

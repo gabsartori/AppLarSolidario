@@ -277,6 +277,7 @@ object frmPaginaInicial: TfrmPaginaInicial
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
+        OnClick = Circle1Click
         object lblQtdNotificacoes: TLabel
           Align = Center
           StyledSettings = [Style]

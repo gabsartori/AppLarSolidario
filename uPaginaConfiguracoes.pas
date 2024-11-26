@@ -30,6 +30,15 @@ type
     btnVoltar: TButton;
     ImageList1: TImageList;
     Rectangle2: TRectangle;
+    lytOpaco: TLayout;
+    Rectangle3: TRectangle;
+    lytConfirmaInativacao: TLayout;
+    Panel1: TPanel;
+    btnSim: TRoundRect;
+    Label5: TLabel;
+    btnNao: TRoundRect;
+    Label10: TLabel;
+    lblConfirmacao: TLabel;
     procedure btnEditarLaresClick(Sender: TObject);
     procedure btnEditarAnimaisClick(Sender: TObject);
     procedure btnEditarPerfilClick(Sender: TObject);
@@ -37,6 +46,9 @@ type
     procedure ConfirmarInativacao;
     procedure btnDesativarContaClick(Sender: TObject);
     procedure btnVoltarClick(Sender: TObject);
+    procedure btnSimClick(Sender: TObject);
+    procedure btnNaoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -73,6 +85,17 @@ begin
    frmEditarCadastro.Show;
 end;
 
+procedure TfrmPaginaConfiguracoes.btnNaoClick(Sender: TObject);
+begin
+   lytOpaco.Visible := False;
+   lytConfirmaInativacao.Visible := False;
+end;
+
+procedure TfrmPaginaConfiguracoes.btnSimClick(Sender: TObject);
+begin
+   ConfirmarInativacao;
+end;
+
 procedure TfrmPaginaConfiguracoes.btnVoltarClick(Sender: TObject);
 begin
    frmPaginaConfiguracoes.Close;
@@ -81,7 +104,8 @@ end;
 
 procedure TfrmPaginaConfiguracoes.btnDesativarContaClick(Sender: TObject);
 begin
-   ConfirmarInativacao;
+   lytOpaco.Visible := True;
+   lytConfirmaInativacao.Visible := True;
 end;
 
 procedure TfrmPaginaConfiguracoes.ConfirmarInativacao;
@@ -89,11 +113,11 @@ begin
    try
        dtmServidor.qryUpdate.Active := False;
        dtmServidor.qryUpdate.SQL.Clear;
-       dtmServidor.qryUpdate.SQL.Text := ' UPDATE PESSOAS '+
-                                         ' SET IND_ATIVO = 0 '+
-                                         ' WHERE COD_PESSOA = :COD_PESSOA ';
+       dtmServidor.qryUpdate.SQL.Text := ' UPDATE pessoas '+
+                                         ' SET ind_ativo = 0 '+
+                                         ' WHERE cod_pessoa = :cod_pessoa ';
 
-       dtmServidor.qryUpdate.Params.ParamByName('COD_PESSOA').AsString := frmLogin.sUsuarioLogado;
+       dtmServidor.qryUpdate.Params.ParamByName('cod_pessoa').AsString := frmLogin.sUsuarioLogado;
 
        dtmServidor.qryUpdate.ExecSQL;
 
@@ -116,8 +140,16 @@ begin
                          $FF22AF70,
                          TAlignLayout.Top);
 
+       lytOpaco.Visible := True;
+       lytConfirmaInativacao.Visible := True;
        frmLogin.Show;
    end;
+end;
+
+procedure TfrmPaginaConfiguracoes.FormShow(Sender: TObject);
+begin
+   lytOpaco.Visible := False;
+   lytConfirmaInativacao.Visible := False;
 end;
 
 end.
